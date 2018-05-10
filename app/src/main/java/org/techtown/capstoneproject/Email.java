@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,8 +19,10 @@ import android.widget.Toast;
  */
 
 public class Email extends Fragment {
-    public Email() {
+    Spinner spinner;
+    Button button;
 
+    public Email() {
     }
 
     @Override
@@ -29,11 +32,13 @@ public class Email extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_email, container, false);
+        View view = inflater.inflate(R.layout.fragment_email, container, false);
 
-        /*
-        final Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+        button = (Button) view.findViewById(R.id.bntSend);
+
+       // button.setOnClickListener(new View.onClick);
+        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
@@ -43,18 +48,15 @@ public class Email extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
-*/
+        });*/
 
-        return v;//inflater.inflate(R.layout.fragment_email, container,false);
-
-
+        return view;
     }
 
-
+ /*
     public void onClick(View v) {
         Toast.makeText(getActivity().getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
-      /*  AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+       AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
 
         ad.setTitle("").setMessage("문의가 성공적으로 완료되었습니다.").setNeutralButton("OK", new DialogInterface.OnClickListener() {
 
@@ -62,6 +64,6 @@ public class Email extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
             }
 
-        }).create().show();*/
-    }//onClick
+        }).create().show();
+    }//onClick*/
 }
