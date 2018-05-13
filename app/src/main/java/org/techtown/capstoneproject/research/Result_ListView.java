@@ -1,9 +1,11 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.research;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;
 

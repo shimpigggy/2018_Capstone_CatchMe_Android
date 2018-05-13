@@ -7,7 +7,7 @@
     android:layout_marginTop="30dp"
     android:layout_marginBottom="30dp"
 
-    android:background="@drawable/border"
+    android:background="@drawable/border_base"
     >
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="right"
-        android:src="@drawable/nodify_mark"
+        android:src="@drawable/list_nodify_mark"
         android:layout_marginRight="5dp"
         android:background="#00000000"/>
 
@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="right"
-        android:src="@drawable/x_mark"
+        android:src="@drawable/list_x_mark"
         android:layout_marginRight="5dp"
         android:background="#00000000"/>
 </LinearLayout>

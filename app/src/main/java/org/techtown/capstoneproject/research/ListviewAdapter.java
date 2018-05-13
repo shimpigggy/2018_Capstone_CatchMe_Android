@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.research;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.techtown.capstoneproject.R;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +18,7 @@ import java.util.ArrayList;
  */
 
 public class ListviewAdapter extends BaseAdapter {
+    private Context context;
     private LayoutInflater inflater;
     private ArrayList<ListviewItem> arrayList;
 
@@ -22,9 +27,10 @@ public class ListviewAdapter extends BaseAdapter {
     private ImageButton ib_nodify;
     private ImageButton ib_delete;
 
-    public ListviewAdapter(Context context, ArrayList<ListviewItem> array){
+    public ListviewAdapter(Context context, ArrayList<ListviewItem> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
+        this.context = context;
     }
 
     @Override
@@ -50,19 +56,42 @@ public class ListviewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //리스트뷰에서 아이템과 xml를 연결하여 화면에 표시해주는 가장 중요한 부분
         //convertView -> 만든 item.xml를 불러와야함
-        if(convertView == null){
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_listview, null);
 
-            tv_num = (TextView) convertView.findViewById(R.id.num);
-            tv_name = (TextView) convertView.findViewById(R.id.name);
-
-            ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
-            ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
+            init(convertView);
         }
-
         tv_num.setText(arrayList.get(position).getNum());
         tv_name.setText(arrayList.get(position).getName());
 
+        ib_nodify.setTag(position);
+        ib_nodify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Integer.parseInt(v.getTag().toString());
+                Toast.makeText(context, "nodify", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ib_delete.setTag(position);
+        ib_delete.setOnClickListener(new ImageButton.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                int position = Integer.parseInt(v.getTag().toString());
+                arrayList.remove(position);
+                Toast.makeText(context, arrayList.size()+"", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        });
+
         return convertView;
+    }
+
+    public void init(View convertView) {
+        tv_num = (TextView) convertView.findViewById(R.id.num);
+        tv_name = (TextView) convertView.findViewById(R.id.name);
+
+        ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
+        ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
     }
 }
