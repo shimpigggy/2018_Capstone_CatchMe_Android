@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.techtown.capstoneproject.Result_ListView">
+    tools:context="org.techtown.capstoneproject.research.Result_ListView">
 
     <TextView
         android:id="@+id/textTitle"
@@ -24,6 +24,8 @@
         android:layout_weight="8"
         android:choiceMode="singleChoice"
 
+        android:scrollbars="vertical"
+
         android:divider="#00000000"
         android:dividerHeight="10dp"
 
@@ -40,7 +42,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="#00000000"
-            android:src="@drawable/check_mark" />
+            android:src="@drawable/list_check_mark" />
     </RelativeLayout>
 
 </LinearLayout>

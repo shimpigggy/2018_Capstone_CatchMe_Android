@@ -1,89 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/titleInput"
-        android:layout_width="180dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
-        android:hint="제목"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="180dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/Email"
-        app:layout_constraintBottom_toTopOf="@+id/emailInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/titleInput"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/emailInput"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:hint="이메일"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleInput" />
-
-    <View
+    <TextView
+        android:id="@+id/textTitle"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput"
-        android:background="#000000"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="198dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:text="@string/email_Title"
+        android:textColor="#000000"
+        android:textSize="17dp" />
 
-    <EditText
-        android:id="@+id/contextInput"
-        android:layout_width="350dp"
-        android:layout_height="296dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:hint="내용 입력"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput"
-        app:layout_constraintVertical_bias="0.135" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-    <Button
-        android:id="@+id/bntSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="보내기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contextInput"
-        app:layout_constraintVertical_bias="1.0" />
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_weight="4.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="이메일을 입력하세요."
 
-</android.support.constraint.ConstraintLayout>
+            android:background="@drawable/border_base"
+            android:inputType="textEmailAddress"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_weight="2.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:entries="@array/Email"
+            android:background="@drawable/border_right_x"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/border_base">
+
+        <EditText
+            android:id="@+id/titleInput"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="제목"
+
+            android:background="@drawable/border_base"/>
+
+        <EditText
+            android:id="@+id/contextInput"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+
+            android:gravity="top"
+            android:hint="내용 입력"
+
+
+            android:inputType="textImeMultiLine"
+            android:lines="10"
+            android:scrollbars="vertical"
+
+            android:background="@drawable/border_top_x"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="#00000000"
+            android:src="@drawable/email_send" />
+    </RelativeLayout>
+
+</LinearLayout>
