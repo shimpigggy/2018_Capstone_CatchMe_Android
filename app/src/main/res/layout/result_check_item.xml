@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    >
+
+    <TextView
+        android:id="@+id/num"
+        android:layout_weight="1.5"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_weight="7"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/yellow"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/list_check_yellow"
+        android:background="#00000000"
+        android:padding="5dp"/>
+
+    <ImageView
+        android:id="@+id/pink"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/list_check_pink"
+        android:background="#00000000"
+        android:padding="5dp"/>
+
+    <ImageView
+        android:id="@+id/blue"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/list_check_blue"
+        android:background="#00000000"
+        android:padding="5dp"/>
+
+    <ImageButton
+        android:id="@+id/choose"
+        android:layout_weight="1.5"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/list_check_go"
+        android:background="#00000000"/>
+</LinearLayout>

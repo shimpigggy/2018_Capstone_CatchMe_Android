@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".com.catchme.search.SearchResult" />
-        <activity android:name=".research.Result_ListView"></activity>
+        <activity android:name=".result.Result_ListView" />
+        <activity android:name=".result_check.ResultCheck"></activity>
     </application>
 
 </manifest>
