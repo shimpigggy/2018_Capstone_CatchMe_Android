@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.research;
+package org.techtown.capstoneproject.result_check;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,28 +6,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.techtown.capstoneproject.R;
-
 import java.util.ArrayList;
 
+import org.techtown.capstoneproject.R;
+
 /**
- * Created by ShimPiggy on 2018-05-12.
+ * Created by ShimPiggy on 2018-05-14.
  */
 
-public class ListviewAdapter extends BaseAdapter {
+public class ResultCheckAdapter extends BaseAdapter{
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<ListviewItem> arrayList;
+    private ArrayList<ResultCheckItem> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
-    private ImageButton ib_nodify;
-    private ImageButton ib_delete;
+    private ImageButton ib_check;
+    private ImageView iv_yellow;
+    private ImageView iv_pink;
+    private ImageView iv_blue;
 
-    public ListviewAdapter(Context context, ArrayList<ListviewItem> array) {
+    public ResultCheckAdapter(Context context, ArrayList<ResultCheckItem> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -53,36 +56,33 @@ public class ListviewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         //리스트뷰에서 아이템과 xml를 연결하여 화면에 표시해주는 가장 중요한 부분
         //convertView -> 만든 item.xml를 불러와야함
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_listview, null);
+            convertView = inflater.inflate(R.layout.result_check_item, null);
 
             init(convertView);
         }
+
         tv_num.setText(arrayList.get(position).getNum());
         tv_name.setText(arrayList.get(position).getName());
 
-        ib_nodify.setTag(position);
-        ib_nodify.setOnClickListener(new View.OnClickListener() {
+        ib_check.setTag(position);
+        ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = Integer.parseInt(v.getTag().toString());
-                Toast.makeText(context, "nodify", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Go", Toast.LENGTH_SHORT).show();
             }
         });
 
-        ib_delete.setTag(position);
-        ib_delete.setOnClickListener(new ImageButton.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                int position = Integer.parseInt(v.getTag().toString());
-                arrayList.remove(position);
-                Toast.makeText(context, arrayList.size()+"", Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
-            }
-        });
+        if (!arrayList.get(position).isYellow_b())
+            iv_yellow.setVisibility(convertView.GONE);
+        if (!arrayList.get(position).isPink_b())
+            iv_pink.setVisibility(convertView.GONE);
+        if (!arrayList.get(position).isBlue_b())
+            iv_blue.setVisibility(convertView.GONE);
+
 
         return convertView;
     }
@@ -91,7 +91,9 @@ public class ListviewAdapter extends BaseAdapter {
         tv_num = (TextView) convertView.findViewById(R.id.num);
         tv_name = (TextView) convertView.findViewById(R.id.name);
 
-        ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
-        ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
+        ib_check = (ImageButton) convertView.findViewById(R.id.choose);
+        iv_yellow = (ImageView) convertView.findViewById(R.id.yellow);
+        iv_pink = (ImageView) convertView.findViewById(R.id.pink);
+        iv_blue = (ImageView) convertView.findViewById(R.id.blue);
     }
 }

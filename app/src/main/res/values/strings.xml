@@ -7,4 +7,9 @@
     <string name="result_Title"><u>    성분 조사 결과입니다.   </u></string>
 
     <string name="email_Title"><u>          문의하기           </u></string>
+
+    <string name="result_check_Title">분석 결과</string>
+    <string name="result_check_yellow">지성피부에 좋음</string>
+    <string name="result_check_pink">건성피부에 좋음</string>
+    <string name="result_check_blue">복합피부에 좋음</string>
 </resources>

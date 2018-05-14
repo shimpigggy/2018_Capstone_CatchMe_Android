@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.techtown.capstoneproject.research.Result_ListView">
+    tools:context="org.techtown.capstoneproject.result.Result_ListView">
 
     <TextView
         android:id="@+id/textTitle"
@@ -38,6 +38,7 @@
         android:layout_weight="1.5">
 
         <ImageButton
+            android:id="@+id/check"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"

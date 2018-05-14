@@ -1,11 +1,15 @@
-package org.techtown.capstoneproject.research;
+package org.techtown.capstoneproject.result;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.result_check.ResultCheck;
 
 import java.util.ArrayList;
 
@@ -13,6 +17,7 @@ public class Result_ListView extends AppCompatActivity {
 
     ListView listView;
     TextView title;
+    ImageButton im_check;
     ListviewAdapter listviewAdapter;
     ArrayList<ListviewItem> arrayList;
 
@@ -26,12 +31,20 @@ public class Result_ListView extends AppCompatActivity {
 
         listviewAdapter = new ListviewAdapter(Result_ListView.this, arrayList);
         listView.setAdapter(listviewAdapter);
+
+        im_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ResultCheck.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
         arrayList = new ArrayList<ListviewItem>();
-
+        im_check = (ImageButton) findViewById(R.id.check);
     }
 
     public void inputData(int size) {

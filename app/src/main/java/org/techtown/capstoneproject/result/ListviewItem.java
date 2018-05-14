@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.research;
+package org.techtown.capstoneproject.result;
 
 /**
  * Created by ShimPiggy on 2018-05-12.

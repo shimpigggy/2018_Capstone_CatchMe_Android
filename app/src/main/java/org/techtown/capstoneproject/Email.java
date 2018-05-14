@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.techtown.capstoneproject.research.Result_ListView;
+import org.techtown.capstoneproject.result.Result_ListView;
 
 /**
  * Created by ShimPiggy on 2018-05-07.
