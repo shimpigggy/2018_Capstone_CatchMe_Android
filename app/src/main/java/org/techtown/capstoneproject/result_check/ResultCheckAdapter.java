@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import org.techtown.capstoneproject.Item;
 import org.techtown.capstoneproject.R;
 
 /**
@@ -21,7 +22,7 @@ import org.techtown.capstoneproject.R;
 public class ResultCheckAdapter extends BaseAdapter{
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<ResultCheckItem> arrayList;
+    private ArrayList<Item> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
@@ -30,7 +31,7 @@ public class ResultCheckAdapter extends BaseAdapter{
     private ImageView iv_pink;
     private ImageView iv_blue;
 
-    public ResultCheckAdapter(Context context, ArrayList<ResultCheckItem> array) {
+    public ResultCheckAdapter(Context context, ArrayList<Item> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -65,7 +66,7 @@ public class ResultCheckAdapter extends BaseAdapter{
             init(convertView);
         }
 
-        tv_num.setText(arrayList.get(position).getNum());
+        tv_num.setText(arrayList.get(position).getStringNum());
         tv_name.setText(arrayList.get(position).getName());
 
         ib_check.setTag(position);
@@ -77,12 +78,11 @@ public class ResultCheckAdapter extends BaseAdapter{
         });
 
         if (!arrayList.get(position).isYellow_b())
-            iv_yellow.setVisibility(convertView.GONE);
+            iv_yellow.setVisibility(convertView.INVISIBLE);
         if (!arrayList.get(position).isPink_b())
-            iv_pink.setVisibility(convertView.GONE);
+            iv_pink.setVisibility(convertView.INVISIBLE);
         if (!arrayList.get(position).isBlue_b())
-            iv_blue.setVisibility(convertView.GONE);
-
+            iv_blue.setVisibility(convertView.INVISIBLE);
 
         return convertView;
     }

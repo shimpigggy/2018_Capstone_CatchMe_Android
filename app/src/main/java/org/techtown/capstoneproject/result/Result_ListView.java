@@ -8,9 +8,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.techtown.capstoneproject.Item;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.result_check.ResultCheck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Result_ListView extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class Result_ListView extends AppCompatActivity {
     TextView title;
     ImageButton im_check;
     ListviewAdapter listviewAdapter;
-    ArrayList<ListviewItem> arrayList;
+    ArrayList<Item> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class Result_ListView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ResultCheck.class);
+
+                intent.putExtra("list",arrayList);
+
                 startActivity(intent);
             }
         });
@@ -43,7 +48,7 @@ public class Result_ListView extends AppCompatActivity {
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
-        arrayList = new ArrayList<ListviewItem>();
+        arrayList = new ArrayList<Item>();
         im_check = (ImageButton) findViewById(R.id.check);
     }
 
@@ -56,13 +61,13 @@ public class Result_ListView extends AppCompatActivity {
             arrayList.add(items[i]);
         }*/
 
-        ListviewItem item1 = new ListviewItem(1, "아세틸 글리콜");
+        Item item1 = new Item(1, "아세틸 글리콜",true, true, true);
         arrayList.add(item1);
-        ListviewItem item2 = new ListviewItem(2, "알콜");
+        Item item2 = new Item(2, "알콜",false, false, true);
         arrayList.add(item2);
-        ListviewItem item3 = new ListviewItem(3, "쉐어버터");
+        Item item3 = new Item(3, "쉐어버터",true, true, false);
         arrayList.add(item3);
-        ListviewItem item4 = new ListviewItem(4, "탄산수");
+        Item item4 = new Item(4, "탄산수",false, true, false);
         arrayList.add(item4);
     }
 }
