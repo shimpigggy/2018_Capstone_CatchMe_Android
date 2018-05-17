@@ -1,17 +1,19 @@
-package org.techtown.capstoneproject.result_check;
+package org.techtown.capstoneproject;
+
+import java.io.Serializable;
 
 /**
  * Created by ShimPiggy on 2018-05-14.
  */
 
-public class ResultCheckItem {
+public class Item implements Serializable{
     private int num;
     private String name;
     private boolean yellow_b;
     private boolean pink_b;
     private boolean blue_b;
 
-    public ResultCheckItem(int _num, String _name, boolean y, boolean p, boolean b) {
+    public Item(int _num, String _name, boolean y, boolean p, boolean b) {
         num = _num;
         name = _name;
         yellow_b = y;
@@ -19,8 +21,34 @@ public class ResultCheckItem {
         blue_b = b;
     }
 
-    public String getNum() {
-        return num+"";
+    public Item(){
+    }
+
+    public Item(int _num, String _name) {
+        num = _num;
+        name = _name;
+        yellow_b = false;
+        pink_b = false;
+        blue_b = false;
+    }
+
+    public void setAll(int _num, String _name) {
+        this.num = _num;
+        this.name = _name;
+    }
+
+    public void setBool(boolean y, boolean p, boolean b) {
+        yellow_b = y;
+        pink_b = p;
+        blue_b = b;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public String getStringNum(){
+        return getNum()+"";
     }
 
     public String getName() {

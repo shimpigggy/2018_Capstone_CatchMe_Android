@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.techtown.capstoneproject.Item;
 import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.ArrayList;
 public class ListviewAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<ListviewItem> arrayList;
+    private ArrayList<Item> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
     private ImageButton ib_nodify;
     private ImageButton ib_delete;
 
-    public ListviewAdapter(Context context, ArrayList<ListviewItem> array) {
+    public ListviewAdapter(Context context, ArrayList<Item> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -61,7 +62,21 @@ public class ListviewAdapter extends BaseAdapter {
 
             init(convertView);
         }
-        tv_num.setText(arrayList.get(position).getNum());
+
+        settingUI(position);
+        return convertView;
+    }
+
+    public void init(View convertView) {
+        tv_num = (TextView) convertView.findViewById(R.id.num);
+        tv_name = (TextView) convertView.findViewById(R.id.name);
+
+        ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
+        ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
+    }
+
+    public void settingUI(int position) {
+        tv_num.setText(arrayList.get(position).getStringNum());
         tv_name.setText(arrayList.get(position).getName());
 
         ib_nodify.setTag(position);
@@ -74,24 +89,23 @@ public class ListviewAdapter extends BaseAdapter {
         });
 
         ib_delete.setTag(position);
-        ib_delete.setOnClickListener(new ImageButton.OnClickListener(){
+        ib_delete.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
-            public void onClick(View v){
-                int position = Integer.parseInt(v.getTag().toString());
-                arrayList.remove(position);
-                Toast.makeText(context, arrayList.size()+"", Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
+            public void onClick(View v) {
+                buttonDelete(v);
             }
         });
+    }//settingUI
 
-        return convertView;
-    }
+    public void buttonDelete(View v) {
+        int position = Integer.parseInt(v.getTag().toString());
 
-    public void init(View convertView) {
-        tv_num = (TextView) convertView.findViewById(R.id.num);
-        tv_name = (TextView) convertView.findViewById(R.id.name);
+        Toast.makeText(context, arrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+        arrayList.remove(position);
 
-        ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
-        ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
-    }
+        for (int i = 0; i < arrayList.size(); i++)
+            arrayList.get(i).setNum(i + 1);
+
+        notifyDataSetChanged();
+    }//buttonDelete
 }

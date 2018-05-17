@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/list_check_yellow"
         android:background="#00000000"
-        android:padding="5dp"/>
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/pink"
@@ -38,7 +38,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/list_check_pink"
         android:background="#00000000"
-        android:padding="5dp"/>
+        android:padding="8dp"/>
 
     <ImageView
         android:id="@+id/blue"
@@ -47,7 +47,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/list_check_blue"
         android:background="#00000000"
-        android:padding="5dp"/>
+        android:padding="8dp"/>
 
     <ImageButton
         android:id="@+id/choose"
