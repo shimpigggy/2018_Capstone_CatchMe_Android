@@ -65,32 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void tabAdd(){
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Camera"));
+        tabLayout.addTab(tabLayout.newTab().setText("Fragment2"));
         tabLayout.addTab(tabLayout.newTab().setText("Write"));
         tabLayout.addTab(tabLayout.newTab().setText("EMail"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Log.e("com", "result_ok");
-                // Image captured and saved to fileUri specified in the Intent
-                /*
-                if (data != null) {
-                    Toast.makeText(this, "Image saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
-                } else {
-                    Log.e("onActivityResult", fileUri.getPath());
-                }*/
-
-            } else if (resultCode == RESULT_CANCELED) {
-                Log.e("com", "result_canceled");
-                // User cancelled the image capture
-            } else {
-                // Image capture failed, advise user
-            }
-        }//if-requestCode
-    }//onActivityResult
 }//MainActivity

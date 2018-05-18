@@ -1,34 +1,43 @@
 package org.techtown.capstoneproject;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import android.widget.ImageView;
 
 /**
  * Created by ShimPiggy on 2018-05-07.
  */
 
-public class Camera extends Fragment {
-
+public class Fragment2 extends Fragment {
     private Button btn_Camera;
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private Uri fileUri;
     public static final int MEDIA_TYPE_IMAGE = 1;
 
-    public Camera() {
+    public Fragment2(){
     }
 
     @Override
@@ -38,7 +47,7 @@ public class Camera extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_camera, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment2, container, false);
 
         Init(view);
         btn_Camera.setOnClickListener(mBtnCameraClick);
@@ -52,8 +61,8 @@ public class Camera extends Fragment {
 
     Button.OnClickListener mBtnCameraClick = new Button.OnClickListener() {
         public void onClick(View v) {
-                Camera();
-          }//onClick
+            Camera();
+        }//onClick
     };//OnClickListener
 
     public void Camera() {
