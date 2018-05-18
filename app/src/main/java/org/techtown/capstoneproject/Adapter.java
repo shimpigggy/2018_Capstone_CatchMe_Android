@@ -24,7 +24,7 @@ public class Adapter extends FragmentPagerAdapter{
             case 0:
                 return new Fragment1();
             case 1:
-                return new Camera();
+                return new Fragment2();
             case 2:
                 return new Write();
             case 3:
