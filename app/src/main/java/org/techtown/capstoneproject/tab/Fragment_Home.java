@@ -1,5 +1,6 @@
 package org.techtown.capstoneproject.tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
+import org.techtown.capstoneproject.AboutUsActivity;
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.AboutUsActivity;
 
 /**
  * Created by ShimPiggy on 2018-05-07.
@@ -21,10 +25,9 @@ import org.techtown.capstoneproject.R;
 
 public class Fragment_Home extends Fragment {
     private CarouselView carouselView;
-    private TextView textView;
-
     int[] carouselImage = {R.drawable.carousel_1, R.drawable.carousel_2, R.drawable.carousel_3, R.drawable.carousel_4, R.drawable.carousel_5};
 
+    private LinearLayout linearLayout;
     public Fragment_Home() {
     }
 
@@ -44,12 +47,15 @@ public class Fragment_Home extends Fragment {
     }
 
     public void init(final View view) {
-        carouselView = (CarouselView) view.findViewById(R.id.carouselView);
-        textView = (TextView) view.findViewById(R.id.main_text_view);
-        textView.setOnClickListener(new View.OnClickListener() {
+        carouselView = (CarouselView) view.findViewById(R.id.carousel_view);
+        linearLayout =(LinearLayout) view.findViewById(R.id.linear_layout);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(view.getContext(),"click!",Toast.LENGTH_SHORT).show();
+                Intent integer = new Intent(getActivity().getApplicationContext(), AboutUsActivity.class);
+                startActivity(integer);
             }
         });
     }
@@ -76,6 +82,8 @@ public class Fragment_Home extends Fragment {
             return customView;
         }
     };//carouselviewListener
+
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

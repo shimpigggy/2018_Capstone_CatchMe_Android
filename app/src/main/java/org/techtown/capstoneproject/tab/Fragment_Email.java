@@ -22,14 +22,14 @@ import org.techtown.capstoneproject.result.Result_ListView;
  * Created by ShimPiggy on 2018-05-07.
  */
 
-public class Email extends Fragment {
+public class Fragment_Email extends Fragment {
     Spinner spinner;
     ImageButton button_send;
     EditText editText_email;
     EditText editText_title;
     EditText editText_context;
 
-    public Email() {
+    public Fragment_Email() {
     }
 
     @Override
@@ -92,4 +92,4 @@ public class Email extends Fragment {
 
         spinner.setSelection(0);
     }
-}//Email
+}//Fragment_Email

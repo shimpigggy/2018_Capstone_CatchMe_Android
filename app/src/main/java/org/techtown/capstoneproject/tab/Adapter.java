@@ -26,9 +26,9 @@ public class Adapter extends FragmentPagerAdapter{
             case 1:
                 return new Fragment_Search();
             case 2:
-                return new Write();
+                return new Fragment_Self();
             case 3:
-                return new Email();
+                return new Fragment_Email();
         }
         return null;
     }

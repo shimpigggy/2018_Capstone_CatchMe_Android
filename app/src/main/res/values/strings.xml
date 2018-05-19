@@ -2,14 +2,29 @@
     <string name="app_name">Catch美</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_title">캐치美</string>
+    <string name="home_subtitle">건강한 아름다움을 잡다</string>
+    <string name="home_context1">캐치미는 화장품 성분 분석 기능을</string>
+    <string name="home_context2">제공하는 모바일 애플리케이션입니다.</string>
+    <string name="home_context3">캐치미의 데이터 베이스는 화장품 협회,NCIS, NITE, USA</string>
+    <string name="home_context4">및 식약청에서 제공, 가공하여 사용하고 있습니다.</string>
+    <string name="home_copyright">Copyrights. Sejong Univ. capstone Team #7</string>
 
-    <string name="result_Title"><u>    성분 조사 결과입니다.   </u></string>
+    <string name="search_product_name">제품명 검색</string>
+    <string name="search_product_chemi">성분명 검색</string>
+    <string name="search_product_barcode">바코드 검색</string>
+    <string name="search_product_write">직접 검색</string>
 
-    <string name="email_Title"><u>          문의하기           </u></string>
 
-    <string name="result_check_Title">분석 결과</string>
+    <string name="result_title"><u>    성분 조사 결과입니다.   </u></string>
+
+    <string name="email_title"><u>          문의하기           </u></string>
+
+    <string name="result_check_title">분석 결과</string>
     <string name="result_check_yellow">지성피부에 좋음</string>
     <string name="result_check_pink">건성피부에 좋음</string>
     <string name="result_check_blue">복합피부에 좋음</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

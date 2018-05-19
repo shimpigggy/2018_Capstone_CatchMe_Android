@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.techtown.capstoneproject.tab.Item;
+import org.techtown.capstoneproject.result.Item;
 import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;
