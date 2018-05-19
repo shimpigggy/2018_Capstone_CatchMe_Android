@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.tab;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.result.Result_ListView;
 
 /**
@@ -84,7 +85,7 @@ public class Email extends Fragment {
         editText_title = (EditText) view.findViewById(R.id.titleInput);
     }//init
 
-    public void clean(){
+    public void clean() {
         editText_email.setText("");
         editText_title.setText("");
         editText_context.setText("");

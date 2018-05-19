@@ -8,11 +8,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.techtown.capstoneproject.Item;
+import org.techtown.capstoneproject.tab.Item;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.result_check.ResultCheck;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Result_ListView extends AppCompatActivity {
@@ -26,7 +25,7 @@ public class Result_ListView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result__list_view);
+        setContentView(R.layout.activity_result_list_view);
 
         init();
         inputData(4);

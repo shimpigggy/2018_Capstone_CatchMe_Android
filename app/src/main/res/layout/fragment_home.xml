@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carouselView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:disableAutoPlayOnUserInteraction="true"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#00000000"
+            app:radius="6dp"
+            app:strokeColor="#FF777777"
+            app:strokeWidth="3dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+      >
+        <TextView
+            android:id="@+id/main_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ABOUT US"
+            android:textSize="50dp"
+
+            android:background="@drawable/border_base"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

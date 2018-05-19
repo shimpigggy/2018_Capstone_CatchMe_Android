@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.tab;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,9 +22,9 @@ public class Adapter extends FragmentPagerAdapter{
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                return new Fragment1();
+                return new Fragment_Home();
             case 1:
-                return new Fragment2();
+                return new Fragment_Search();
             case 2:
                 return new Write();
             case 3:

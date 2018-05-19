@@ -1,7 +1,6 @@
 package org.techtown.capstoneproject;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -9,7 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import org.techtown.capstoneproject.tab.Adapter;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tabAdd(){
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Fragment2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Fragment_Search"));
         tabLayout.addTab(tabLayout.newTab().setText("Write"));
         tabLayout.addTab(tabLayout.newTab().setText("EMail"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
