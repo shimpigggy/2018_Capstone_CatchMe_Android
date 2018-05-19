@@ -8,4 +8,6 @@
     <color name="white">#FFFFFF</color>
     <color name="background_remove">#00000000</color>
 
+    <color name="filtering">#09E8C3</color>
+
 </resources>

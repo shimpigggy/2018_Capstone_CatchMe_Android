@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.techtown.capstoneproject.com.catchme.search.Write;
-
 /**
  * Created by ShimPiggy on 2018-05-08.
  */

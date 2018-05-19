@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,17 +86,13 @@ public class Fragment_Search extends Fragment {
 
         btn_barcode.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Barcode!",Toast.LENGTH_SHORT).show();
-
-                //ButtonBarcodeListener(v);
+                ButtonBarcodeListener(v);
             }
         });
 
         btn_wirte.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"click!",Toast.LENGTH_SHORT).show();
-
-                //  ButtonWriteListener(v);
+                ButtonWriteListener(v);
             }
         });
     }//buttonSetting
@@ -165,67 +162,14 @@ public class Fragment_Search extends Fragment {
     }//ButtonDetailListener
 
     public void ButtonBarcodeListener(View v) {
-        DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakePhotoAction();
-            }
-        };
-
-        /*
-        //갤러리에서 사진 가져오기
-        DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakeAlbumAction();
-            }
-        };*/
-
-        DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        };
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("업로드할 이미지 선택")
-                .setPositiveButton("사진촬영", cameraListener)
-                //       .setNeutralButton("앨범선택", albumListener)
-                .setNegativeButton("취소", cancelListener)
-                .show();
+        Toast.makeText(v.getContext(), "Barcode!", Toast.LENGTH_SHORT).show();
     }//ButtonBarcodeListener
 
     public void ButtonWriteListener(View v) {
-        DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakePhotoAction();
-            }
-        };
+        Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
 
-        /*
-        //갤러리에서 사진 가져오기
-        DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakeAlbumAction();
-            }
-        };*/
-
-        DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        };
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("업로드할 이미지 선택")
-                .setPositiveButton("사진촬영", cameraListener)
-                //       .setNeutralButton("앨범선택", albumListener)
-                .setNegativeButton("취소", cancelListener)
-                .show();
+        Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
+        startActivity(intent);
     }//ButtonWriteListener
 
 
