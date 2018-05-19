@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.result;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
+import org.techtown.capstoneproject.result_check.ResultCheck;
 
 import java.util.ArrayList;
 
@@ -82,8 +85,13 @@ public class ListviewAdapter extends BaseAdapter {
         ib_nodify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = Integer.parseInt(v.getTag().toString());
-                Toast.makeText(context, "nodify", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "modify", Toast.LENGTH_SHORT).show();
+                /*int position = Integer.parseInt(v.getTag().toString());
+                Intent intent = new Intent(ListviewAdapter.class, WriteChemical.class);
+
+                intent.putExtra("list",arrayList);
+
+                startActivity(intent);*/
             }
         });
 

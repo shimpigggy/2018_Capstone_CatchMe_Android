@@ -14,9 +14,9 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tabLayout"/>
+        android:layout_above="@+id/tabLayout" />
 </RelativeLayout>

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.result.Result_ListView;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by ShimPiggy on 2018-05-07.
  */
@@ -45,9 +47,20 @@ public class Fragment_Email extends Fragment {
 
         button_send.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
-
-                dialog();
+                String email = editText_email.getText() + "";
+                if (checkEmailForm(email))
+                    if (spinner.getSelectedItemPosition() != 0)
+                        if (!editText_title.getText().toString().equals(""))
+                            if(!editText_context.getText().toString().equals(""))
+                                dialog();
+                            else
+                                Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
             }
         });//setOnClickListener
         return view;
@@ -76,6 +89,12 @@ public class Fragment_Email extends Fragment {
         AlertDialog dialog = ad.create();
         dialog.show();
     }//dialog
+
+    //email 체크 함수
+    public boolean checkEmailForm(String src) {
+        String emailRegex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+        return Pattern.matches(emailRegex, src);
+    }
 
     public void init(View view) {
         spinner = (Spinner) view.findViewById(R.id.spinner);
