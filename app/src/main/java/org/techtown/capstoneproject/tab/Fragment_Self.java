@@ -1,5 +1,6 @@
 package org.techtown.capstoneproject.tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.tab3.self.Filtering;
 
 /**
  * Created by ShimPiggy on 2018-05-19.
@@ -17,7 +19,8 @@ public class Fragment_Self extends Fragment {
     private Button btn_filtering;
     private Button btn_allowance;
 
-    public Fragment_Self(){
+
+    public Fragment_Self() {
     }
 
     @Override
@@ -43,21 +46,22 @@ public class Fragment_Self extends Fragment {
     public void buttonSetting() {
         btn_filtering.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Filtering!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Filtering!", Toast.LENGTH_SHORT).show();
                 ButtonFilteringListener(v);
             }
         });
 
         btn_allowance.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Allowance!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Allowance!", Toast.LENGTH_SHORT).show();
                 ButtonAllowanceListener(v);
             }
         });
     }//buttonSetting
 
     public void ButtonFilteringListener(View v) {
-
+        Intent intent = new Intent(getActivity().getApplicationContext(), Filtering.class);
+        startActivity(intent);
     }//ButtonFilteringListener
 
     public void ButtonAllowanceListener(View v) {

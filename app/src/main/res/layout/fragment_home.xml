@@ -18,12 +18,10 @@
 
             android:background="#00000000"
 
-            app:disableAutoPlayOnUserInteraction="true"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:radius="6dp"
-            app:strokeColor="#FFFFFFFF"
-            app:strokeWidth="1dp" />
+            app:disableAutoPlayOnUserInteraction="false"
+            app:fillColor="#FFFFFF"
+            app:pageColor="#AAAAAA"
+            app:radius="5dp" />
     </RelativeLayout>
 
     <LinearLayout

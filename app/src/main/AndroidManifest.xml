@@ -29,7 +29,8 @@
         <activity android:name=".result.Result_ListView" />
         <activity android:name=".result_check.ResultCheck" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".com.catchme.search.WriteChemical"></activity>
+        <activity android:name=".com.catchme.search.WriteChemical" />
+        <activity android:name=".tab3.self.Filtering"></activity>
     </application>
 
 </manifest>
