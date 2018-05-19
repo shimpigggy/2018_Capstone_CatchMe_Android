@@ -1,10 +1,9 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.tab;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,10 +16,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import org.techtown.capstoneproject.R;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -28,7 +28,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by ShimPiggy on 2018-05-07.
  */
 
-public class Fragment2 extends Fragment {
+public class Fragment_Search extends Fragment {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
@@ -43,7 +43,9 @@ public class Fragment2 extends Fragment {
     private Button btn_barcode;
     private Button btn_wirte;
 
-    public Fragment2() {
+    private static String FileName;
+
+    public Fragment_Search() {
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Fragment2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fragment2, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Init(view);
         buttonSetting();
@@ -95,6 +97,7 @@ public class Fragment2 extends Fragment {
             }
         });
     }
+
     /**
      * 카메라에서 이미지 가져오기
      */
@@ -110,10 +113,10 @@ public class Fragment2 extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // 임시로 사용할 파일의 경로를 생성
-     /*   String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
         mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);*/
-        mImageCaptureUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        // fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        // mImageCaptureUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
         //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,fileUri);
@@ -135,44 +138,6 @@ public class Fragment2 extends Fragment {
         startActivityForResult(intent, PICK_FROM_ALBUM);
     }//doTakeAlbumAction
     */
-
-    /**
-     * Create a file Uri for saving an image
-     */
-
-    private static Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
-
-    private static File getOutputMediaFile(int type) {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_" + timeStamp + ".jpg");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }//getOutputMediaFile
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
@@ -183,11 +148,11 @@ public class Fragment2 extends Fragment {
             case CROP_FROM_CAMERA: {
                 // 크롭이 된 이후의 이미지를 넘겨 받습니다.
                 // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
-
                 final Bundle extras = data.getExtras();//전체 사진
 
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");//crop된 bitmap
+
                     mPhotoImageView.setImageBitmap(photo);
                 }
 
@@ -195,7 +160,6 @@ public class Fragment2 extends Fragment {
                 File f = new File(mImageCaptureUri.getPath());
                 if (f.exists()) {
                     f.delete();
-
                 }
 
                 break;
@@ -357,4 +321,42 @@ public class Fragment2 extends Fragment {
                 .show();
     }//ButtonWriteListener
 
-}//Fragment2
+    /**
+     * Create a file Uri for saving an image
+     */
+
+    private static Uri getOutputMediaFileUri(int type) {
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+
+    private static File getOutputMediaFile(int type) {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "MyCameraApp");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("MyCameraApp", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        FileName = "IMG_" + timeStamp + ".jpg";
+
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    FileName);
+        } else {
+            return null;
+        }
+
+        return mediaFile;
+    }//getOutputMediaFile
+}//Fragment_Search

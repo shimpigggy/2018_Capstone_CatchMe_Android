@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.tab;
 
 import java.io.Serializable;
 
