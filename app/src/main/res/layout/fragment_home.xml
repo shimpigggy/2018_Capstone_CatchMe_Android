@@ -6,39 +6,126 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
+            android:id="@+id/carousel_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="20dp"
+
+            android:background="#00000000"
+
             app:disableAutoPlayOnUserInteraction="true"
             app:fillColor="#FFFFFFFF"
             app:pageColor="#00000000"
             app:radius="6dp"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="3dp" />
+            app:strokeColor="#FFFFFFFF"
+            app:strokeWidth="1dp" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-      >
-        <TextView
-            android:id="@+id/main_text_view"
+        android:layout_weight="1.5">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="ABOUT US"
-            android:textSize="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/border_base"
 
-            android:background="@drawable/border_base"/>
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+
+                    android:textSize="25dp"
+                    android:text="@string/home_title"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/title"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/home_subtitle"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/context1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@id/subtitle"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/home_context1"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/context2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/context1"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/home_context2"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/context3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/context2"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/home_context3"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/context4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@id/context3"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/home_context4"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="10dp"
+
+                    android:textSize="10sp"
+                    android:text="@string/home_copyright"
+                    android:textColor="#BBBBBB" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

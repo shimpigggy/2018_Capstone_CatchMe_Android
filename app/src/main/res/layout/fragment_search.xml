@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
     <Button
         android:id="@+id/btn_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="상품명 촬영"
-        />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="140dp"
+
+        android:background="@color/white"
+        android:text="@string/search_product_name" />
+
     <Button
         android:id="@+id/btn_detail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="화학성분 촬영"
-        />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_alignTop="@id/btn_name"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/btn_name"
+
+        android:background="@color/white"
+        android:text="@string/search_product_chemi" />
+
     <Button
         android:id="@+id/btn_barcode"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="바코드 촬영"
-        />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_below="@id/btn_name"
+        android:layout_alignLeft="@id/btn_name"
+        android:layout_marginTop="20dp"
+
+        android:background="@color/white"
+        android:text="@string/search_product_barcode" />
+
     <Button
         android:id="@+id/btn_write"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="직접 입력"
-        />
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_margin="50dp"
-        android:background="#eee"
-        />
-</LinearLayout>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_below="@id/btn_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/btn_name"
+
+        android:background="@color/white"
+        android:text="@string/search_product_write" />
+</RelativeLayout>

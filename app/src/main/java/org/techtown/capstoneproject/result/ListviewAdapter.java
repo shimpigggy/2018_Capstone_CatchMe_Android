@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.techtown.capstoneproject.tab.Item;
 import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;

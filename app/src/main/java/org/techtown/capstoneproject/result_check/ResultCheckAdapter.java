@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import org.techtown.capstoneproject.tab.Item;
+import org.techtown.capstoneproject.result.Item;
 import org.techtown.capstoneproject.R;
 
 /**

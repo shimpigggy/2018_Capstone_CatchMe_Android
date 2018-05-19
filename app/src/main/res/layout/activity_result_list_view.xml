@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1.5"
         android:gravity="center"
-        android:text="@string/result_Title"
+        android:text="@string/result_title"
         android:textColor="#000000"
         android:textSize="17dp" />
 

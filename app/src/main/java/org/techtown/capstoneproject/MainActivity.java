@@ -41,12 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });//addOnTabSelectedListener
     }//onCreate
@@ -65,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void tabAdd(){
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Fragment_Search"));
-        tabLayout.addTab(tabLayout.newTab().setText("Write"));
+        tabLayout.addTab(tabLayout.newTab().setText("Search"));
+        tabLayout.addTab(tabLayout.newTab().setText("Self"));
         tabLayout.addTab(tabLayout.newTab().setText("EMail"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }

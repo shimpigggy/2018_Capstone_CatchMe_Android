@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.techtown.capstoneproject.tab.Item;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.result_check.ResultCheck;
 
