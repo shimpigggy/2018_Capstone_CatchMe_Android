@@ -1,6 +1,7 @@
-package org.techtown.capstoneproject.result_check;
+package org.techtown.capstoneproject.result.check;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import org.techtown.capstoneproject.com.catchme.search.SearchResult;
 import org.techtown.capstoneproject.result.Item;
 import org.techtown.capstoneproject.R;
-
-/**
+/*
  * Created by ShimPiggy on 2018-05-14.
+ * Modified by ShimPiggy on 2018-05-23. - ib_check handler, server
  */
 
-public class ResultCheckAdapter extends BaseAdapter{
+public class ResultCheckAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<Item> arrayList;
@@ -65,27 +67,11 @@ public class ResultCheckAdapter extends BaseAdapter{
 
             init(convertView);
         }
-
-        tv_num.setText(arrayList.get(position).getStringNum());
-        tv_name.setText(arrayList.get(position).getName());
-
-        ib_check.setTag(position);
-        ib_check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Go", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        if (!arrayList.get(position).isYellow_b())
-            iv_yellow.setVisibility(convertView.INVISIBLE);
-        if (!arrayList.get(position).isPink_b())
-            iv_pink.setVisibility(convertView.INVISIBLE);
-        if (!arrayList.get(position).isBlue_b())
-            iv_blue.setVisibility(convertView.INVISIBLE);
+        settting(position);
+        settingSkinType(position, convertView);
 
         return convertView;
-    }
+    }//getView
 
     public void init(View convertView) {
         tv_num = (TextView) convertView.findViewById(R.id.num);
@@ -95,5 +81,33 @@ public class ResultCheckAdapter extends BaseAdapter{
         iv_yellow = (ImageView) convertView.findViewById(R.id.yellow);
         iv_pink = (ImageView) convertView.findViewById(R.id.pink);
         iv_blue = (ImageView) convertView.findViewById(R.id.blue);
-    }
-}
+
+    }//init
+
+    public void settting(int position) {
+        tv_num.setText(arrayList.get(position).getStringNum());
+        tv_name.setText(arrayList.get(position).getName());
+
+        ib_check.setTag(position);
+        ib_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Integer.parseInt(v.getTag().toString());
+
+                Intent intent = new Intent(context, SearchResult.class);
+                intent.putExtra("type","result_check");
+                intent.putExtra("name",arrayList.get(position).getName());
+                context.startActivity(intent);
+            }
+        });//setOnClickListener
+    }//setUI
+
+    public void settingSkinType(int position, View convertView) {
+        if (!arrayList.get(position).isYellow_b())
+            iv_yellow.setVisibility(convertView.INVISIBLE);
+        if (!arrayList.get(position).isPink_b())
+            iv_pink.setVisibility(convertView.INVISIBLE);
+        if (!arrayList.get(position).isBlue_b())
+            iv_blue.setVisibility(convertView.INVISIBLE);
+    }//settingSkinType
+}//ResultCheckAdapter

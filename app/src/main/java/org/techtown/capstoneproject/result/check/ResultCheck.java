@@ -1,4 +1,5 @@
-package org.techtown.capstoneproject.result_check;
+package org.techtown.capstoneproject.result.check;
+
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +11,15 @@ import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;
 
+/*
+ * Created by ShimPiggy on 2018-05-14. - View
+ * Modified by ShimPiggy on 2018-05-09 - receive info from ResultModification
+ */
+
 public class ResultCheck extends AppCompatActivity {
     ListView listView;
     TextView title;
-    ResultCheckAdapter listviewAdapter;
+    ResultCheckAdapter resultCheckAdapter;
     ArrayList<Item> arrayList;
 
     @Override
@@ -22,21 +28,22 @@ public class ResultCheck extends AppCompatActivity {
         setContentView(R.layout.activity_result_check);
 
         init();
-        inputData();
 
-        listviewAdapter = new ResultCheckAdapter(ResultCheck.this, arrayList);
-        listView.setAdapter(listviewAdapter);
     }
+
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
-       // arrayList = new ArrayList<Item>();
+        // arrayList = new ArrayList<Item>();
 
-        arrayList = (ArrayList<Item>)getIntent().getSerializableExtra("list");
-    }
+        //receive info from ResultModification
+        arrayList = (ArrayList<Item>) getIntent().getSerializableExtra("list");
+
+
+        resultCheckAdapter = new ResultCheckAdapter(ResultCheck.this, arrayList);
+        listView.setAdapter(resultCheckAdapter);
+    }//init
 
     public void inputData() {
-       // for(int i=0; i< arrayList.size();i++){
-       //     arrayList.get(i).setNum(i+1);
-       // }
+
     }//inputData
 }

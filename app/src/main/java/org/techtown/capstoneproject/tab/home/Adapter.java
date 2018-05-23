@@ -1,10 +1,10 @@
-package org.techtown.capstoneproject.tab;
+package org.techtown.capstoneproject.tab.home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-08.
  */
 
@@ -35,4 +35,4 @@ public class Adapter extends FragmentPagerAdapter{
     public int getCount(){
         return tabCount;
     }
-}
+}//Adapter

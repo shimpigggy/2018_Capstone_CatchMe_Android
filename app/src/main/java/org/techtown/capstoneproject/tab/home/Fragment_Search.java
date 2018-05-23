@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab;
+package org.techtown.capstoneproject.tab.home;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
@@ -26,15 +25,16 @@ import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-07.
+ * Modified by ShimPiggy on 2018-05-09. - Camera
+ * Modified by ShimPiggy on 2018-05-19. - modify changed design and control
  */
 
 public class Fragment_Search extends Fragment {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
-    public static final int MEDIA_TYPE_IMAGE = 10;
 
     private Uri mImageCaptureUri;
     private Uri fileUri;
@@ -43,8 +43,6 @@ public class Fragment_Search extends Fragment {
     private Button btn_detail;
     private Button btn_barcode;
     private Button btn_wirte;
-
-    private static String FileName;
 
     public Fragment_Search() {
     }
@@ -65,10 +63,10 @@ public class Fragment_Search extends Fragment {
     }
 
     public void Init(View view) {
-        btn_name = (Button) view.findViewById(R.id.btn_name);
-        btn_detail = (Button) view.findViewById(R.id.btn_detail);
+        btn_name = (Button) view.findViewById(R.id.btn_name);//제품명
+        btn_detail = (Button) view.findViewById(R.id.btn_detail);//화학성분
         btn_barcode = (Button) view.findViewById(R.id.btn_barcode);
-        btn_wirte = (Button) view.findViewById(R.id.btn_write);
+        btn_wirte = (Button) view.findViewById(R.id.btn_write);//직접 쓰기
     }//init
 
     public void buttonSetting() {
@@ -169,6 +167,7 @@ public class Fragment_Search extends Fragment {
         Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
+        intent.putExtra("type","tab");
         startActivity(intent);
     }//ButtonWriteListener
 
@@ -188,17 +187,21 @@ public class Fragment_Search extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // 임시로 사용할 파일의 경로를 생성
-        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        /*String photoName = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        String appName = getString(R.string.app_name);
 
-        mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-        // fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        // mImageCaptureUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),appName);
+
+        File imageFile = new File(directory.getPath()+File.separator+photoName);
+
+        mImageCaptureUri = Uri.fromFile(imageFile);*/
+
+        // fileUri = getOutputMediaFileUri();
+        mImageCaptureUri = getOutputMediaFileUri();
 
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
         //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,fileUri);
 
-        // 특정기기에서 사진을 저장못하는 문제가 있어 다음을 주석처리 합니다.
-        //intent.putExtra("return-data", true);
         startActivityForResult(intent, PICK_FROM_CAMERA);
     }//doTakePhotoAction
 
@@ -232,9 +235,10 @@ public class Fragment_Search extends Fragment {
 
                 // 임시 파일 삭제
                 File f = new File(mImageCaptureUri.getPath());
-                if (f.exists()) {
+                Log.e(">>>>>>>tempor", f.getPath());
+               /* if (f.exists()) {
                     f.delete();
-                }
+                }*/
 
                 break;
             }
@@ -263,46 +267,38 @@ public class Fragment_Search extends Fragment {
                 startActivityForResult(intent, CROP_FROM_CAMERA);
 
                 break;
-            }
-        }
-    }
-
+            }//
+        }//switch
+    }//onActivityResult
 
     /**
      * Create a file Uri for saving an image
      */
-
-    private static Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
+    private Uri getOutputMediaFileUri() {
+        return Uri.fromFile(getOutputMediaFile());
     }
 
-    private static File getOutputMediaFile(int type) {
+    private File getOutputMediaFile() {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
+                Environment.DIRECTORY_PICTURES), getString(R.string.app_name));
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
+                Log.d(getString(R.string.app_name), "failed to create directory");
                 return null;
             }
         }
 
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        FileName = "IMG_" + timeStamp + ".jpg";
 
         File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    FileName);
-        } else {
-            return null;
-        }
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp+".jpg");
 
         return mediaFile;
     }//getOutputMediaFile

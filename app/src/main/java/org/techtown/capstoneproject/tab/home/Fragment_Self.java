@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab;
+package org.techtown.capstoneproject.tab.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.tab3.self.Filtering;
+import org.techtown.capstoneproject.tab.tab3_self.Filtering;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-19.
  */
 public class Fragment_Self extends Fragment {
@@ -36,7 +36,7 @@ public class Fragment_Self extends Fragment {
         buttonSetting();
 
         return view;
-    }
+    }//onCreateView
 
     public void Init(View view) {
         btn_filtering = (Button) view.findViewById(R.id.btn_filtering);

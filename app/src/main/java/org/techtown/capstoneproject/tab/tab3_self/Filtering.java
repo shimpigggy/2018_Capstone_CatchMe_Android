@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab3.self;
+package org.techtown.capstoneproject.tab.tab3_self;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,10 @@ import android.widget.Toast;
 import android.content.SharedPreferences;
 
 import org.techtown.capstoneproject.R;
+
+/*
+ * Created by ShimPiggy on 2018-05-19.
+ */
 
 public class Filtering extends AppCompatActivity implements View.OnClickListener {
     private TextView[] tvs;
@@ -25,7 +29,7 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
 
         init();
         buttonClick();
-    }
+    }//onCreate
 
     public void init() {
         tvs = new TextView[9];
@@ -41,10 +45,9 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
                 flags[i] = true;
             else
                 flags[i] = false;
-          textViewCheck(i+1);
+            textViewCheck(i + 1);
         }
     }//init
-
 
     public void buttonClick() {
         ib_check.setOnClickListener(new View.OnClickListener() {
@@ -57,24 +60,26 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
                 finish();
             }
         });
-    }
+    }//buttonClick
 
-    private void setFlags(){
+    private void setFlags() {
+        //다시 setting
         SharedPreferences filtering = getSharedPreferences("filtering", MODE_PRIVATE);
         SharedPreferences.Editor editor = filtering.edit();
 
-        for(int i =0;i<9;i++){
-            editor.putBoolean("flags"+i+"",flags[i]);
+        for (int i = 0; i < 9; i++) {
+            editor.putBoolean("flags" + i + "", flags[i]);
         }
         editor.commit();
-    }
+    }//setFlags
 
     private void allClean() {
+        //모든 데이터 없애기
         SharedPreferences filtering = getSharedPreferences("filtering", MODE_PRIVATE);
         SharedPreferences.Editor editor = filtering.edit();
         editor.clear();
         editor.commit();
-    }
+    }//allClean
 
     public void textViewInit() {
         tvs[0] = (TextView) findViewById(R.id.type1);
@@ -89,50 +94,50 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
 
         for (int i = 0; i < 9; i++)
             tvs[i].setOnClickListener(this);
-    }
+    }//textViewInit
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.type1:
-                textViewCheck(1);
+                textViewCheck(0);
                 break;
             case R.id.type2:
-                textViewCheck(2);
+                textViewCheck(1);
                 break;
             case R.id.type3:
-                textViewCheck(3);
+                textViewCheck(2);
                 break;
             case R.id.type4:
-                textViewCheck(4);
+                textViewCheck(3);
                 break;
             case R.id.type5:
-                textViewCheck(5);
+                textViewCheck(4);
                 break;
             case R.id.type6:
-                textViewCheck(6);
+                textViewCheck(5);
                 break;
             case R.id.type7:
-                textViewCheck(7);
+                textViewCheck(6);
                 break;
             case R.id.type8:
-                textViewCheck(8);
+                textViewCheck(7);
                 break;
             case R.id.type9:
-                textViewCheck(9);
+                textViewCheck(8);
                 break;
         }
     }//onClick
 
     public void textViewCheck(int arrayposition) {
-        if (!flags[arrayposition - 1]) {
-            tvs[arrayposition - 1].setBackgroundColor(Filtering.this.getResources().getColor(R.color.filtering));
-            tvs[arrayposition - 1].setTextColor(Filtering.this.getResources().getColor(R.color.white));
-            flags[arrayposition - 1] = true;
+        if (!flags[arrayposition]) {
+            tvs[arrayposition].setBackgroundColor(Filtering.this.getResources().getColor(R.color.filtering));
+            tvs[arrayposition].setTextColor(Filtering.this.getResources().getColor(R.color.white));
+            flags[arrayposition] = true;
         } else {
-            tvs[arrayposition - 1].setBackgroundDrawable(ContextCompat.getDrawable(Filtering.this, R.drawable.filtering_border_base));
-            tvs[arrayposition - 1].setTextColor(Filtering.this.getResources().getColor(R.color.black));
-            flags[arrayposition - 1] = false;
+            tvs[arrayposition].setBackgroundDrawable(ContextCompat.getDrawable(Filtering.this, R.drawable.filtering_border_base));
+            tvs[arrayposition].setTextColor(Filtering.this.getResources().getColor(R.color.black));
+            flags[arrayposition] = false;
         }
-    }
-}
+    }//textViewCheck
+}//Filtering

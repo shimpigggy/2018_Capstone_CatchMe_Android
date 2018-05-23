@@ -6,22 +6,26 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.techtown.capstoneproject.tab.Adapter;
-import org.techtown.capstoneproject.tab.Fragment_Email;
-import org.techtown.capstoneproject.tab.Fragment_Home;
-import org.techtown.capstoneproject.tab.Fragment_Search;
-import org.techtown.capstoneproject.tab.Fragment_Self;
+import org.techtown.capstoneproject.tab.home.Fragment_Email;
+import org.techtown.capstoneproject.tab.home.Fragment_Home;
+import org.techtown.capstoneproject.tab.home.Fragment_Search;
+import org.techtown.capstoneproject.tab.home.Fragment_Self;
+
+/*
+ * Created by ShimPiggy on 2018-04-27.
+ * Modified by ShimPiggy on 2018-05-02. - Tab Host
+ * Modified by ShimPiggy on 2018-05-08. - Tab Host -> Tab Layout
+ * Modified by ShimPiggy on 2018-05-20. - ViewPager -> FrameLayout
+ */
 
 public class MainActivity extends AppCompatActivity {
     private final int Home = 1;
     private final int Search = 2;
     private final int Self = 3;
     private final int Email = 4;
-
 
     private TabLayout tabLayout;
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             //권한 없음
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
         }
-    }
+    }//permissionCheck
 
     public void init() {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Self").setTag(Self));
         tabLayout.addTab(tabLayout.newTab().setText("EMail").setTag(Email));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-    }
+    }//tabAdd
 
     private void callFragment(int num) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
