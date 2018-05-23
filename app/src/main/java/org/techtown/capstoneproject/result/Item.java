@@ -2,7 +2,7 @@ package org.techtown.capstoneproject.result;
 
 import java.io.Serializable;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-14.
  */
 
@@ -22,6 +22,11 @@ public class Item implements Serializable{
     }
 
     public Item(){
+        num = 1;
+        name = "";
+        yellow_b = false;
+        pink_b = false;
+        blue_b = false;
     }
 
     public Item(int _num, String _name) {

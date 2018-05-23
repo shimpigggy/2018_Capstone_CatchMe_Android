@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result;
+package org.techtown.capstoneproject.result.modification;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,25 +12,27 @@ import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
-import org.techtown.capstoneproject.result_check.ResultCheck;
+import org.techtown.capstoneproject.result.Item;
 
 import java.util.ArrayList;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-12.
+ * Modified by ShimPiggy on 2018-05-13. - ib_delete handler
+ * Modified by ShimPiggy on 2018-05-23. - ib_modify handler, (change) ib_delete handler
  */
 
-public class ListviewAdapter extends BaseAdapter {
+public class ResultModificationAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<Item> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
-    private ImageButton ib_nodify;
+    private ImageButton ib_modify;
     private ImageButton ib_delete;
 
-    public ListviewAdapter(Context context, ArrayList<Item> array) {
+    public ResultModificationAdapter(Context context,  ArrayList<Item> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -60,12 +62,12 @@ public class ListviewAdapter extends BaseAdapter {
         //리스트뷰에서 아이템과 xml를 연결하여 화면에 표시해주는 가장 중요한 부분
         //convertView -> 만든 item.xml를 불러와야함
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_listview, null);
-
-            init(convertView);
+            convertView = inflater.inflate(R.layout.result_modification_item, null);
         }
 
+        init(convertView);
         settingUI(position);
+
         return convertView;
     }
 
@@ -73,7 +75,7 @@ public class ListviewAdapter extends BaseAdapter {
         tv_num = (TextView) convertView.findViewById(R.id.num);
         tv_name = (TextView) convertView.findViewById(R.id.name);
 
-        ib_nodify = (ImageButton) convertView.findViewById(R.id.nodify);
+        ib_modify = (ImageButton) convertView.findViewById(R.id.modify);
         ib_delete = (ImageButton) convertView.findViewById(R.id.delete);
     }
 
@@ -81,17 +83,17 @@ public class ListviewAdapter extends BaseAdapter {
         tv_num.setText(arrayList.get(position).getStringNum());
         tv_name.setText(arrayList.get(position).getName());
 
-        ib_nodify.setTag(position);
-        ib_nodify.setOnClickListener(new View.OnClickListener() {
+        ib_modify.setTag(position);
+        ib_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "modify", Toast.LENGTH_SHORT).show();
-                /*int position = Integer.parseInt(v.getTag().toString());
-                Intent intent = new Intent(ListviewAdapter.class, WriteChemical.class);
+                int position = Integer.parseInt(v.getTag().toString());
 
-                intent.putExtra("list",arrayList);
-
-                startActivity(intent);*/
+                Intent intent = new Intent(context, WriteChemical.class);
+                intent.putExtra("modify_name",arrayList.get(position).getName());
+                intent.putExtra("type","result_modification");
+                context.startActivity(intent);
             }
         });
 
@@ -104,7 +106,7 @@ public class ListviewAdapter extends BaseAdapter {
         });
     }//settingUI
 
-    public void buttonDelete(View v) {
+    public boolean buttonDelete(View v) {
         int position = Integer.parseInt(v.getTag().toString());
 
         Toast.makeText(context, arrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
@@ -114,5 +116,7 @@ public class ListviewAdapter extends BaseAdapter {
             arrayList.get(i).setNum(i + 1);
 
         notifyDataSetChanged();
+
+        return false;
     }//buttonDelete
 }

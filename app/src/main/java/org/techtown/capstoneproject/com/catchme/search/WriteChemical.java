@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import org.techtown.capstoneproject.R;
 
-/**
+/*
  * Created by ShimPiggy on 2018-05-07.
- * Modified by sj-kalin on 2018-05-09
- * Modified by ShimPiggy on 2018-05-19(tab 2 적용)
+ * Modified by sj-kalin on 2018-05-09.
+ * Modified by ShimPiggy on 2018-05-19.(tab 2 적용)
+ * Modified by ShimPiggy on 2018-05-23. - result_modification에서 넘기기는 부분
  */
 
 public class WriteChemical extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class WriteChemical extends AppCompatActivity {
     LinearLayout layout;
     LinearLayout topView;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,9 @@ public class WriteChemical extends AppCompatActivity {
         actv = (AutoCompleteTextView) findViewById(R.id.actv);
         layout = (LinearLayout) findViewById(R.id.mainview);
         topView = (LinearLayout) findViewById(R.id.topview);
+
+        intent = getIntent();
+        getIntentInfo(intent);
 
         topView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -60,5 +66,17 @@ public class WriteChemical extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }//onCreate
+
+    public void getIntentInfo(Intent intent){
+        String type = intent.getStringExtra("type");
+
+        if(type.equals("result_modification")){
+            //result_modification에서 온 경우
+            actv.setText(intent.getStringExtra("modify_name"));
+
+        }else if(type.equals("tab")){
+            //tab에서 온 경우
+        }
+    }//getIntentValue
 }

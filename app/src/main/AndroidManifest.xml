@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,11 +27,11 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".com.catchme.search.SearchResult" />
-        <activity android:name=".result.Result_ListView" />
-        <activity android:name=".result_check.ResultCheck" />
-        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".result.modification.ResultModification" />
+        <activity android:name=".result.check.ResultCheck" />
+        <activity android:name=".tab.tab1_home.AboutUsActivity" />
         <activity android:name=".com.catchme.search.WriteChemical" />
-        <activity android:name=".tab3.self.Filtering"></activity>
+        <activity android:name=".tab.tab3_self.Filtering"></activity>
     </application>
 
 </manifest>
