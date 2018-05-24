@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -14,28 +15,28 @@
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carousel_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
 
             android:background="#00000000"
 
-            app:disableAutoPlayOnUserInteraction="false"
+            app:disableAutoPlayOnUserInteraction="true"
             app:fillColor="#FFFFFF"
             app:pageColor="#AAAAAA"
-            app:radius="5dp" />
+            app:radius="3dp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5">
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:background="@drawable/border_base"
 
+            android:background="@color/white"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -51,9 +52,15 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
 
-                    android:textSize="25dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/underline_gray"
+                    android:gravity="center"
+                    android:paddingLeft="70dp"
+                    android:paddingRight="70dp"
+
                     android:text="@string/home_title"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/gray"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/subtitle"
@@ -62,21 +69,24 @@
 
                     android:layout_below="@id/title"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
 
                     android:text="@string/home_subtitle"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/context1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="30dp"
                     android:layout_below="@id/subtitle"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
 
                     android:text="@string/home_context1"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/gray"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/context2"
@@ -87,7 +97,8 @@
                     android:layout_centerHorizontal="true"
 
                     android:text="@string/home_context2"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/gray"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/context3"
@@ -98,7 +109,8 @@
                     android:layout_centerHorizontal="true"
 
                     android:text="@string/home_context3"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/gray"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:id="@+id/context4"
@@ -109,7 +121,24 @@
                     android:layout_centerHorizontal="true"
 
                     android:text="@string/home_context4"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/gray"
+                    android:textSize="10dp" />
+
+                <ImageButton
+                    android:id="@+id/aboutus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_above="@id/copyright"
+                    android:layout_below="@id/context4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp"
+
+                    android:background="@color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tab1_aboutus" />
 
                 <TextView
                     android:id="@+id/copyright"
@@ -120,9 +149,9 @@
                     android:layout_centerHorizontal="true"
                     android:paddingBottom="10dp"
 
-                    android:textSize="10sp"
                     android:text="@string/home_copyright"
-                    android:textColor="#BBBBBB" />
+                    android:textColor="#BBBBBB"
+                    android:textSize="10sp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

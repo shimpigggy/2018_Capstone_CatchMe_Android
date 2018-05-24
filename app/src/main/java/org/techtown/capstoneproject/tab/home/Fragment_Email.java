@@ -35,8 +35,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /*
  * Created by ShimPiggy on 2018-05-07.
  * Modified by ShimPiggy on 2018-05-13. - modify view
- * Modified by ShimPiggy on 2018-05-20. - email form check, blank check
+ * Modified by ShimPiggy on 2018-05-20. - tab_email form check, blank check
  * Modified by ShimPiggy on 2018-05-21. - Server
+ * Modified by ShimPiggy on 2018-05-23. - image
  */
 
 public class Fragment_Email extends Fragment {
@@ -68,10 +69,10 @@ public class Fragment_Email extends Fragment {
             public void onClick(View v) {
                 dialog();
                 /*
-                //email form check
-                String email = editText_email.getText() + "";
+                //tab_email form check
+                String tab_email = editText_email.getText() + "";
 
-                if (checkEmailForm(email))
+                if (checkEmailForm(tab_email))
                     if (spinner.getSelectedItemPosition() != 0)
                         if (!editText_title.getText().toString().equals(""))
                             if (!editText_context.getText().toString().equals("")) {
@@ -89,7 +90,7 @@ public class Fragment_Email extends Fragment {
                         spinner.setSelection(0);
                         Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
                     }
-                else {//email check
+                else {//tab_email check
                     editText_email.setText("");
                     Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
                 }*/
@@ -101,9 +102,9 @@ public class Fragment_Email extends Fragment {
     public void init(View view) {
         spinner = (Spinner) view.findViewById(R.id.spinner);
         button_send = (ImageButton) view.findViewById(R.id.send);
-        editText_email = (EditText) view.findViewById(R.id.emailInput);
-        editText_context = (EditText) view.findViewById(R.id.contextInput);
-        editText_title = (EditText) view.findViewById(R.id.titleInput);
+        editText_email = (EditText) view.findViewById(R.id.email);
+        editText_context = (EditText) view.findViewById(R.id.content);
+        editText_title = (EditText) view.findViewById(R.id.title_content);
 
         //server
         retrofit = new Retrofit.Builder()
@@ -120,7 +121,7 @@ public class Fragment_Email extends Fragment {
         spinner.setSelection(0);
     }//clean
 
-    //email 체크 함수
+    //tab_email 체크 함수
     public boolean checkEmailForm(String src) {
         String emailRegex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
         return Pattern.matches(emailRegex, src);

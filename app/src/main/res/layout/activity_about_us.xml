@@ -1,123 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
 
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingRight="70dp"
+        android:paddingLeft="70dp"
+        android:layout_marginTop="20dp"
 
-            android:text="@string/home_title"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-    </RelativeLayout>
+        android:background="@drawable/underline_black"
+        android:text="@string/home_title"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4">
+    <TextView
+        android:id="@+id/sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+        android:textSize="12sp"
+        android:text="@string/home_subtitle"
+        android:textColor="@color/black" />
 
-            android:text="@string/home_subtitle"
-            android:textColor="@color/black" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/p1_text1"
+        android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_below="@id/sub_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        android:textSize="12sp"
+        android:text="캐치미는 '잡다' 라는 뜻의 'Catch'와"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p1_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="@string/home_context1"
-                android:textColor="@color/black" />
-        </RelativeLayout>
+        android:layout_below="@id/p1_text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        android:textSize="12sp"
+        android:text="'아름다움' 의 뜻을 가진 '美' 를 합친 단어로,"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p1_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="@string/home_context2"
-                android:textColor="@color/black" />
-        </RelativeLayout>
+        android:layout_below="@id/p1_text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="@string/home_context3"
-                android:textColor="@color/black" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="@string/home_context4"
-                android:textColor="@color/black" />
-        </RelativeLayout>
-
-    </LinearLayout>
+        android:textSize="12sp"
+        android:text=" '건강한 아름다움을 잡자' 는 의미를 담고 있습니다. "
+        android:textColor="@color/black" />
 
 
+    <TextView
+        android:id="@+id/p2_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_below="@id/p1_text3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4">
+        android:textSize="12sp"
+        android:text="캐치미는 화장품 내의 화학 성분을 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p2_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:text="@string/home_copyright"
-            android:textColor="#BBBBBB" />
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_below="@id/p2_text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="분석, 정제하여 이해하기 쉬운 정보로 제공함으로써 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p2_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p2_text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="사용자들의 현명한 화장품 선택에 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p2_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p2_text3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="도움을 주기 위한 모바일 어플리케이션입니다."
+        android:textColor="@color/black" />
+
+
+    <TextView
+        android:id="@+id/p3_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p2_text4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+
+        android:textSize="12sp"
+        android:text="정보 탐색의 편리성을 위하여"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p3_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="카메라를 이용한 검색 기능을 제공하고 있습니다."
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p3_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="제품을 직접 촬영하여 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p3_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="포함된 성분 정보를 바로 제공받거나,"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p3_text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="제품에 독립적으로 성분 촬영을 통해"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p3_text6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="정보를 확인할 수 있도록 제작되었습니다."
+        android:textColor="@color/black" />
+
+
+
+    <TextView
+        android:id="@+id/p4_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p3_text6"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+
+        android:textSize="12sp"
+        android:text="캐치미는 '대한 화장품 협회', '식약처' 뿐만 아니라 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p4_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p4_text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="미국 '통합 위해 정보 시스템(IRIS)' 및"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p4_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p4_text2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text="일본 '공공 안전 단체(NITE)' 의 데이터베이스를 제공받아 "
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/p4_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/p4_text3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+
+        android:textSize="12sp"
+        android:text=" 가공하여 사용되고 있습니다."
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+
+        android:text="@string/home_copyright"
+        android:textColor="@color/black" />
+
+</RelativeLayout>

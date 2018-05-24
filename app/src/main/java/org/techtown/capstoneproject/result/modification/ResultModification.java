@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.result.modification;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /*
  * Created by ShimPiggy on 2018-05-12.
  * Modified by ShimPiggy on 2018-05-21. - Server
+ * Modified by ShimPiggy on 2018-05-23. -actionbar, image
  */
 
 public class ResultModification extends AppCompatActivity {
@@ -45,7 +47,8 @@ public class ResultModification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_list_view);
+        actionBar();
+        setContentView(R.layout.activity_result_modification);
 
         init();
         inputData();
@@ -80,7 +83,7 @@ public class ResultModification extends AppCompatActivity {
 
     public void inputData() {
         //server
-        /*Call<ResponseBody> getNameList = apiService.getNameList("");
+        Call<ResponseBody> getNameList = apiService.getNameList("");
         getNameList.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -91,11 +94,15 @@ public class ResultModification extends AppCompatActivity {
 
                     try {
                         JSONArray jsonArray = new JSONArray(result);
+                        Item[] items = new Item[jsonArray.length()];
 
-                        Item item = new Item();
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            item.setName(jsonArray.getString(i));
-                            arrayList.add(item);
+                            items[i] = new Item();
+                            items[i].setNum(i+1);
+                            items[i].setName(jsonArray.getString(i));
+                            items[i].setBool(true,true,true);
+                            Log.e(">>>>>TEST", items[i].getName());
+                            arrayList.add(items[i]);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -112,15 +119,20 @@ public class ResultModification extends AppCompatActivity {
                 Log.e("Fail", "Fail");
                 //데이터가 받아지는 것이 실패
             }//onFailure
-        });*/
+        });
 
-        Item item1 = new Item(1, "아세틸 글리콜", true, true, true);
+        /*Item item1 = new Item(1, "아세틸 글리콜", true, true, true);
         arrayList.add(item1);
         Item item2 = new Item(2, "알콜", false, false, true);
         arrayList.add(item2);
         Item item3 = new Item(3, "쉐어버터", true, true, false);
         arrayList.add(item3);
         Item item4 = new Item(4, "탄산수", false, true, false);
-        arrayList.add(item4);
+        arrayList.add(item4);*/
     }//inputData
+
+    public void actionBar(){
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
 }//ResultModification

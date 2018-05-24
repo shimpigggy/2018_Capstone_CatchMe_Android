@@ -14,10 +14,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
@@ -29,6 +32,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by ShimPiggy on 2018-05-07.
  * Modified by ShimPiggy on 2018-05-09. - Camera
  * Modified by ShimPiggy on 2018-05-19. - modify changed design and control
+ * Modified by ShimPiggy on 2018-05-23. - image
  */
 
 public class Fragment_Search extends Fragment {
@@ -39,10 +43,10 @@ public class Fragment_Search extends Fragment {
     private Uri mImageCaptureUri;
     private Uri fileUri;
 
-    private Button btn_name;
-    private Button btn_detail;
-    private Button btn_barcode;
-    private Button btn_wirte;
+    private ImageButton btn_name;
+    private ImageButton btn_detail;
+    private ImageButton btn_barcode;
+    private ImageButton btn_wirte;
 
     public Fragment_Search() {
     }
@@ -63,10 +67,11 @@ public class Fragment_Search extends Fragment {
     }
 
     public void Init(View view) {
-        btn_name = (Button) view.findViewById(R.id.btn_name);//제품명
-        btn_detail = (Button) view.findViewById(R.id.btn_detail);//화학성분
-        btn_barcode = (Button) view.findViewById(R.id.btn_barcode);
-        btn_wirte = (Button) view.findViewById(R.id.btn_write);//직접 쓰기
+        btn_name = (ImageButton) view.findViewById(R.id.btn_name);//제품명
+        btn_detail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
+        btn_barcode = (ImageButton) view.findViewById(R.id.btn_barcode);
+        btn_wirte = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
+
     }//init
 
     public void buttonSetting() {

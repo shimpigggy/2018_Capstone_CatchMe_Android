@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.result.check;
 
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 /*
  * Created by ShimPiggy on 2018-05-14. - View
  * Modified by ShimPiggy on 2018-05-09 - receive info from ResultModification
+ * Modified by ShimPiggy on 2018-05-23 - actionBar, image
  */
 
 public class ResultCheck extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class ResultCheck extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar();
         setContentView(R.layout.activity_result_check);
 
         init();
@@ -46,4 +49,9 @@ public class ResultCheck extends AppCompatActivity {
     public void inputData() {
 
     }//inputData
+
+    public void actionBar(){
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
 }
