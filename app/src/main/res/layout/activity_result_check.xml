@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/textTitle"
@@ -46,7 +47,7 @@
             android:layout_weight="1"
             android:gravity="end"
             android:padding="10dp"
-            android:src="@drawable/list_check_yellow" />
+            android:src="@drawable/check_yellow" />
 
         <TextView
             android:layout_width="0dp"
@@ -65,7 +66,7 @@
             android:layout_weight="1"
             android:gravity="end"
             android:padding="10dp"
-            android:src="@drawable/list_check_pink" />
+            android:src="@drawable/check_pink" />
 
         <TextView
             android:layout_width="0dp"
@@ -84,7 +85,7 @@
             android:layout_weight="1"
             android:gravity="end"
             android:padding="10dp"
-            android:src="@drawable/list_check_blue" />
+            android:src="@drawable/check_blue" />
 
         <TextView
             android:layout_width="0dp"

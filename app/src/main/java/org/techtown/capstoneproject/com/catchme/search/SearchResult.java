@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.com.catchme.search;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar();
         setContentView(R.layout.activity_search_result);
 
         init();
@@ -84,6 +86,11 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
         apiService = retrofit.create(ApiService_Chemical.class);
     }
+
+    public void actionBar(){
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
 
     @Override
     public void onClick(View v) {

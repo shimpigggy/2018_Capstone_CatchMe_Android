@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@drawable/background">
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_name"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -13,9 +13,11 @@
         android:layout_marginTop="140dp"
 
         android:background="@color/white"
-        android:text="@string/search_product_name" />
+        android:scaleType="fitCenter"
 
-    <Button
+        android:src="@drawable/tab2_name" />
+
+    <ImageButton
         android:id="@+id/btn_detail"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -25,21 +27,24 @@
         android:layout_toRightOf="@id/btn_name"
 
         android:background="@color/white"
-        android:text="@string/search_product_chemi" />
+        android:scaleType="fitCenter"
 
-    <Button
+        android:src="@drawable/tab2_detail"/>
+
+    <ImageButton
         android:id="@+id/btn_barcode"
         android:layout_width="100dp"
         android:layout_height="100dp"
 
-        android:layout_below="@id/btn_name"
         android:layout_alignLeft="@id/btn_name"
+        android:layout_below="@id/btn_name"
         android:layout_marginTop="20dp"
 
         android:background="@color/white"
-        android:text="@string/search_product_barcode" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/tab2_barcode"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_write"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -50,5 +55,7 @@
         android:layout_toRightOf="@id/btn_name"
 
         android:background="@color/white"
-        android:text="@string/search_product_write" />
+        android:scaleType="fitCenter"
+
+        android:src="@drawable/tab2_write"/>
 </RelativeLayout>

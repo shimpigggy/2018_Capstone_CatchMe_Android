@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.tab.tab3_self;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import org.techtown.capstoneproject.R;
 
 /*
  * Created by ShimPiggy on 2018-05-19.
+ *  Modified by ShimPiggy on 2018-05-23. -modify
  */
 
 public class Filtering extends AppCompatActivity implements View.OnClickListener {
@@ -22,30 +24,38 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
 
     private boolean[] flags;
 
+    private final int textviewCount = 7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar();
         setContentView(R.layout.activity_filtering);
 
         init();
         buttonClick();
     }//onCreate
 
+    public void actionBar(){
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
+
     public void init() {
-        tvs = new TextView[9];
+        tvs = new TextView[textviewCount];
         textViewInit();
 
         SharedPreferences filtering = getSharedPreferences("filtering", MODE_PRIVATE);
 
         ib_check = (ImageButton) findViewById(R.id.check);
 
-        flags = new boolean[9];
-        for (int i = 0; i < 9; i++) {
+        flags = new boolean[textviewCount];
+        for (int i = 0; i < textviewCount; i++) {
             if (!filtering.getBoolean("flags" + i + "", false))
                 flags[i] = true;
             else
                 flags[i] = false;
-            textViewCheck(i + 1);
+            textViewCheck(i);
         }
     }//init
 
@@ -67,7 +77,7 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
         SharedPreferences filtering = getSharedPreferences("filtering", MODE_PRIVATE);
         SharedPreferences.Editor editor = filtering.edit();
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < textviewCount; i++) {
             editor.putBoolean("flags" + i + "", flags[i]);
         }
         editor.commit();
@@ -89,10 +99,8 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
         tvs[4] = (TextView) findViewById(R.id.type5);
         tvs[5] = (TextView) findViewById(R.id.type6);
         tvs[6] = (TextView) findViewById(R.id.type7);
-        tvs[7] = (TextView) findViewById(R.id.type8);
-        tvs[8] = (TextView) findViewById(R.id.type9);
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < textviewCount; i++)
             tvs[i].setOnClickListener(this);
     }//textViewInit
 
@@ -120,18 +128,12 @@ public class Filtering extends AppCompatActivity implements View.OnClickListener
             case R.id.type7:
                 textViewCheck(6);
                 break;
-            case R.id.type8:
-                textViewCheck(7);
-                break;
-            case R.id.type9:
-                textViewCheck(8);
-                break;
         }
     }//onClick
 
     public void textViewCheck(int arrayposition) {
         if (!flags[arrayposition]) {
-            tvs[arrayposition].setBackgroundColor(Filtering.this.getResources().getColor(R.color.filtering));
+            tvs[arrayposition].setBackgroundColor(Filtering.this.getResources().getColor(R.color.mainColor));
             tvs[arrayposition].setTextColor(Filtering.this.getResources().getColor(R.color.white));
             flags[arrayposition] = true;
         } else {

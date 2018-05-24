@@ -8,5 +8,5 @@
         android:id="@+id/fruitImageView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitXY" />
 </RelativeLayout>

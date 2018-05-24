@@ -12,10 +12,10 @@ import retrofit2.http.Query;
 
 public interface ApiService_Chemical {
     public final String PORT = "8080";
-    public final String IP = "192.168.137.1:" + PORT;
+    public final String IP = "kalin.iptime.org:" + PORT;
 
-    // public static final String API_URL = "http://"+IP+"/catchme/chemical/";
-    public static final String API_URL = "http://192.168.137.1:8080/catchme/chemical/";
+    public static final String API_URL = "http://"+IP+"/catchme/chemical/";
+    //public static final String API_URL = "http://kalin.iptime.org:8080/catchme/chemical/";
 
     /*
     @GET("api주소")

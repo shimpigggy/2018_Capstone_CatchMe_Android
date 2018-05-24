@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="@color/white"
     android:orientation="horizontal"
-
     android:paddingBottom="5dp">
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_weight="1.5"
         android:background="#00000000"
         android:gravity="right"
-        android:src="@drawable/list_nodify_mark" />
+        android:src="@drawable/result_next_modify" />
 
     <ImageButton
         android:id="@+id/delete"
@@ -40,5 +40,5 @@
         android:layout_weight="1.5"
         android:background="#00000000"
         android:gravity="right"
-        android:src="@drawable/list_x_mark" />
+        android:src="@drawable/modification_delete" />
 </LinearLayout>

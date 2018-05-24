@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject.com.catchme.search;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -32,6 +33,7 @@ public class WriteChemical extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar();
         setContentView(R.layout.activity_write_chemical);
 
         actv = (AutoCompleteTextView) findViewById(R.id.actv);
@@ -79,4 +81,9 @@ public class WriteChemical extends AppCompatActivity {
             //tab에서 온 경우
         }
     }//getIntentValue
+
+    public void actionBar(){
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
 }

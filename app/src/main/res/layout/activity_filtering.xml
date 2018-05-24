@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".tab.tab3_self.Filtering">
 
     <TextView
@@ -149,51 +150,17 @@
             android:textAlignment="center"
             android:textSize="20sp"/>
 
-        <TextView
-            android:id="@+id/type8"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-
-            android:layout_toRightOf="@id/type7"
-            android:layout_alignTop="@id/type7"
-            android:layout_marginLeft="20dp"
-
-            android:background="@drawable/filtering_border_base"
-
-            android:text="@string/filtering_type8"
-            android:paddingTop="35dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/type9"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-
-            android:layout_toRightOf="@id/type8"
-            android:layout_alignTop="@id/type7"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-
-            android:background="@drawable/filtering_border_base"
-
-            android:text="@string/filtering_type9"
-            android:paddingTop="35dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="20sp"/>
-
     </RelativeLayout>
 
     <ImageButton
         android:id="@+id/check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
 
         android:layout_centerHorizontal="true"
-        android:paddingBottom="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
         android:background="#00000000"
         android:src="@drawable/list_check_mark" />
 
