@@ -12,8 +12,8 @@ import android.os.Bundle;
 
 import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentEmail;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
-import org.techtown.capstoneproject.tab.second.search.Fragment_Search;
-import org.techtown.capstoneproject.tab.third.self.Fragment_Self;
+import org.techtown.capstoneproject.tab.second.search.FragmentSearch;
+import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
 
 /*
  * Created by ShimPiggy on 2018-04-27.
@@ -121,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.fragment_container, fragment1);
                 break;
             case SEARCH:
-                Fragment_Search fragment2 = new Fragment_Search();
+                FragmentSearch fragment2 = new FragmentSearch();
                 transaction.replace(R.id.fragment_container, fragment2);
                 break;
             case SELF:
-                Fragment_Self fragment3 = new Fragment_Self();
+                FragmentSelf fragment3 = new FragmentSelf();
                 transaction.replace(R.id.fragment_container, fragment3);
                 break;
             case EMAIL:

@@ -20,6 +20,20 @@
         android:textColor="@color/black"
         android:textSize="17dp" />
 
+    <ImageView
+        android:id="@+id/underline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/textTitle"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+
+        android:src="@drawable/underline"
+        />
+
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
@@ -57,7 +71,7 @@
             android:gravity="center_vertical"
             android:text="@string/result_check_yellow"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="0dp"
@@ -76,7 +90,7 @@
             android:gravity="center"
             android:text="@string/result_check_pink"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="0dp"
@@ -95,6 +109,6 @@
             android:gravity="center"
             android:text="@string/result_check_blue"
             android:textColor="#FFFFFF"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

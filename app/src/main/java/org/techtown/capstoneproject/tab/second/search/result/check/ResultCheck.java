@@ -1,6 +1,5 @@
 package org.techtown.capstoneproject.tab.second.search.result.check;
 
-
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +39,6 @@ public class ResultCheck extends AppCompatActivity {
 
         //receive info from ResultModification
         arrayList = (ArrayList<Item>) getIntent().getSerializableExtra("list");
-
 
         resultCheckAdapter = new ResultCheckAdapter(ResultCheck.this, arrayList);
         listView.setAdapter(resultCheckAdapter);
