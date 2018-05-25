@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.home;
+package org.techtown.capstoneproject.tab.third.self;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.tab.tab3_self.Filtering;
 
 /*
  * Created by ShimPiggy on 2018-05-19.

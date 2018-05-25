@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.com.catchme.search;
+package org.techtown.capstoneproject.tab.second.search;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.tab.second.search.result.SearchResult;
 
 /*
  * Created by ShimPiggy on 2018-05-07.

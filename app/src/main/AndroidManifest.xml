@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".com.catchme.search.SearchResult" />
-        <activity android:name=".result.modification.ResultModification" />
-        <activity android:name=".result.check.ResultCheck" />
-        <activity android:name=".tab.tab1_home.AboutUsActivity" />
-        <activity android:name=".com.catchme.search.WriteChemical" />
-        <activity android:name=".tab.tab3_self.Filtering"></activity>
+        <activity android:name=".tab.second.search.result.SearchResult" />
+        <activity android:name=".tab.second.search.result.modification.ResultModification" />
+        <activity android:name=".tab.second.search.result.check.ResultCheck" />
+        <activity android:name=".tab.first.home.AboutUsActivity" />
+        <activity android:name=".tab.second.search.WriteChemical" />
+        <activity android:name=".tab.third.self.Filtering"></activity>
     </application>
 
 </manifest>

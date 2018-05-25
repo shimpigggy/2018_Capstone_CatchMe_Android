@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.home;
+package org.techtown.capstoneproject.tab.second.search;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -14,17 +14,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
+import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -169,7 +167,7 @@ public class Fragment_Search extends Fragment {
     }//ButtonBarcodeListener
 
     public void ButtonWriteListener(View v) {
-        Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
         intent.putExtra("type","tab");
@@ -236,6 +234,11 @@ public class Fragment_Search extends Fragment {
 
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");//crop된 bitmap
+
+
+
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                    startActivity(intent);
                 }
 
                 // 임시 파일 삭제

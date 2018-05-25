@@ -10,10 +10,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.techtown.capstoneproject.tab.home.Fragment_Email;
-import org.techtown.capstoneproject.tab.home.Fragment_Home;
-import org.techtown.capstoneproject.tab.home.Fragment_Search;
-import org.techtown.capstoneproject.tab.home.Fragment_Self;
+import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentEmail;
+import org.techtown.capstoneproject.tab.first.home.FragmentHome;
+import org.techtown.capstoneproject.tab.second.search.Fragment_Search;
+import org.techtown.capstoneproject.tab.third.self.Fragment_Self;
 
 /*
  * Created by ShimPiggy on 2018-04-27.
@@ -36,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         actionBar();
-
         setContentView(R.layout.activity_main);
-
         permissionCheck();
 
         init();
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
     }
 
-    public void actionBar(){
+    public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (num) {
             case HOME:
-                Fragment_Home fragment1 = new Fragment_Home();
+                FragmentHome fragment1 = new FragmentHome();
                 transaction.replace(R.id.fragment_container, fragment1);
                 break;
             case SEARCH:
@@ -131,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.fragment_container, fragment3);
                 break;
             case EMAIL:
-                Fragment_Email fragment4 = new Fragment_Email();
+                FragmentEmail fragment4 = new FragmentEmail();
                 transaction.replace(R.id.fragment_container, fragment4);
                 break;
         }//switch

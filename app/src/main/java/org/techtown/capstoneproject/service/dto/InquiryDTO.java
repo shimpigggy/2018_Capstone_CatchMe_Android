@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.tab4_email;
+package org.techtown.capstoneproject.service.dto;
 
 /*
  * Created by ShimPiggy on 2018-05-21.
