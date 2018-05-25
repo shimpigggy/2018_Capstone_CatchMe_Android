@@ -1,26 +1,17 @@
-package org.techtown.capstoneproject.com.catchme.search;
+package org.techtown.capstoneproject.tab.second.search.result;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.server.ApiService_Chemical;
+import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

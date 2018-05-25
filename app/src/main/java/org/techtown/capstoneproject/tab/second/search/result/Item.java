@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result;
+package org.techtown.capstoneproject.tab.second.search.result;
 
 import java.io.Serializable;
 

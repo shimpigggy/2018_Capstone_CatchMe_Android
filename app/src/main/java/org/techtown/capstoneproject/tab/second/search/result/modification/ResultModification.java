@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result.modification;
+package org.techtown.capstoneproject.tab.second.search.result.modification;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.result.Item;
-import org.techtown.capstoneproject.result.check.ResultCheck;
-import org.techtown.capstoneproject.server.ApiService_Chemical;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
+import org.techtown.capstoneproject.tab.second.search.result.check.ResultCheck;
+import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 
 import java.io.IOException;
 import java.util.ArrayList;

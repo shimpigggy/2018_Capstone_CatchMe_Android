@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result.modification;
+package org.techtown.capstoneproject.tab.second.search.result.modification;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.com.catchme.search.WriteChemical;
-import org.techtown.capstoneproject.result.Item;
+import org.techtown.capstoneproject.tab.second.search.WriteChemical;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
 
 import java.util.ArrayList;
 

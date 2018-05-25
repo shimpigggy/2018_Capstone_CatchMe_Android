@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.tab1_home;
+package org.techtown.capstoneproject.tab.first.home;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

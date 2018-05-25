@@ -1,7 +1,7 @@
-package org.techtown.capstoneproject.server;
+package org.techtown.capstoneproject.service.api;
 
 import org.json.JSONObject;
-import org.techtown.capstoneproject.tab.tab4_email.InquiryDTO;
+import org.techtown.capstoneproject.service.dto.InquiryDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

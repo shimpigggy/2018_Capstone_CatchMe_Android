@@ -1,8 +1,7 @@
-package org.techtown.capstoneproject.tab.home;
+package org.techtown.capstoneproject.tab.fouth.inquiry;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,11 +17,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.result.modification.ResultModification;
-import org.techtown.capstoneproject.server.ApiService_Email;
-import org.techtown.capstoneproject.tab.tab4_email.InquiryDTO;
+import org.techtown.capstoneproject.service.api.ApiService_Email;
+import org.techtown.capstoneproject.service.dto.InquiryDTO;
+import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 
 import java.util.regex.Pattern;
 
@@ -40,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-public class Fragment_Email extends Fragment {
+public class FragmentEmail extends Fragment {
     Spinner spinner;
     ImageButton button_send;
     EditText editText_email;
@@ -51,7 +49,7 @@ public class Fragment_Email extends Fragment {
     Retrofit retrofit;
     ApiService_Email apiService;
 
-    public Fragment_Email() {
+    public FragmentEmail() {
     }
 
     @Override
@@ -67,8 +65,7 @@ public class Fragment_Email extends Fragment {
 
         button_send.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                dialog();
-                /*
+                // dialog();
                 //tab_email form check
                 String tab_email = editText_email.getText() + "";
 
@@ -93,7 +90,7 @@ public class Fragment_Email extends Fragment {
                 else {//tab_email check
                     editText_email.setText("");
                     Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }//onClick
         });//setOnClickListener
         return view;
@@ -167,15 +164,15 @@ public class Fragment_Email extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
                 clean();
 
-                //임시로 activity 로 가기
+                /*//임시로 activity 로 가기
                 Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
-                startActivity(intent);
+                startActivity(intent);*/
 
-                /*//끝나고 Home Tab으로 이동
+                //끝나고 Home Tab으로 이동
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment_Home fragment1 = new Fragment_Home();
+                FragmentHome fragment1 = new FragmentHome();
                 transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();*/
+                transaction.commit();
             }
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -187,4 +184,4 @@ public class Fragment_Email extends Fragment {
         AlertDialog dialog = ad.create();
         dialog.show();
     }//dialog
-}//Fragment_Email
+}//FragmentEmail

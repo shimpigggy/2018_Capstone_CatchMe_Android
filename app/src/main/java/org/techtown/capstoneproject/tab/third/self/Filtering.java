@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.tab3_self;
+package org.techtown.capstoneproject.tab.third.self;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;

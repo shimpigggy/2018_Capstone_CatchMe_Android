@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.home;
+package org.techtown.capstoneproject.tab.first.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
-import org.techtown.capstoneproject.tab.tab1_home.AboutUsActivity;
 import org.techtown.capstoneproject.R;
 
 /*
@@ -24,14 +22,14 @@ import org.techtown.capstoneproject.R;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-public class Fragment_Home extends Fragment {
+public class FragmentHome extends Fragment {
     private CarouselView carouselView;
     int[] carouselImage = {R.drawable.carousel_1, R.drawable.carousel_2, R.drawable.carousel_3, R.drawable.carousel_4, R.drawable.carousel_5};
 
     private ImageButton ib_aboutUs;
     private LinearLayout linearLayout;
 
-    public Fragment_Home() {
+    public FragmentHome() {
     }
 
     @Override

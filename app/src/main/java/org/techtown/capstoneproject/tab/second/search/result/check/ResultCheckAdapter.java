@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result.check;
+package org.techtown.capstoneproject.tab.second.search.result.check;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import org.techtown.capstoneproject.com.catchme.search.SearchResult;
-import org.techtown.capstoneproject.result.Item;
+import org.techtown.capstoneproject.tab.second.search.result.SearchResult;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
 import org.techtown.capstoneproject.R;
 /*
  * Created by ShimPiggy on 2018-05-14.

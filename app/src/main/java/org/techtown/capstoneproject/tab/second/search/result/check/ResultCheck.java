@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.result.check;
+package org.techtown.capstoneproject.tab.second.search.result.check;
 
 
 import android.support.v7.app.ActionBar;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.techtown.capstoneproject.result.Item;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
 import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;

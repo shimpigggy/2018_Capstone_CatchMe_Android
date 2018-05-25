@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.server;
+package org.techtown.capstoneproject.service.api;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
