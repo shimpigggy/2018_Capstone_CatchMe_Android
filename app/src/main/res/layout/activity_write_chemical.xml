@@ -36,6 +36,7 @@
                 android:hint="원하는 성분을 검색하세요"
                 android:maxLength="20"
                 android:singleLine="true" />
+
         </LinearLayout>
 
         <LinearLayout

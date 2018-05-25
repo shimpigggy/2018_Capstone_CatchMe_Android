@@ -1,7 +1,9 @@
 package org.techtown.capstoneproject.tab.second.search;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.AlertDialog;
@@ -21,8 +23,19 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
 import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,7 +46,7 @@ import static android.app.Activity.RESULT_OK;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-public class Fragment_Search extends Fragment {
+public class FragmentSearch extends Fragment {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
@@ -44,9 +57,11 @@ public class Fragment_Search extends Fragment {
     private ImageButton btn_name;
     private ImageButton btn_detail;
     private ImageButton btn_barcode;
-    private ImageButton btn_wirte;
+    private ImageButton btn_write;
 
-    public Fragment_Search() {
+    ArrayList<Item> arrayList;
+
+    public FragmentSearch() {
     }
 
     @Override
@@ -68,7 +83,7 @@ public class Fragment_Search extends Fragment {
         btn_name = (ImageButton) view.findViewById(R.id.btn_name);//제품명
         btn_detail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
         btn_barcode = (ImageButton) view.findViewById(R.id.btn_barcode);
-        btn_wirte = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
+        btn_write = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
     }//init
 
@@ -91,7 +106,7 @@ public class Fragment_Search extends Fragment {
             }
         });
 
-        btn_wirte.setOnClickListener(new Button.OnClickListener() {
+        btn_write.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 ButtonWriteListener(v);
             }
@@ -235,9 +250,10 @@ public class Fragment_Search extends Fragment {
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");//crop된 bitmap
 
-
+                    sendApi();
 
                     Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                    intent.putExtra("list", arrayList);
                     startActivity(intent);
                 }
 
@@ -310,4 +326,52 @@ public class Fragment_Search extends Fragment {
 
         return mediaFile;
     }//getOutputMediaFile
-}//Fragment_Search
+
+    public void sendApi(){
+        Retrofit retrofit =new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(ApiService_Chemical.API_URL).build();
+
+        ApiService_Chemical apiService= retrofit.create(ApiService_Chemical.class);
+
+        arrayList = new ArrayList<>();
+
+        Call<ResponseBody> getNameList = apiService.getNameList("");
+        getNameList.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //데이터가 받아지면 호출
+                try {
+                    String result = response.body().string();
+                    Log.e(">>>>>TEST", result);
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(result);
+                        Item[] items = new Item[jsonArray.length()];
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            items[i] = new Item();
+                            items[i].setNum(i+1);
+                            items[i].setName(jsonArray.getString(i));
+                            items[i].setBool(true,true,true);
+                            Log.e(">>>>>TEST", items[i].getName());
+                            arrayList.add(items[i]);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }//JSONArray
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }//IO
+            }//onResponse
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail", call.toString());
+                Log.e("Fail", "Fail");
+                //데이터가 받아지는 것이 실패
+            }//onFailure
+        });
+    }
+}//FragmentSearch
