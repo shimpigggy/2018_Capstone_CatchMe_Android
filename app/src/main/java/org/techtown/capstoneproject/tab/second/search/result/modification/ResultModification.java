@@ -66,17 +66,24 @@ public class ResultModification extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         im_check = (ImageButton) findViewById(R.id.check);
 
-        arrayList = (ArrayList<Item>) getIntent().getSerializableExtra("list");
+        //arrayList = (ArrayList<Item>) getIntent().getSerializableExtra("list");
+        arrayList = new ArrayList<>();
 
         resultModificationAdapter = new ResultModificationAdapter(ResultModification.this, arrayList);
         listView.setAdapter(resultModificationAdapter);
     }
 
     public void inputData() {
+        //임시 데이터
+        Item[] items = new Item[5];
 
+        for (int i = 0; i < items.length; i++) {
+            items[i] = new Item(i + 1, "asdf",true,true,true);
+            arrayList.add(items[i]);
+        }
     }//inputData
 
-    public void actionBar(){
+    public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }//actionBar

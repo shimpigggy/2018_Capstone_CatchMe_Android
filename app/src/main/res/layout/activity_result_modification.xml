@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context=".tab.second.search.result.modification.ResultModification">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1.5"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
 
         android:text="@string/result_title"
         android:textColor="@color/black"
-        android:textSize="17dp" />
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/underline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/title"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="5dp"
+
+        android:src="@drawable/underline" />
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
 
-        android:layout_weight="8"
+        android:layout_below="@id/underline"
+        android:layout_above="@id/check"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
 
         android:choiceMode="singleChoice"
-        android:divider="#00000000"
-
-        android:dividerHeight="15dp"
+        android:divider="@color/background_remove"
+        android:dividerHeight="20dp"
         android:scrollbars="vertical" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5">
+    <ImageButton
+        android:id="@+id/check"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
 
-        <ImageButton
-            android:id="@+id/check"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:background="#00000000"
-            android:src="@drawable/tab4_check" />
-    </RelativeLayout>
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
 
-</LinearLayout>
+        android:background="#00000000"
+        android:src="@drawable/tab4_check" />
+</RelativeLayout>
+

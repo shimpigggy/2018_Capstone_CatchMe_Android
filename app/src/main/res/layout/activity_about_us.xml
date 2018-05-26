@@ -35,7 +35,6 @@
 
         android:src="@drawable/underline" />
 
-
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="wrap_content"
