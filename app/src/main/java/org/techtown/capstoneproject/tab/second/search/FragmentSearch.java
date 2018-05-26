@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 import org.techtown.capstoneproject.tab.second.search.result.Item;
@@ -59,6 +60,8 @@ public class FragmentSearch extends Fragment {
     private ImageButton btn_barcode;
     private ImageButton btn_wirte;
 
+    private Retrofit retrofit;
+    private ApiService_Chemical apiService_chemical;
     ArrayList<Item> arrayList;
 
     public FragmentSearch() {
@@ -75,6 +78,7 @@ public class FragmentSearch extends Fragment {
 
         Init(view);
         buttonSetting();
+        getChemicalNameList();
 
         return view;
     }
@@ -86,6 +90,40 @@ public class FragmentSearch extends Fragment {
         btn_wirte = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
     }//init
+
+    //자동완성을 위한 성분리스트 전체 항목을 불러온다.
+    private void getChemicalNameList() {
+        if (WriteChemical.item == null) {
+
+            retrofit = new Retrofit.Builder().baseUrl(ApiService_Chemical.API_URL).build();
+            apiService_chemical = retrofit.create(ApiService_Chemical.class);
+            Call<ResponseBody> getList = apiService_chemical.getNameList("!");
+            getList.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String tempList = response.body().string();
+                        JSONObject jsonObject = new JSONObject(tempList);
+                        WriteChemical.item = new String[jsonObject.length()];
+                        for (int i = 0; i < jsonObject.length(); i++) {
+                            WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
+                        }
+
+
+                    } catch (IOException e) {
+                        Log.i("retrofiError", e.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+    }
 
     public void buttonSetting() {
         btn_name.setOnClickListener(new Button.OnClickListener() {
