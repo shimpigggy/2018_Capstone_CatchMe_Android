@@ -9,8 +9,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
-import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentEmail;
+import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentInquiry;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 import org.techtown.capstoneproject.tab.second.search.FragmentSearch;
 import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
@@ -21,15 +24,20 @@ import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
  * Modified by ShimPiggy on 2018-05-08. - Tab Host -> Tab Layout
  * Modified by ShimPiggy on 2018-05-20. - ViewPager -> FrameLayout
  * Modified by ShimPiggy on 2018-05-23. - Image, actionbar
+ * Modified by ShimPiggy on 2018-05-26. - icon resize
  */
 
 public class MainActivity extends AppCompatActivity {
     private final int HOME = 1;
     private final int SEARCH = 2;
     private final int SELF = 3;
-    private final int EMAIL = 4;
+    private final int INQUIRY = 4;
 
-    private TabLayout tabLayout;
+    public static TabLayout tabLayout;
+    private View home;
+    private View search;
+    private View self;
+    private View inquiry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         permissionCheck();
 
         init();
-        tabAdd();
 
         callFragment(HOME);
 
@@ -48,39 +55,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (Integer.parseInt(tab.getTag().toString())) {
-                    case HOME:
-                        tab.setIcon(R.drawable.tab_home_select);
-                        break;
-                    case SEARCH:
-                        tab.setIcon(R.drawable.tab_search_select);
-                        break;
-                    case SELF:
-                        tab.setIcon(R.drawable.tab_self_select);
-                        break;
-                    case EMAIL:
-                        tab.setIcon(R.drawable.tab_email_select);
-                        break;
-                }
                 callFragment(Integer.parseInt(tab.getTag() + ""));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                switch (Integer.parseInt(tab.getTag().toString())) {
-                    case HOME:
-                        tab.setIcon(R.drawable.tab_home);
-                        break;
-                    case SEARCH:
-                        tab.setIcon(R.drawable.tab_search);
-                        break;
-                    case SELF:
-                        tab.setIcon(R.drawable.tab_self);
-                        break;
-                    case EMAIL:
-                        tab.setIcon(R.drawable.tab_email);
-                        break;
-                }
             }//onTabUnselected
 
             @Override
@@ -88,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });//addOnTabSelectedListener
     }//onCreate
+
+    public void actionBar() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }
 
     public void permissionCheck() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
@@ -98,18 +82,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        setIconSize();
+        tabAdd();
     }
+    private View getTabView(int imgDrawable) {
+        View view = getLayoutInflater().inflate(R.layout.tabicon_setting, null);
+        ImageView imgTab = (ImageView) view.findViewById(R.id.icon);
+        imgTab.setImageDrawable(getResources().getDrawable(imgDrawable));
 
-    public void actionBar() {
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar);
+        return view;
     }
+    public void setIconSize() {
+        home =  getTabView(R.drawable.tab_home_selector);
+        search = getTabView(R.drawable.tab_search_selector);
+        self = getTabView(R.drawable.tab_self_selector);
+        inquiry = getTabView(R.drawable.tab_inquiry_selector);
+;    }
 
     public void tabAdd() {
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_home_select).setTag(HOME));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_search).setTag(SEARCH));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_self).setTag(SELF));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tab_email).setTag(EMAIL));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(home).setTag(HOME));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(search).setTag(SEARCH));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(self).setTag(SELF));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(inquiry).setTag(INQUIRY));
     }//tabAdd
 
     private void callFragment(int num) {
@@ -128,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
                 FragmentSelf fragment3 = new FragmentSelf();
                 transaction.replace(R.id.fragment_container, fragment3);
                 break;
-            case EMAIL:
-                FragmentEmail fragment4 = new FragmentEmail();
+            case INQUIRY:
+                FragmentInquiry fragment4 = new FragmentInquiry();
                 transaction.replace(R.id.fragment_container, fragment4);
                 break;
         }//switch

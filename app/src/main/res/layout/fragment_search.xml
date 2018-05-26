@@ -4,58 +4,62 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <ImageButton
-        android:id="@+id/btn_name"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="140dp"
+        <ImageButton
+            android:id="@+id/btn_name"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
-        android:background="@color/white"
-        android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
 
-        android:src="@drawable/tab2_name" />
+            android:src="@drawable/tab2_name" />
 
-    <ImageButton
-        android:id="@+id/btn_detail"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        <ImageButton
+            android:id="@+id/btn_detail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
-        android:layout_alignTop="@id/btn_name"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/btn_name"
+            android:layout_alignTop="@id/btn_name"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/btn_name"
 
-        android:background="@color/white"
-        android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
 
-        android:src="@drawable/tab2_detail"/>
+            android:src="@drawable/tab2_detail" />
 
-    <ImageButton
-        android:id="@+id/btn_barcode"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        <ImageButton
+            android:id="@+id/btn_barcode"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
-        android:layout_alignLeft="@id/btn_name"
-        android:layout_below="@id/btn_name"
-        android:layout_marginTop="20dp"
+            android:layout_alignLeft="@id/btn_name"
+            android:layout_below="@id/btn_name"
+            android:layout_marginTop="20dp"
 
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        android:src="@drawable/tab2_barcode"/>
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/tab2_barcode" />
 
-    <ImageButton
-        android:id="@+id/btn_write"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        <ImageButton
+            android:id="@+id/btn_write"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
-        android:layout_below="@id/btn_name"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/btn_name"
+            android:layout_below="@id/btn_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/btn_name"
 
-        android:background="@color/white"
-        android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
 
-        android:src="@drawable/tab2_write"/>
+            android:src="@drawable/tab2_write" />
+    </RelativeLayout>
 </RelativeLayout>

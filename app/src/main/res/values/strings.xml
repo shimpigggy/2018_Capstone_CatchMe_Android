@@ -9,7 +9,7 @@
     <string name="home_context3">캐치미의 데이터 베이스는 화장품 협회,NCIS, NITE, USA</string>
     <string name="home_context4">및 식약청에서 제공, 가공하여 사용하고 있습니다.</string>
     <string name="home_copyright">Copyrights. Sejong Univ. capstone Team #7</string>
-    
+
     <string name="email_success">문의가 완료되었습니다.</string>
     <string name="email_fail">해당 입력에 대해 다시 확인해주세요.</string>
     <string name="email_server_fail">다시 보내기 버튼을 눌러주세요.</string>
@@ -33,4 +33,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_custom_dialog">CustomDialog</string>
 </resources>

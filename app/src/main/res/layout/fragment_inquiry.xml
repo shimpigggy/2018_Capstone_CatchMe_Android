@@ -56,17 +56,17 @@
 
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:background="@drawable/border_base"
 
-            android:hint="이메일을 입력하세요."
+            android:hint="| 이메일을 입력하세요."
             android:textSize="15sp"
             android:inputType="textEmailAddress"
             android:paddingRight="70dp" />
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -91,7 +91,7 @@
         android:layout_marginTop="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/border_base"
 
         android:hint="제목"
@@ -108,11 +108,11 @@
         android:layout_above="@id/bottom"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:background="@drawable/border_base"
 
         android:gravity="top"
-        android:hint="내용 입력"
+        android:hint="| 내용 입력하세요."
         android:textSize="15sp"
         android:inputType="textImeMultiLine"
         android:lines="10"

@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CapstoneProject.iml" filepath="$PROJECT_DIR$/CapstoneProject.iml" />
-      <module fileurl="file://C:\Users\shimp\Desktop\Android Project\capstoneproject\CapstoneProject.iml" filepath="C:\Users\shimp\Desktop\Android Project\capstoneproject\CapstoneProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\shimp\Desktop\Android Project\capstoneproject\app\app.iml" filepath="C:\Users\shimp\Desktop\Android Project\capstoneproject\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/capstoneproject.iml" filepath="$PROJECT_DIR$/capstoneproject.iml" />
     </modules>
   </component>
 </project>

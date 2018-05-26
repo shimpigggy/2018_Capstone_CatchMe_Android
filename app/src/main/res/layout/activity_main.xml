@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
         <ImageView
@@ -18,11 +19,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
 
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabGravity="fill"
+            android:background="@color/background_remove"
+            android:maxHeight="?attr/actionBarSize"
+            app:tabIndicatorColor="@color/mainColor"
+            app:tabIndicatorHeight="4dp"
 
+            app:tabGravity="fill"
+            app:tabPaddingStart="-1dp"
+            app:tabPaddingEnd="-1dp"
             app:tabMode="fixed" />
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
