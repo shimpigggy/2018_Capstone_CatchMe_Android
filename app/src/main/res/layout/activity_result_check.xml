@@ -1,114 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1.5"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
 
         android:text="@string/result_check_title"
         android:textColor="@color/black"
-        android:textSize="17dp" />
+        android:textSize="25sp" />
 
     <ImageView
         android:id="@+id/underline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_below="@id/textTitle"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="80dp"
+        android:layout_below="@id/title"
         android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
 
-        android:src="@drawable/underline"
-        />
-
+        android:src="@drawable/underline" />
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
+        android:layout_height="match_parent"
 
-        android:layout_marginRight="10dp"
-        android:layout_weight="8"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/underline"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
 
         android:choiceMode="singleChoice"
+        android:divider="@color/background_remove"
+        android:dividerHeight="20dp"
+        android:scrollbars="vertical" />
 
-        android:divider="#00000000"
-        android:dividerHeight="15dp"
-        android:scrollbars="vertical"/>
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="#888888">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:padding="10dp"
-            android:src="@drawable/check_yellow" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:text="@string/result_check_yellow"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/yellow"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:padding="10dp"
-            android:src="@drawable/check_pink" />
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/result_check_pink"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+                android:scaleType="fitXY"
+                android:src="@drawable/check_yellow" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:padding="10dp"
-            android:src="@drawable/check_blue" />
+            <TextView
+                android:id="@+id/yellow_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/result_check_blue"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-    </LinearLayout>
-</LinearLayout>
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/yellow"
+                android:gravity="center_vertical"
+                android:paddingBottom="20dp"
+
+                android:paddingTop="20dp"
+                android:text="@string/result_check_yellow"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/pink"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/yellow_name"
+
+                android:scaleType="fitXY"
+                android:src="@drawable/check_pink" />
+
+            <TextView
+                android:id="@+id/pink_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/pink"
+                android:gravity="center_vertical"
+                android:paddingBottom="20dp"
+
+                android:paddingTop="20dp"
+                android:text="@string/result_check_pink"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/blue"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/pink_name"
+
+                android:scaleType="fitXY"
+                android:src="@drawable/check_blue" />
+
+            <TextView
+                android:id="@+id/blue_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/blue"
+                android:gravity="center_vertical"
+                android:paddingBottom="20dp"
+
+                android:paddingTop="20dp"
+                android:text="@string/result_check_blue"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

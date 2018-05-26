@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     android:background="@color/white"
-    android:orientation="horizontal"
-    android:paddingBottom="5dp">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/num"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:background="#E8E874"
+
+        android:padding="15dp"
+        android:layout_alignParentLeft="true"
+
+        android:background="@color/result_color"
+        android:textColor="@color/white"
         android:gravity="center" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:gravity="center" />
+
+        android:layout_toRightOf="@id/num"
+        android:layout_toLeftOf="@id/modify"
+        android:paddingLeft="30dp"
+
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        android:text="asdf"/>
 
     <ImageButton
         android:id="@+id/modify"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1.5"
-        android:background="#00000000"
-        android:gravity="right"
+
+        android:layout_toLeftOf="@id/delete"
+
+        android:gravity="center"
+        android:background="@color/black"
         android:src="@drawable/result_next_modify" />
 
     <ImageButton
         android:id="@+id/delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1.5"
-        android:background="#00000000"
-        android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentRight="true"
+
+        android:gravity="center"
+        android:background="@color/background_remove"
         android:src="@drawable/modification_delete" />
-</LinearLayout>
+</RelativeLayout>

@@ -16,6 +16,7 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
 
 /*
  * Created by ShimPiggy on 2018-05-07.
@@ -56,7 +57,11 @@ public class FragmentHome extends Fragment {
         ib_aboutUs.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                goAboutUs();
+                //goAboutUs();
+
+                //임시
+                Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                startActivity(intent);
             }
         });
 

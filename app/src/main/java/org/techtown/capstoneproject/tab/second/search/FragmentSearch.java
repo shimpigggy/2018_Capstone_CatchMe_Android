@@ -58,7 +58,7 @@ public class FragmentSearch extends Fragment {
     private ImageButton btn_name;
     private ImageButton btn_detail;
     private ImageButton btn_barcode;
-    private ImageButton btn_wirte;
+    private ImageButton btn_write;
 
     private Retrofit retrofit;
     private ApiService_Chemical apiService_chemical;
@@ -87,8 +87,9 @@ public class FragmentSearch extends Fragment {
         btn_name = (ImageButton) view.findViewById(R.id.btn_name);//제품명
         btn_detail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
         btn_barcode = (ImageButton) view.findViewById(R.id.btn_barcode);
-        btn_wirte = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
+        btn_write = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
+       // arrayList = new ArrayList<>();
     }//init
 
     //자동완성을 위한 성분리스트 전체 항목을 불러온다.
@@ -105,10 +106,10 @@ public class FragmentSearch extends Fragment {
                         String tempList = response.body().string();
                         JSONObject jsonObject = new JSONObject(tempList);
                         WriteChemical.item = new String[jsonObject.length()];
+
                         for (int i = 0; i < jsonObject.length(); i++) {
                             WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
                         }
-
 
                     } catch (IOException e) {
                         Log.i("retrofiError", e.getMessage());
@@ -144,7 +145,7 @@ public class FragmentSearch extends Fragment {
             }
         });
 
-        btn_wirte.setOnClickListener(new Button.OnClickListener() {
+        btn_write.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 ButtonWriteListener(v);
             }
@@ -176,8 +177,8 @@ public class FragmentSearch extends Fragment {
         };
 
         new AlertDialog.Builder(getActivity())
-                .setTitle("업로드할 이미지 선택")
-                .setPositiveButton("사진촬영", cameraListener)
+                .setTitle("사진 촬영을 하겠습니다.")
+                .setPositiveButton("확인", cameraListener)
                 //       .setNeutralButton("앨범선택", albumListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
@@ -208,8 +209,8 @@ public class FragmentSearch extends Fragment {
         };
 
         new AlertDialog.Builder(getActivity())
-                .setTitle("업로드할 이미지 선택")
-                .setPositiveButton("사진촬영", cameraListener)
+                .setTitle("사진 촬영을 하겠습니다.")
+                .setPositiveButton("확인", cameraListener)
                 //       .setNeutralButton("앨범선택", albumListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
@@ -288,10 +289,10 @@ public class FragmentSearch extends Fragment {
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");//crop된 bitmap
 
-                    sendApi();
+                    // sendApi();
 
                     Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
-                    intent.putExtra("list", arrayList);
+                    //intent.putExtra("list", arrayList);
                     startActivity(intent);
                 }
 
@@ -372,8 +373,6 @@ public class FragmentSearch extends Fragment {
 
         ApiService_Chemical apiService = retrofit.create(ApiService_Chemical.class);
 
-        arrayList = new ArrayList<>();
-
         Call<ResponseBody> getNameList = apiService.getNameList("");
         getNameList.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -395,6 +394,9 @@ public class FragmentSearch extends Fragment {
                             Log.e(">>>>>TEST", items[i].getName());
                             arrayList.add(items[i]);
                         }
+
+                        for (int i = 0; i < arrayList.size(); i++)
+                            Log.e(">>>>>arrayList", arrayList.get(i).getName());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }//JSONArray
