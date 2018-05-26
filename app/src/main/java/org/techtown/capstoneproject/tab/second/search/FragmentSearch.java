@@ -57,7 +57,7 @@ public class FragmentSearch extends Fragment {
     private ImageButton btn_name;
     private ImageButton btn_detail;
     private ImageButton btn_barcode;
-    private ImageButton btn_write;
+    private ImageButton btn_wirte;
 
     ArrayList<Item> arrayList;
 
@@ -182,10 +182,10 @@ public class FragmentSearch extends Fragment {
     }//ButtonBarcodeListener
 
     public void ButtonWriteListener(View v) {
-      //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
-        intent.putExtra("type","tab");
+        intent.putExtra("type", "tab");
         startActivity(intent);
     }//ButtonWriteListener
 
@@ -322,17 +322,17 @@ public class FragmentSearch extends Fragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp+".jpg");
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp + ".jpg");
 
         return mediaFile;
     }//getOutputMediaFile
 
-    public void sendApi(){
-        Retrofit retrofit =new Retrofit.Builder()
+    public void sendApi() {
+        Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(ApiService_Chemical.API_URL).build();
 
-        ApiService_Chemical apiService= retrofit.create(ApiService_Chemical.class);
+        ApiService_Chemical apiService = retrofit.create(ApiService_Chemical.class);
 
         arrayList = new ArrayList<>();
 
@@ -351,9 +351,9 @@ public class FragmentSearch extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             items[i] = new Item();
-                            items[i].setNum(i+1);
+                            items[i].setNum(i + 1);
                             items[i].setName(jsonArray.getString(i));
-                            items[i].setBool(true,true,true);
+                            items[i].setBool(true, true, true);
                             Log.e(">>>>>TEST", items[i].getName());
                             arrayList.add(items[i]);
                         }
