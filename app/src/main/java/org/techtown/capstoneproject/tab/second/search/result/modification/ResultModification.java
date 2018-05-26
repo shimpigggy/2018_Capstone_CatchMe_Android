@@ -83,7 +83,7 @@ public class ResultModification extends AppCompatActivity {
 
     public void inputData() {
         //server
-        Call<ResponseBody> getNameList = apiService.getNameList("");
+        Call<ResponseBody> getNameList = apiService.getNameList("1");
         getNameList.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -131,7 +131,7 @@ public class ResultModification extends AppCompatActivity {
         arrayList.add(item4);*/
     }//inputData
 
-    public void actionBar(){
+    public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }//actionBar

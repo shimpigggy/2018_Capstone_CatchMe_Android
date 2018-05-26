@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,6 +29,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     RelativeLayout typeView;
     RelativeLayout typeViewResult;
     ImageView typeImage;
+    public static ChemicalDTO chemicalDTO;
 
     //server
     Retrofit retrofit;
@@ -40,10 +43,13 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        String word = intent.getStringExtra("gradiant");
-        Toast.makeText(this, word, Toast.LENGTH_SHORT).show();
+//        String word = intent.getStringExtra("gradiant");
+//        Toast.makeText(this, word, Toast.LENGTH_SHORT).show();
+        intent = getIntent();
+        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
+        Log.i("gg",chemicalDTO.toString());
 
-        getIntentInfo(intent);
+//        getIntentInfo(intent);
 
 
         typeView.setOnClickListener(new View.OnClickListener() {
@@ -70,15 +76,10 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         typeViewResult = (RelativeLayout) findViewById(R.id.type_result);
         typeImage = (ImageView) findViewById(R.id.type_image);
 
-        //server
-        retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(ApiService_Chemical.API_URL).build();
 
-        apiService = retrofit.create(ApiService_Chemical.class);
     }
 
-    public void actionBar(){
+    public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }//actionBar

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ImageView
+        android:layout_margin="0dp"
+        android:padding="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent "
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/actionbar"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/actionbar" />
 </RelativeLayout>
