@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="#00000000"
-            android:src="@drawable/list_check_mark" />
+            android:src="@drawable/tab4_check" />
     </RelativeLayout>
 
 </LinearLayout>

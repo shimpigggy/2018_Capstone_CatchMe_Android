@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -15,15 +15,28 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
 
-        android:gravity="center"
-        android:paddingRight="70dp"
-        android:paddingLeft="70dp"
         android:layout_marginTop="20dp"
-
         android:background="@drawable/underline_black"
+        android:gravity="center"
+        android:paddingLeft="70dp"
+
+        android:paddingRight="70dp"
         android:text="@string/home_title"
         android:textColor="@color/black"
         android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/underline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/title"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="5dp"
+
+        android:src="@drawable/underline" />
+
 
     <TextView
         android:id="@+id/sub_title"
@@ -34,22 +47,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
 
-        android:textSize="12sp"
         android:text="@string/home_subtitle"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/p1_text1"
         android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
 
         android:layout_below="@id/sub_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
 
-        android:textSize="12sp"
         android:text="캐치미는 '잡다' 라는 뜻의 'Catch'와"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p1_text2"
         android:layout_width="wrap_content"
@@ -59,9 +73,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="'아름다움' 의 뜻을 가진 '美' 를 합친 단어로,"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p1_text3"
         android:layout_width="wrap_content"
@@ -71,9 +86,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text=" '건강한 아름다움을 잡자' 는 의미를 담고 있습니다. "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
 
     <TextView
@@ -85,9 +100,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
 
-        android:textSize="12sp"
         android:text="캐치미는 화장품 내의 화학 성분을 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p2_text2"
         android:layout_width="wrap_content"
@@ -97,9 +113,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="분석, 정제하여 이해하기 쉬운 정보로 제공함으로써 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p2_text3"
         android:layout_width="wrap_content"
@@ -109,9 +126,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="사용자들의 현명한 화장품 선택에 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p2_text4"
         android:layout_width="wrap_content"
@@ -121,9 +139,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="도움을 주기 위한 모바일 어플리케이션입니다."
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
 
     <TextView
@@ -135,9 +153,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
 
-        android:textSize="12sp"
         android:text="정보 탐색의 편리성을 위하여"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p3_text2"
         android:layout_width="wrap_content"
@@ -147,9 +166,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="카메라를 이용한 검색 기능을 제공하고 있습니다."
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p3_text3"
         android:layout_width="wrap_content"
@@ -159,9 +179,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="제품을 직접 촬영하여 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p3_text4"
         android:layout_width="wrap_content"
@@ -171,9 +192,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="포함된 성분 정보를 바로 제공받거나,"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p3_text5"
         android:layout_width="wrap_content"
@@ -183,9 +205,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="제품에 독립적으로 성분 촬영을 통해"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p3_text6"
         android:layout_width="wrap_content"
@@ -195,10 +218,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="정보를 확인할 수 있도록 제작되었습니다."
-        android:textColor="@color/black" />
-
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
 
     <TextView
@@ -210,9 +232,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
 
-        android:textSize="12sp"
         android:text="캐치미는 '대한 화장품 협회', '식약처' 뿐만 아니라 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p4_text2"
         android:layout_width="wrap_content"
@@ -222,9 +245,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="미국 '통합 위해 정보 시스템(IRIS)' 및"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p4_text3"
         android:layout_width="wrap_content"
@@ -234,9 +258,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text="일본 '공공 안전 단체(NITE)' 의 데이터베이스를 제공받아 "
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
     <TextView
         android:id="@+id/p4_text4"
         android:layout_width="wrap_content"
@@ -246,17 +271,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
 
-        android:textSize="12sp"
         android:text=" 가공하여 사용되고 있습니다."
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
 
         android:text="@string/home_copyright"

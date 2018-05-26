@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,7 +15,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.JsonToken;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +23,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.tab.second.search.result.Item;
 import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
 
 import okhttp3.ResponseBody;
@@ -43,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,7 +46,7 @@ import static android.app.Activity.RESULT_OK;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-public class Fragment_Search extends Fragment {
+public class FragmentSearch extends Fragment {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
@@ -64,51 +57,16 @@ public class Fragment_Search extends Fragment {
     private ImageButton btn_name;
     private ImageButton btn_detail;
     private ImageButton btn_barcode;
-    private ImageButton btn_wirte;
+    private ImageButton btn_write;
 
-    private Retrofit retrofit;
-    private ApiService_Chemical apiService_chemical;
+    ArrayList<Item> arrayList;
 
-    public Fragment_Search() {
+    public FragmentSearch() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getChemicalNameList();
-
-    }
-
-    //자동완성을 위한 성분리스트 전체 항목을 불러온다.
-    private void getChemicalNameList() {
-        if (WriteChemical.item == null) {
-
-            retrofit = new Retrofit.Builder().baseUrl(ApiService_Chemical.API_URL).build();
-            apiService_chemical = retrofit.create(ApiService_Chemical.class);
-            Call<ResponseBody> getList = apiService_chemical.getNameList("1");
-            getList.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String tempList = response.body().string();
-                        JSONObject jsonObject = new JSONObject(tempList);
-                        WriteChemical.item = new String[jsonObject.length()];
-                        for (int i = 0; i < jsonObject.length(); i++) {
-                            WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
-                        }
-                    } catch (IOException e) {
-                        Log.i("retrofiError", e.getMessage());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
-        }
     }
 
     @Override
@@ -224,10 +182,10 @@ public class Fragment_Search extends Fragment {
     }//ButtonBarcodeListener
 
     public void ButtonWriteListener(View v) {
-        //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
-        intent.putExtra("type", "tab");
+        intent.putExtra("type","tab");
         startActivity(intent);
     }//ButtonWriteListener
 
@@ -292,8 +250,10 @@ public class Fragment_Search extends Fragment {
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");//crop된 bitmap
 
+                    sendApi();
 
                     Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                    intent.putExtra("list", arrayList);
                     startActivity(intent);
                 }
 
@@ -362,8 +322,56 @@ public class Fragment_Search extends Fragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp + ".jpg");
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp+".jpg");
 
         return mediaFile;
     }//getOutputMediaFile
-}//Fragment_Search
+
+    public void sendApi(){
+        Retrofit retrofit =new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(ApiService_Chemical.API_URL).build();
+
+        ApiService_Chemical apiService= retrofit.create(ApiService_Chemical.class);
+
+        arrayList = new ArrayList<>();
+
+        Call<ResponseBody> getNameList = apiService.getNameList("");
+        getNameList.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //데이터가 받아지면 호출
+                try {
+                    String result = response.body().string();
+                    Log.e(">>>>>TEST", result);
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(result);
+                        Item[] items = new Item[jsonArray.length()];
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            items[i] = new Item();
+                            items[i].setNum(i+1);
+                            items[i].setName(jsonArray.getString(i));
+                            items[i].setBool(true,true,true);
+                            Log.e(">>>>>TEST", items[i].getName());
+                            arrayList.add(items[i]);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }//JSONArray
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }//IO
+            }//onResponse
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail", call.toString());
+                Log.e("Fail", "Fail");
+                //데이터가 받아지는 것이 실패
+            }//onFailure
+        });
+    }
+}//FragmentSearch

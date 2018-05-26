@@ -1,7 +1,16 @@
 package org.techtown.capstoneproject.tab.fouth.inquiry;
 
+/*
+ * Created by ShimPiggy on 2018-05-07.
+ * Modified by ShimPiggy on 2018-05-13. - modify view
+ * Modified by ShimPiggy on 2018-05-20. - tab_email form check, blank check
+ * Modified by ShimPiggy on 2018-05-21. - Server
+ * Modified by ShimPiggy on 2018-05-23. - image
+ */
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +30,7 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Email;
 import org.techtown.capstoneproject.service.dto.InquiryDTO;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
+import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
 
 import java.util.regex.Pattern;
 
@@ -29,14 +39,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-/*
- * Created by ShimPiggy on 2018-05-07.
- * Modified by ShimPiggy on 2018-05-13. - modify view
- * Modified by ShimPiggy on 2018-05-20. - tab_email form check, blank check
- * Modified by ShimPiggy on 2018-05-21. - Server
- * Modified by ShimPiggy on 2018-05-23. - image
- */
 
 public class FragmentEmail extends Fragment {
     Spinner spinner;
@@ -65,7 +67,8 @@ public class FragmentEmail extends Fragment {
 
         button_send.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                // dialog();
+                dialog();
+                /*
                 //tab_email form check
                 String tab_email = editText_email.getText() + "";
 
@@ -90,7 +93,7 @@ public class FragmentEmail extends Fragment {
                 else {//tab_email check
                     editText_email.setText("");
                     Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }//onClick
         });//setOnClickListener
         return view;
@@ -184,4 +187,4 @@ public class FragmentEmail extends Fragment {
         AlertDialog dialog = ad.create();
         dialog.show();
     }//dialog
-}//FragmentEmail
+}//Fragment_Email
