@@ -1,7 +1,9 @@
 package org.techtown.capstoneproject;
 
 import android.Manifest;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +20,9 @@ import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentInquiry;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 import org.techtown.capstoneproject.tab.second.search.FragmentSearch;
 import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /*
  * Created by ShimPiggy on 2018-04-27.
@@ -66,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });//addOnTabSelectedListener
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("org.techtown.capstoneproject", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
     }//onCreate
 
     public void actionBar() {
@@ -85,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         setIconSize();
         tabAdd();
     }
+
     private View getTabView(int imgDrawable) {
         View view = getLayoutInflater().inflate(R.layout.tabicon_setting, null);
         ImageView imgTab = (ImageView) view.findViewById(R.id.icon);
@@ -92,12 +113,14 @@ public class MainActivity extends AppCompatActivity {
 
         return view;
     }
+
     public void setIconSize() {
-        home =  getTabView(R.drawable.tab_home_selector);
+        home = getTabView(R.drawable.tab_home_selector);
         search = getTabView(R.drawable.tab_search_selector);
         self = getTabView(R.drawable.tab_self_selector);
         inquiry = getTabView(R.drawable.tab_inquiry_selector);
-;    }
+        ;
+    }
 
     public void tabAdd() {
         tabLayout.addTab(tabLayout.newTab().setCustomView(home).setTag(HOME));

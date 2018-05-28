@@ -34,4 +34,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_custom_dialog">CustomDialog</string>
+
+    <!--카카오톡 로그인 관련-->
+    <string name="kakao_app_key">05ef4b607b597e9619554e082a7fe51d</string>
 </resources>
