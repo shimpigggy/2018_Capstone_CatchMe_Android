@@ -18,9 +18,8 @@ import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
-import org.techtown.capstoneproject.tab.second.search.result.SearchResult;
+import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import okhttp3.ResponseBody;

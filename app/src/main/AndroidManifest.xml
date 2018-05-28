@@ -20,17 +20,16 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".tab.second.search.result.SearchResult" />
-        <activity android:name=".tab.second.search.result.modification.ResultModification" />
-        <activity android:name=".tab.second.search.result.check.ResultCheck" />
+        <activity android:name=".tab.second.search.result.modification.check.SearchResult" />
+        <activity android:name=".tab.second.search.result.modification.Modification" />
+        <activity android:name=".tab.second.search.result.modification.check.Check" />
         <activity android:name=".tab.first.home.AboutUsActivity" />
         <activity android:name=".tab.second.search.WriteChemical" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".KakaoSignupActivity" />
 
         <meta-data

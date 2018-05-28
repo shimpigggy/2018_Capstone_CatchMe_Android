@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.second.search.result;
+package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;

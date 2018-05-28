@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.second.search.result.check;
+package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -6,22 +6,22 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.techtown.capstoneproject.tab.second.search.result.Item;
+import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
 
 import java.util.ArrayList;
 
 /*
  * Created by ShimPiggy on 2018-05-14. - View
- * Modified by ShimPiggy on 2018-05-09 - receive info from ResultModification
+ * Modified by ShimPiggy on 2018-05-09 - receive info from Modification
  * Modified by ShimPiggy on 2018-05-23 - actionBar, image
  */
 
-public class ResultCheck extends AppCompatActivity {
+public class Check extends AppCompatActivity {
     ListView listView;
     TextView title;
-    ResultCheckAdapter resultCheckAdapter;
-    ArrayList<Item> arrayList;
+    CheckAdapter checkAdapter;
+    ArrayList<TestDTO> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +30,17 @@ public class ResultCheck extends AppCompatActivity {
         setContentView(R.layout.activity_result_check);
 
         init();
-
     }
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
-        // arrayList = new ArrayList<Item>();
+        // arrayList = new ArrayList<TestDTO>();
 
-        //receive info from ResultModification
-        arrayList = (ArrayList<Item>) getIntent().getSerializableExtra("list");
+        //receive info from Modification
+        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("list");
 
-        resultCheckAdapter = new ResultCheckAdapter(ResultCheck.this, arrayList);
-        listView.setAdapter(resultCheckAdapter);
+        checkAdapter = new CheckAdapter(Check.this, arrayList);
+        listView.setAdapter(checkAdapter);
     }//init
 
     public void inputData() {

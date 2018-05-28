@@ -28,8 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
-import org.techtown.capstoneproject.tab.second.search.result.Item;
-import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
+import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,7 +62,7 @@ public class FragmentSearch extends Fragment {
 
     private Retrofit retrofit;
     private ApiService_Chemical apiService_chemical;
-    ArrayList<Item> arrayList;
+    ArrayList<TestDTO> arrayList;
 
     public FragmentSearch() {
     }
@@ -291,7 +291,7 @@ public class FragmentSearch extends Fragment {
 
                     // sendApi();
 
-                    Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
                     //intent.putExtra("list", arrayList);
                     startActivity(intent);
                 }
@@ -384,10 +384,10 @@ public class FragmentSearch extends Fragment {
 
                     try {
                         JSONArray jsonArray = new JSONArray(result);
-                        Item[] items = new Item[jsonArray.length()];
+                        TestDTO[] items = new TestDTO[jsonArray.length()];
 
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            items[i] = new Item();
+                            items[i] = new TestDTO();
                             items[i].setNum(i + 1);
                             items[i].setName(jsonArray.getString(i));
                             items[i].setBool(true, true, true);

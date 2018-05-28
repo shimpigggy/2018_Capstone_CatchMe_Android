@@ -15,6 +15,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.Selection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +49,12 @@ public class FragmentInquiry extends Fragment {
     EditText editText_title;
     EditText editText_context;
 
+    private final int SUCCESS = 1;
+    private final int TITLE_X = 2;
+    private final int EMAIL_X = 3;
+    private final int SPINNER_X = 4;
+    private final int CONTEXT_X = 5;
+
     //server
     Retrofit retrofit;
     ApiService_Email apiService;
@@ -67,15 +75,8 @@ public class FragmentInquiry extends Fragment {
 
         button_send.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                dialog();
+                //   dialog(SUCCESS);
 
-                //끝나고 Home Tab으로 이동
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentHome fragment1 = new FragmentHome();
-                transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();
-
-                /*
                 //tab_inquiry form check
                 String tab_inquiry = editText_email.getText() + "";
 
@@ -84,23 +85,23 @@ public class FragmentInquiry extends Fragment {
                         if (!editText_title.getText().toString().equals(""))
                             if (!editText_context.getText().toString().equals("")) {
                                 // sendServeryInquiry();
-                                dialog();
+                                dialog(SUCCESS);
                             } else {//context X
-                                editText_context.setText("");
-                                Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
+                                dialog(CONTEXT_X);
+                                //  Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
                             }
                         else {//title X
-                            editText_title.setText("");
-                            Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
+                            dialog(TITLE_X);
+                            // Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
                         }
                     else {//spinner X
-                        spinner.setSelection(0);
-                        Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
+                        dialog(SPINNER_X);
+                        // Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
                     }
                 else {//tab_inquiry check
-                    editText_email.setText("");
-                    Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
-                }*/
+                    dialog(EMAIL_X);
+                    //Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
+                }
             }//onClick
         });//setOnClickListener
         return view;
@@ -121,18 +122,56 @@ public class FragmentInquiry extends Fragment {
         apiService = retrofit.create(ApiService_Email.class);
     }//init
 
+    //tab_inquiry 체크 함수
+    public boolean checkEmailForm(String src) {
+        String emailRegex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+        return Pattern.matches(emailRegex, src);
+    }//checkEmailForm
+
+    public void dialog(int distinction) {
+
+        String context="";
+        switch (distinction) {
+            case SUCCESS:
+                context = "문의가 완료되었습니다.";
+                clean();
+                break;
+            case TITLE_X:
+                context = "문의에 대한 제목이 없습니다.";
+
+                break;
+            case EMAIL_X:
+                context = "이메일 형식에 맞지 않습니다.\n다시 확인 바랍니다.";
+                Editable set = editText_email.getText();
+                Selection.setSelection(set,editText_email.length() );
+                break;
+            case SPINNER_X:
+                context = "문의에 대한 분류를 선택하지 않았습니다.";
+                break;
+            case CONTEXT_X:
+                context = "문의에 대한 내용이 없습니다,";
+                break;
+        }
+        /*
+            private final int SUCCESS = 1;
+    private final int TITLE_X = 2;
+    private final int EMAIL_X = 3;
+    private final int SPINNER_X = 4;
+    private final int CONTEXT_X = 5;
+        * */
+
+
+        CustomDialog oDialog = new CustomDialog(getContext(), context);
+        oDialog.setCancelable(false);
+        oDialog.show();
+    }//dialog
+
     public void clean() {
         editText_email.setText("");
         editText_title.setText("");
         editText_context.setText("");
         spinner.setSelection(0);
     }//clean
-
-    //tab_inquiry 체크 함수
-    public boolean checkEmailForm(String src) {
-        String emailRegex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
-        return Pattern.matches(emailRegex, src);
-    }//checkEmailForm
 
     public void sendServeryInquiry() {
         InquiryDTO dto = new InquiryDTO();
@@ -151,7 +190,7 @@ public class FragmentInquiry extends Fragment {
                 try {
                     String result = response.code() + "";
                     Log.e(">>>>>ONE", result);
-                    dialog();
+                    dialog(SUCCESS);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -164,50 +203,4 @@ public class FragmentInquiry extends Fragment {
             }//onFailure
         });
     }//sendServeryInquiry
-
-    public void dialog() {
-
-        CustomDialog oDialog = new CustomDialog(getContext(), "문의가 완료되었습니다.");
-        oDialog.setCancelable(false);
-        oDialog.show();
-
-      /*  //Dialog에서 보여줄 입력화면 View 객체 생성 작업
-        //Layout xml 리소스 파일을 View 객체로 부불려 주는(inflate) LayoutInflater 객체 생성
-        LayoutInflater inflater = getLayoutInflater();
-
-        //res폴더>>layout폴더>>dialog_addmember.xml 레이아웃 리소스 파일로 View 객체 생성
-        //Dialog의 listener에서 사용하기 위해 final로 참조변수 선언
-        final View dialogView = inflater.inflate(R.layout.tab4_dialog, null);
-
-        //멤버의 세부내역 입력 Dialog 생성 및 보이기
-        AlertDialog.Builder buider = new AlertDialog.Builder(getActivity()); //AlertDialog.Builder 객체 생성
-        buider.setView(dialogView); //위에서 inflater가 만든 dialogView 객체 세팅 (Customize)
-
-        buider.setMessage("문의가 성공적으로 완료되었습니다.").setCancelable(false).setPositiveButton("", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity().getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
-                clean();
-
-                //끝나고 Home Tab으로 이동
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentHome fragment1 = new FragmentHome();
-                transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();
-            }
-        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                clean();
-            }
-        });
-
-        AlertDialog dialog = buider.create();
-
-        //Dialog의 바깥쪽을 터치했을 때 Dialog를 없앨지 설정
-        dialog.setCanceledOnTouchOutside(false);//없어지지 않도록 설정
-
-        dialog.show();*/
-
-    }//dialog
 }//Fragment_Email
