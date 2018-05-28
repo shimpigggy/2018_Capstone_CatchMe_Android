@@ -16,6 +16,8 @@ import android.widget.Toast;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
+import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
+import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentInquiry;
 
 /*
  * Created by ShimPiggy on 2018-05-19.
@@ -68,18 +70,16 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Change!", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(v.getContext(), "Change!", Toast.LENGTH_SHORT).show();
                 SharedPreferencesUtil.removeAllPreferences(getContext(), "filtering");
 
                 for (int i = 0; i < textviewCount; i++) {
                     SharedPreferencesUtil.saveBooleanPreferences(getContext(), "filtering", "flags" + i + "", flags[i]);
                 }
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FragmentHome fragment1 = new FragmentHome();
-                transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();
+                CustomDialog oDialog = new CustomDialog(getContext(), "선택하신 필터링을 저장하였습니다.");
+                oDialog.setCancelable(false);
+                oDialog.show();
             }
         });
     }//buttonClick

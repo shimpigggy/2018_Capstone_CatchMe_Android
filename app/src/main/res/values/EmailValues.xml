@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="Email">
+    <string-array name="Inquiry">
         <item >분류</item>
         <item >문의</item>
         <item >수정</item>
         <item >추가</item>
+        <item >기타</item>
     </string-array>
 </resources>

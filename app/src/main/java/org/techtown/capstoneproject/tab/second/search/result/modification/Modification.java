@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -36,14 +37,13 @@ public class Modification extends AppCompatActivity {
         setContentView(R.layout.activity_result_modification);
 
         init();
-        inputData();
 
         im_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Check.class);
 
-                intent.putExtra("list", arrayList);
+                intent.putExtra("result", arrayList);
 
                 startActivity(intent);
             }
@@ -54,22 +54,11 @@ public class Modification extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         im_check = (ImageButton) findViewById(R.id.check);
 
-        //arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("list");
-        arrayList = new ArrayList<>();
+        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
 
         resultModificationAdapter = new ModificationAdapter(Modification.this, arrayList);
         listView.setAdapter(resultModificationAdapter);
     }
-
-    public void inputData() {
-        //임시 데이터
-        TestDTO[] items = new TestDTO[5];
-
-        for (int i = 0; i < items.length; i++) {
-            items[i] = new TestDTO(i + 1, "asdf",true,true,true);
-            arrayList.add(items[i]);
-        }
-    }//inputData
 
     public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

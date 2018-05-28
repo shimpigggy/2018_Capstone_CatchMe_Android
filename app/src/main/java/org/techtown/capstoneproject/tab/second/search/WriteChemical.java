@@ -54,15 +54,11 @@ public class WriteChemical extends AppCompatActivity {
 
         Toast.makeText(this, Arrays.toString(item), Toast.LENGTH_SHORT).show();
 
-        actv = (AutoCompleteTextView) findViewById(R.id.actv);
-        layout = (LinearLayout) findViewById(R.id.mainview);
-        topView = (LinearLayout) findViewById(R.id.topview);
-        TextView tv = (TextView) findViewById(R.id.tv);
-        SearchResult.chemicalDTO = new ChemicalDTO();
+        init();//전역 함수에 대한 초기화
 
         tv.setText(Arrays.toString(item));
         intent = getIntent();
-        // getIntentInfo(intent);
+        //getIntentInfo(intent);// 어디서 부터 이 activity를 넘겨 왔는지 알려주는 함수
 
         topView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -124,6 +120,15 @@ public class WriteChemical extends AppCompatActivity {
             }
         });
     }//onCreate
+
+    public void init() {
+        actv = (AutoCompleteTextView) findViewById(R.id.actv);
+        layout = (LinearLayout) findViewById(R.id.mainview);
+        topView = (LinearLayout) findViewById(R.id.topview);
+        TextView tv = (TextView) findViewById(R.id.tv);
+        SearchResult.chemicalDTO = new ChemicalDTO();
+
+    }
 
     public void getIntentInfo(Intent intent) {
         String type = intent.getStringExtra("type");
