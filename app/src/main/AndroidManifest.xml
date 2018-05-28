@@ -30,7 +30,8 @@
         <activity android:name=".tab.second.search.result.check.ResultCheck" />
         <activity android:name=".tab.first.home.AboutUsActivity" />
         <activity android:name=".tab.second.search.WriteChemical" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".KakaoSignupActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
