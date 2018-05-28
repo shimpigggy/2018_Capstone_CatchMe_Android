@@ -31,10 +31,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     ImageView typeImage;
     public static ChemicalDTO chemicalDTO;
 
-    //server
-    Retrofit retrofit;
-    ApiService_Chemical apiService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +39,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-//        String word = intent.getStringExtra("gradiant");
-//        Toast.makeText(this, word, Toast.LENGTH_SHORT).show();
         intent = getIntent();
-        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
-        Log.i("gg",chemicalDTO.toString());
-
-//        getIntentInfo(intent);
-
+    //    Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
+     //   Log.i("gg",chemicalDTO.toString());
 
         typeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +66,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         typeView = (RelativeLayout) findViewById(R.id.type);
         typeViewResult = (RelativeLayout) findViewById(R.id.type_result);
         typeImage = (ImageView) findViewById(R.id.type_image);
-
-
     }
 
     public void actionBar() {
@@ -96,36 +85,4 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         }
     }//onClick
 
-    public void getIntentInfo(Intent intent) {
-        String type = intent.getStringExtra("type");
-
-        if (type.equals("result_check")) {
-            //result_check 온 경우
-
-            Toast.makeText(this, intent.getStringExtra("name"), Toast.LENGTH_SHORT).show();
-
-            /*Call<ResponseBody> getInfo = apiService.getInfo(intent.getStringExtra("name"));
-            getInfo.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    //데이터가 받아지면 호출
-                    try {
-                        String result = response.body().string();
-                        Log.e(">>>>>TEST", result);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }//IO
-                }//onResponse
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e("Fail", call.toString());
-                    Log.e("Fail", "Fail");
-                    //데이터가 받아지는 것이 실패
-                }//onFailure
-            });//enqueue*/
-        }//if_ result_check
-
-    }//getIntentInfo
 }//SearchResult

@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -45,15 +46,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class FragmentInquiry extends Fragment {
     Spinner spinner;
     ImageButton button_send;
-    EditText editText_email;
+    TextView editText_email;
     EditText editText_title;
     EditText editText_context;
 
     private final int SUCCESS = 1;
     private final int TITLE_X = 2;
-    private final int EMAIL_X = 3;
-    private final int SPINNER_X = 4;
-    private final int CONTEXT_X = 5;
+    private final int SPINNER_X = 3;
+    private final int CONTEXT_X = 4;
 
     //server
     Retrofit retrofit;
@@ -78,29 +78,22 @@ public class FragmentInquiry extends Fragment {
                 //   dialog(SUCCESS);
 
                 //tab_inquiry form check
-                String tab_inquiry = editText_email.getText() + "";
-
-                if (checkEmailForm(tab_inquiry))
-                    if (spinner.getSelectedItemPosition() != 0)
-                        if (!editText_title.getText().toString().equals(""))
-                            if (!editText_context.getText().toString().equals("")) {
-                                // sendServeryInquiry();
-                                dialog(SUCCESS);
-                            } else {//context X
-                                dialog(CONTEXT_X);
-                                //  Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
-                            }
-                        else {//title X
-                            dialog(TITLE_X);
-                            // Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
+                if (spinner.getSelectedItemPosition() != 0)
+                    if (!editText_title.getText().toString().equals(""))
+                        if (!editText_context.getText().toString().equals("")) {
+                            // sendServeryInquiry();
+                            dialog(SUCCESS);
+                        } else {//context X
+                            dialog(CONTEXT_X);
+                            //  Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
                         }
-                    else {//spinner X
-                        dialog(SPINNER_X);
-                        // Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
+                    else {//title X
+                        dialog(TITLE_X);
+                        // Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
                     }
-                else {//tab_inquiry check
-                    dialog(EMAIL_X);
-                    //Toast.makeText(getActivity().getApplicationContext(), "이메일 형식 안맞음", Toast.LENGTH_SHORT).show();
+                else {//spinner X
+                    dialog(SPINNER_X);
+                    // Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
                 }
             }//onClick
         });//setOnClickListener
@@ -110,7 +103,7 @@ public class FragmentInquiry extends Fragment {
     public void init(View view) {
         spinner = (Spinner) view.findViewById(R.id.spinner);
         button_send = (ImageButton) view.findViewById(R.id.send);
-        editText_email = (EditText) view.findViewById(R.id.email);
+        editText_email = (TextView) view.findViewById(R.id.email);
         editText_context = (EditText) view.findViewById(R.id.content);
         editText_title = (EditText) view.findViewById(R.id.title_content);
 
@@ -130,7 +123,7 @@ public class FragmentInquiry extends Fragment {
 
     public void dialog(int distinction) {
 
-        String context="";
+        String context = "";
         switch (distinction) {
             case SUCCESS:
                 context = "문의가 완료되었습니다.";
@@ -138,40 +131,30 @@ public class FragmentInquiry extends Fragment {
                 break;
             case TITLE_X:
                 context = "문의에 대한 제목이 없습니다.";
-
-                break;
-            case EMAIL_X:
-                context = "이메일 형식에 맞지 않습니다.\n다시 확인 바랍니다.";
-                Editable set = editText_email.getText();
-                Selection.setSelection(set,editText_email.length() );
+                settingFocus(editText_title);
                 break;
             case SPINNER_X:
                 context = "문의에 대한 분류를 선택하지 않았습니다.";
                 break;
             case CONTEXT_X:
                 context = "문의에 대한 내용이 없습니다,";
+                settingFocus(editText_context);
                 break;
         }
-        /*
-            private final int SUCCESS = 1;
-    private final int TITLE_X = 2;
-    private final int EMAIL_X = 3;
-    private final int SPINNER_X = 4;
-    private final int CONTEXT_X = 5;
-        * */
-
-
         CustomDialog oDialog = new CustomDialog(getContext(), context);
         oDialog.setCancelable(false);
         oDialog.show();
     }//dialog
 
     public void clean() {
-        editText_email.setText("");
         editText_title.setText("");
         editText_context.setText("");
         spinner.setSelection(0);
     }//clean
+
+    public void settingFocus(EditText editText) {
+        editText.requestFocus();
+    }
 
     public void sendServeryInquiry() {
         InquiryDTO dto = new InquiryDTO();

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".tab.second.search.result.modification.check.SearchResult">
 
@@ -15,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:text="분석결과"
             android:textSize="23dp" />
@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
 
             android:layout_below="@id/title"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="80dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="5dp"
 
-            android:src="@drawable/underline"
-            />
+            android:src="@drawable/underline" />
 
     </RelativeLayout>
 
@@ -42,13 +42,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:orientation="vertical">
+
             <!--제품명-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border">
 
@@ -86,7 +87,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10dp"
                     android:text="이 원료는 치환된 페놀릭화합물입니다." />
-
             </RelativeLayout>
 
             <!--용도-->
@@ -94,8 +94,6 @@
                 android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border">
 
@@ -122,8 +120,6 @@
                 android:id="@+id/type_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/border_non_top"
                 android:visibility="visible">
 
@@ -241,8 +237,6 @@
                 android:id="@+id/functionfor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border">
 
@@ -269,8 +263,6 @@
                 android:id="@+id/functionfor_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/border_non_top"
                 android:visibility="visible">
 
@@ -302,8 +294,6 @@
                 android:id="@+id/alergy"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border">
 
@@ -330,8 +320,6 @@
                 android:id="@+id/alergy_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/border_non_top"
                 android:visibility="visible">
 
@@ -436,8 +424,6 @@
                 android:id="@+id/product"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/background_border">
 
@@ -465,8 +451,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/border_non_top"
                 android:visibility="visible">
 

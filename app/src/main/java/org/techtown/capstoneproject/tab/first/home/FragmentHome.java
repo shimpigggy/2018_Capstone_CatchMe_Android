@@ -57,11 +57,7 @@ public class FragmentHome extends Fragment {
         ib_aboutUs.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //goAboutUs();
-
-                //임시
-                Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
-                startActivity(intent);
+                goAboutUs();
             }
         });
 

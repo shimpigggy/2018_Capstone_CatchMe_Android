@@ -89,7 +89,7 @@ public class FragmentSearch extends Fragment {
         btn_barcode = (ImageButton) view.findViewById(R.id.btn_barcode);
         btn_write = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
-       // arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>();
     }//init
 
     //자동완성을 위한 성분리스트 전체 항목을 불러온다.
@@ -291,9 +291,7 @@ public class FragmentSearch extends Fragment {
 
                     // sendApi();
 
-                    Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
-                    //intent.putExtra("list", arrayList);
-                    startActivity(intent);
+                    nextActivity();
                 }
 
                 // 임시 파일 삭제
@@ -321,10 +319,10 @@ public class FragmentSearch extends Fragment {
                 intent.setDataAndType(mImageCaptureUri, "image/*");
 
                 //crop한 이미지를 저장할 때
-                intent.putExtra("outputX", 300);//crop한 이미지의 x축
-                intent.putExtra("outputY", 300);//crop한 이미지의 y축
-                intent.putExtra("aspectX", 1);//crop박스의 x축 비율
-                intent.putExtra("aspectY", 1);//crop박스의 y축 비율
+                intent.putExtra("outputX", 200);//crop한 이미지의 x축
+                intent.putExtra("outputY", 200);//crop한 이미지의 y축
+  /*              intent.putExtra("aspectX", 1);//crop박스의 x축 비율
+                intent.putExtra("aspectY", 1);//crop박스의 y축 비율*/
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_CAMERA);
@@ -413,5 +411,24 @@ public class FragmentSearch extends Fragment {
                 //데이터가 받아지는 것이 실패
             }//onFailure
         });
+    }//sendApi
+
+    public void nextActivity() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
+
+        inputData();
+
+        intent.putExtra("result", arrayList);
+        startActivity(intent);
     }
+
+    public void inputData() {
+        //임시 데이터
+        TestDTO[] items = new TestDTO[5];
+
+        for (int i = 0; i < items.length; i++) {
+            items[i] = new TestDTO(i + 1, "asdf", true, true, true);
+            arrayList.add(items[i]);
+        }
+    }//inputData
 }//FragmentSearch

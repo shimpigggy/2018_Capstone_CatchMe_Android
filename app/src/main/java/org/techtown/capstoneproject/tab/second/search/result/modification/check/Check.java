@@ -37,7 +37,7 @@ public class Check extends AppCompatActivity {
         // arrayList = new ArrayList<TestDTO>();
 
         //receive info from Modification
-        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("list");
+        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
 
         checkAdapter = new CheckAdapter(Check.this, arrayList);
         listView.setAdapter(checkAdapter);
