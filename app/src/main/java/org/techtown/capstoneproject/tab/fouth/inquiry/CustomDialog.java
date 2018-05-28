@@ -15,6 +15,12 @@ public class CustomDialog extends Dialog {
     String text;
     Context context;
 
+    private final int SUCCESS = 1;
+    private final int TITLE_X = 2;
+    private final int EMAIL_X = 3;
+    private final int SPINNER_X = 4;
+    private final int CONTEXT_X = 5;
+
     public CustomDialog(Context context, String text)
     {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
@@ -28,7 +34,7 @@ public class CustomDialog extends Dialog {
 
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        lpWindow.dimAmount = 0.7f;
+        lpWindow.dimAmount = 0.9f;
         getWindow().setAttributes(lpWindow);
 
         setContentView(R.layout.activity_custom_dialog);
@@ -48,8 +54,7 @@ public class CustomDialog extends Dialog {
         });
     }
 
-    public void onClickBtn(View _oView)
-    {
+    public void onClickBtn(View v){
         this.dismiss();
     }
 }

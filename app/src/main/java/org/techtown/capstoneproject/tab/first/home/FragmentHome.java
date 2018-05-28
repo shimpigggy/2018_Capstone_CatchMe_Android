@@ -16,7 +16,7 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.tab.second.search.result.modification.ResultModification;
+import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 /*
  * Created by ShimPiggy on 2018-05-07.
@@ -60,7 +60,7 @@ public class FragmentHome extends Fragment {
                 //goAboutUs();
 
                 //임시
-                Intent intent = new Intent(getActivity().getApplicationContext(), ResultModification.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
                 startActivity(intent);
             }
         });
@@ -76,7 +76,7 @@ public class FragmentHome extends Fragment {
 
     public void carouselSetting() {
         carouselView.setPageCount(carouselImage.length);
-        carouselView.setSlideInterval(4000);
+        carouselView.setSlideInterval(3000);
 
         carouselView.setViewListener(carouselviewListener);
     }

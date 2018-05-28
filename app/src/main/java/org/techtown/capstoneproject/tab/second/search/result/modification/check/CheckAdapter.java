@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.second.search.result.check;
+package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,18 +12,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import org.techtown.capstoneproject.tab.second.search.result.SearchResult;
-import org.techtown.capstoneproject.tab.second.search.result.Item;
+import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
 /*
  * Created by ShimPiggy on 2018-05-14.
  * Modified by ShimPiggy on 2018-05-23. - ib_check handler, server
  */
 
-public class ResultCheckAdapter extends BaseAdapter {
+public class CheckAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<Item> arrayList;
+    private ArrayList<TestDTO> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
@@ -32,7 +31,7 @@ public class ResultCheckAdapter extends BaseAdapter {
     private ImageView iv_pink;
     private ImageView iv_blue;
 
-    public ResultCheckAdapter(Context context, ArrayList<Item> array) {
+    public CheckAdapter(Context context, ArrayList<TestDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -109,4 +108,4 @@ public class ResultCheckAdapter extends BaseAdapter {
         if (!arrayList.get(position).isBlue_b())
             iv_blue.setVisibility(convertView.INVISIBLE);
     }//settingSkinType
-}//ResultCheckAdapter
+}//CheckAdapter

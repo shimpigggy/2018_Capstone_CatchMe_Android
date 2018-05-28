@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".tab.second.search.result.modification.ResultModification">
+    tools:context=".tab.second.search.result.modification.Modification">
 
     <TextView
         android:id="@+id/title"

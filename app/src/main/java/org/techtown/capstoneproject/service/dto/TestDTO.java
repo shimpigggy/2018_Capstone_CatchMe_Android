@@ -1,4 +1,4 @@
-package org.techtown.capstoneproject.tab.second.search.result;
+package org.techtown.capstoneproject.service.dto;
 
 import java.io.Serializable;
 
@@ -6,14 +6,15 @@ import java.io.Serializable;
  * Created by ShimPiggy on 2018-05-14.
  */
 
-public class Item implements Serializable{
+//Dummy
+public class TestDTO implements Serializable{
     private int num;
     private String name;
     private boolean yellow_b;
     private boolean pink_b;
     private boolean blue_b;
 
-    public Item(int _num, String _name, boolean y, boolean p, boolean b) {
+    public TestDTO(int _num, String _name, boolean y, boolean p, boolean b) {
         num = _num;
         name = _name;
         yellow_b = y;
@@ -21,7 +22,7 @@ public class Item implements Serializable{
         blue_b = b;
     }
 
-    public Item(){
+    public TestDTO(){
         num = 1;
         name = "";
         yellow_b = false;
@@ -29,7 +30,7 @@ public class Item implements Serializable{
         blue_b = false;
     }
 
-    public Item(int _num, String _name) {
+    public TestDTO(int _num, String _name) {
         num = _num;
         name = _name;
         yellow_b = false;

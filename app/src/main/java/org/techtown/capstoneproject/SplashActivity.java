@@ -21,13 +21,12 @@ public class SplashActivity extends Activity {
 
         Handler handler = new Handler();
         handler.postDelayed(new splashhandler(), SPLASH_DISPLAY);
-
     }
 
     private class splashhandler implements Runnable {
         public void run() {
-//            startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩이 끝난후 이동할 Activity
-            startActivity(new Intent(getApplication(), LoginActivity.class));
+            startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩이 끝난후 이동할 Activity
+            //  startActivity(new Intent(getApplication(), LoginActivity.class)); // after loading, go LoginActivity
             SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
         }
     }

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.tab.second.search.WriteChemical;
-import org.techtown.capstoneproject.tab.second.search.result.Item;
+import org.techtown.capstoneproject.service.dto.TestDTO;
 
 import java.util.ArrayList;
 
@@ -22,17 +22,17 @@ import java.util.ArrayList;
  * Modified by ShimPiggy on 2018-05-23. - ib_modify handler, (change) ib_delete handler
  */
 
-public class ResultModificationAdapter extends BaseAdapter {
+public class ModificationAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<Item> arrayList;
+    private ArrayList<TestDTO> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
     private ImageButton ib_modify;
     private ImageButton ib_delete;
 
-    public ResultModificationAdapter(Context context,  ArrayList<Item> array) {
+    public ModificationAdapter(Context context, ArrayList<TestDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;

@@ -2,27 +2,28 @@ package org.techtown.capstoneproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
-
 public class LoginActivity extends AppCompatActivity {
-
 
     private SessionCallback callback;      //콜백 선언
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionbarRemove();
+
         setContentView(R.layout.activity_login);
 
         callback = new SessionCallback();                  // 이 두개의 함수 중요함
         Session.getCurrentSession().addCallback(callback);
-
     }
 
     @Override
@@ -60,5 +61,16 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+    }
+
+    public void actionbarRemove(){
+        //status hide
+       /* View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);*/
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 }
