@@ -1,11 +1,10 @@
-package org.techtown.capstoneproject;
+package org.techtown.capstoneproject.service.login;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -13,6 +12,8 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 
 import com.kakao.util.helper.log.Logger;
+
+import org.techtown.capstoneproject.MainActivity;
 
 
 /**

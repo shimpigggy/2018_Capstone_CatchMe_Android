@@ -379,5 +379,4 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         arrayList.get(4).setBool(false,true,false);
     }//inputData
 
-
 }//FragmentSearch
