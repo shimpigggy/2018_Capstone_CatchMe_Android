@@ -3,53 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@color/white"
-    android:orientation="horizontal">
+    android:background="@drawable/border_result">
 
     <TextView
         android:id="@+id/num"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
-        android:padding="15dp"
         android:layout_alignParentLeft="true"
-
         android:background="@color/result_color"
-        android:textColor="@color/white"
-        android:gravity="center" />
+
+        android:gravity="center"
+        android:padding="17dp"
+        android:text="1"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
-        android:layout_toRightOf="@id/num"
         android:layout_toLeftOf="@id/modify"
-        android:paddingLeft="30dp"
+        android:layout_toRightOf="@id/num"
 
-        android:gravity="center_vertical"
-        android:textSize="20sp"
-        android:text="asdf"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="15dp"
+        android:text="에칠헥실메톡시신나메이트"
+        android:textSize="20sp" />
 
     <ImageButton
         android:id="@+id/modify"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/delete"
+        android:background="@color/background_remove"
 
-        android:gravity="center"
-        android:background="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
         android:src="@drawable/result_next_modify" />
 
     <ImageButton
         android:id="@+id/delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
         android:layout_alignParentRight="true"
-
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:background="@color/background_remove"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp"
         android:src="@drawable/modification_delete" />
 </RelativeLayout>

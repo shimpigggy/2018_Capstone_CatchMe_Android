@@ -28,7 +28,7 @@ public class Modification extends AppCompatActivity {
     ImageButton im_check;
     ModificationAdapter resultModificationAdapter;
 
-    ArrayList<TestDTO> arrayList;
+    static ArrayList<TestDTO> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

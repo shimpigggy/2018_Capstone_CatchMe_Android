@@ -37,29 +37,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_above="@id/bottom"
         android:layout_below="@id/underline"
-        android:layout_above="@id/check"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
 
         android:choiceMode="singleChoice"
         android:divider="@color/background_remove"
         android:dividerHeight="20dp"
         android:scrollbars="vertical" />
 
-    <ImageButton
-        android:id="@+id/check"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/check"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/background_remove"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
 
-        android:scaleType="fitXY"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-
-        android:background="#00000000"
-        android:src="@drawable/tab4_check" />
+            android:scaleType="fitXY"
+            android:src="@drawable/tab4_check" />
+    </RelativeLayout>
 </RelativeLayout>
 
