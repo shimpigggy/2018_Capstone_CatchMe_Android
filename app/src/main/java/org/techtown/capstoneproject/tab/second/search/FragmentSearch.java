@@ -47,7 +47,7 @@ import static android.app.Activity.RESULT_OK;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
@@ -55,10 +55,10 @@ public class FragmentSearch extends Fragment {
     private Uri mImageCaptureUri;
     private Uri fileUri;
 
-    private ImageButton btn_name;
-    private ImageButton btn_detail;
-    private ImageButton btn_barcode;
-    private ImageButton btn_write;
+    private ImageButton btnName;
+    private ImageButton btnDetail;
+    private ImageButton btnBarcode;
+    private ImageButton btnWrite;
 
     private Retrofit retrofit;
     private ApiService_Chemical apiService_chemical;
@@ -77,20 +77,45 @@ public class FragmentSearch extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Init(view);
-        buttonSetting();
+//        buttonSetting();
         getChemicalNameList();
 
         return view;
     }
 
     public void Init(View view) {
-        btn_name = (ImageButton) view.findViewById(R.id.btn_name);//제품명
-        btn_detail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
-        btn_barcode = (ImageButton) view.findViewById(R.id.btn_barcode);
-        btn_write = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
+        btnName = (ImageButton) view.findViewById(R.id.btn_name);//제품명
+        btnDetail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
+        btnBarcode = (ImageButton) view.findViewById(R.id.btn_barcode);//바코드
+        btnWrite = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
+
+        btnBarcode.setOnClickListener(this);
+        btnName.setOnClickListener(this);
+        btnDetail.setOnClickListener(this);
+        btnWrite.setOnClickListener(this);
 
         arrayList = new ArrayList<>();
     }//init
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_barcode:
+                Toast.makeText(v.getContext(), "Barcode!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_detail:
+                ButtonDetailListener(v);
+                break;
+            case R.id.btn_name:
+                ButtonNameListener(v);
+                break;
+            case R.id.btn_write:
+                Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
+                intent.putExtra("type", "tab");
+                startActivity(intent);
+                break;
+        }
+    }
 
     //자동완성을 위한 성분리스트 전체 항목을 불러온다.
     private void getChemicalNameList() {
@@ -126,31 +151,6 @@ public class FragmentSearch extends Fragment {
         }
     }
 
-    public void buttonSetting() {
-        btn_name.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                ButtonNameListener(v);
-            }
-        });
-
-        btn_detail.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                ButtonDetailListener(v);
-            }
-        });
-
-        btn_barcode.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                ButtonBarcodeListener(v);
-            }
-        });
-
-        btn_write.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                ButtonWriteListener(v);
-            }
-        });
-    }//buttonSetting
 
     public void ButtonNameListener(View v) {
         DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
@@ -215,18 +215,6 @@ public class FragmentSearch extends Fragment {
                 .setNegativeButton("취소", cancelListener)
                 .show();
     }//ButtonDetailListener
-
-    public void ButtonBarcodeListener(View v) {
-        Toast.makeText(v.getContext(), "Barcode!", Toast.LENGTH_SHORT).show();
-    }//ButtonBarcodeListener
-
-    public void ButtonWriteListener(View v) {
-        //  Toast.makeText(v.getContext(), "Write_chemical!", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
-        intent.putExtra("type", "tab");
-        startActivity(intent);
-    }//ButtonWriteListener
 
 
     /**
@@ -364,54 +352,6 @@ public class FragmentSearch extends Fragment {
         return mediaFile;
     }//getOutputMediaFile
 
-    public void sendApi() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(ApiService_Chemical.API_URL).build();
-
-        ApiService_Chemical apiService = retrofit.create(ApiService_Chemical.class);
-
-        Call<ResponseBody> getNameList = apiService.getNameList("");
-        getNameList.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                //데이터가 받아지면 호출
-                try {
-                    String result = response.body().string();
-                    Log.e(">>>>>TEST", result);
-
-                    try {
-                        JSONArray jsonArray = new JSONArray(result);
-                        TestDTO[] items = new TestDTO[jsonArray.length()];
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            items[i] = new TestDTO();
-                            items[i].setNum(i + 1);
-                            items[i].setName(jsonArray.getString(i));
-                            items[i].setBool(true, true, true);
-                            Log.e(">>>>>TEST", items[i].getName());
-                            arrayList.add(items[i]);
-                        }
-
-                        for (int i = 0; i < arrayList.size(); i++)
-                            Log.e(">>>>>arrayList", arrayList.get(i).getName());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }//JSONArray
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }//IO
-            }//onResponse
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Fail", call.toString());
-                Log.e("Fail", "Fail");
-                //데이터가 받아지는 것이 실패
-            }//onFailure
-        });
-    }//sendApi
 
     public void nextActivity() {
         Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
@@ -431,4 +371,6 @@ public class FragmentSearch extends Fragment {
             arrayList.add(items[i]);
         }
     }//inputData
+
+
 }//FragmentSearch
