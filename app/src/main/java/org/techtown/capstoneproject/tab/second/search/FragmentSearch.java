@@ -6,14 +6,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,9 +35,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.service.api.MyRetrofit2;
+import org.techtown.capstoneproject.service.api.UploadService;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,8 +61,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int PICK_FROM_CAMERA = 0;
-    private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
+    private static final int PICK_FROM_FILE = 1818;
 
     private Uri mImageCaptureUri;
     private Uri fileUri;
@@ -75,12 +87,25 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        verifyStoragePermissions(getActivity());
 
         Init(view);
 //        buttonSetting();
         getChemicalNameList();
 
         return view;
+    }
+
+
+    //persmission method.
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have read or write permission
+        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (writePermission != PackageManager.PERMISSION_GRANTED || readPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+        }
     }
 
     public void Init(View view) {
@@ -101,7 +126,12 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_barcode:
-                Toast.makeText(v.getContext(), "Barcode!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent chooser = Intent.createChooser(intent, "이미지를 불러옵니다");
+
+                startActivityForResult(chooser, PICK_FROM_FILE);
                 break;
             case R.id.btn_detail:
                 ButtonDetailListener(v);
@@ -110,9 +140,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 ButtonNameListener(v);
                 break;
             case R.id.btn_write:
-                Intent intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
-                intent.putExtra("type", "tab");
-                startActivity(intent);
+                Intent intent1 = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
+                intent1.putExtra("type", "tab");
+                startActivity(intent1);
                 break;
         }
     }
@@ -267,8 +297,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (resultCode != RESULT_OK) {
             return;
         }
-
         switch (requestCode) {
+
+            case PICK_FROM_FILE: {
+                Uri selectImage = data.getData();
+                uploadImage(selectImage);
+                break;
+            }
             case CROP_FROM_CAMERA: {
                 // 크롭이 된 이후의 이미지를 넘겨 받습니다.
                 // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
@@ -319,6 +354,40 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             }//
         }//switch
     }//onActivityResult
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(getActivity(), contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                MediaType.parse(MULTIPART_FORM_DATA), descriptionString);
+    }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        File file = new File(getRealPathFromURI(fileUri));
+        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
+    // Storage Permissions variables
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     /**
      * Create a file Uri for saving an image
@@ -373,10 +442,31 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             arrayList.add(items[i]);
         }
 
-        arrayList.get(1).setBool(false,true,true);
-        arrayList.get(2).setBool(true,false,true);
-        arrayList.get(3).setBool(true,true,false);
-        arrayList.get(4).setBool(false,true,false);
+        arrayList.get(1).setBool(false, true, true);
+        arrayList.get(2).setBool(true, false, true);
+        arrayList.get(3).setBool(true, true, false);
+        arrayList.get(4).setBool(false, true, false);
     }//inputData
 
+    public void uploadImage(Uri uri) {
+
+        UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
+
+        File file = new File(getRealPathFromURI(uri));
+        MultipartBody.Part body1 = prepareFilePart("image", uri);
+
+        RequestBody description = createPartFromString("file");
+
+        Call<ResponseBody> call = service.uploadFile(description, body1);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }
 }//FragmentSearch
