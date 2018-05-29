@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentInquiry;
 import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 import org.techtown.capstoneproject.tab.second.search.FragmentSearch;
@@ -23,6 +26,7 @@ import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 
 /*
  * Created by ShimPiggy on 2018-04-27.
@@ -85,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //facebook 회원활동 추적
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
     }//onCreate
 
@@ -119,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         search = getTabView(R.drawable.tab_search_selector);
         self = getTabView(R.drawable.tab_self_selector);
         inquiry = getTabView(R.drawable.tab_inquiry_selector);
-        ;
     }
 
     public void tabAdd() {
