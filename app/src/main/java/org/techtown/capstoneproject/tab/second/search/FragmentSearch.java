@@ -62,7 +62,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private Retrofit retrofit;
     private ApiService_Chemical apiService_chemical;
-    ArrayList<TestDTO> arrayList;
+    static ArrayList<TestDTO> arrayList;
 
     public FragmentSearch() {
     }
@@ -366,11 +366,17 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         //임시 데이터
         TestDTO[] items = new TestDTO[5];
 
+        String name = "에칠헥실메톡시신나메이트";
+
         for (int i = 0; i < items.length; i++) {
-            items[i] = new TestDTO(i + 1, "asdf", true, true, true);
+            items[i] = new TestDTO(i + 1, name, true, true, true);
             arrayList.add(items[i]);
         }
-    }//inputData
 
+        arrayList.get(1).setBool(false,true,true);
+        arrayList.get(2).setBool(true,false,true);
+        arrayList.get(3).setBool(true,true,false);
+        arrayList.get(4).setBool(false,true,false);
+    }//inputData
 
 }//FragmentSearch
