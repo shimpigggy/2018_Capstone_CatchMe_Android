@@ -57,4 +57,7 @@ dependencies {
     //페이스북 로그인
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
+    //okhttp
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }
