@@ -1,6 +1,7 @@
 package org.techtown.capstoneproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         actionBar();
+        cameraPermission(this);
         setContentView(R.layout.activity_main);
-        permissionCheck();
 
         init();
 
@@ -100,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }
 
-    public void permissionCheck() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+    public void cameraPermission(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
             //권한 없음
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 0);
         }
     }//permissionCheck
 

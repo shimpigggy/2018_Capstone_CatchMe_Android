@@ -18,19 +18,27 @@
             android:id="@+id/kakao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/facebook"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="20dp"
             android:paddingTop="200dp" />
 
-
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/kakao"
+            android:layout_alignLeft="@id/kakao"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@id/kakao"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
