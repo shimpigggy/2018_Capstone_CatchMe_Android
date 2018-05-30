@@ -16,23 +16,25 @@
         android:gravity="center"
         android:padding="17dp"
         android:text="1"
-        android:textStyle="bold"
         android:textAlignment="center"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
-        android:layout_toLeftOf="@id/modify"
-        android:layout_toRightOf="@id/num"
-
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+
+        android:layout_toLeftOf="@id/modify"
+        android:layout_toRightOf="@id/num"
         android:paddingLeft="15dp"
         android:text="에칠헥실메톡시신나메이트"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <ImageButton
         android:id="@+id/modify"

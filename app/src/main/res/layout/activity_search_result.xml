@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context=".tab.second.search.result.modification.check.SearchResult">
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -79,7 +77,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="15dp"
                     android:text="#_AS NO.118-56-9" />
-
 
                 <TextView
                     android:id="@+id/simple_context"

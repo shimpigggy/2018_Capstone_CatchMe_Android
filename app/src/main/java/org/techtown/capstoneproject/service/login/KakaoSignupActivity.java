@@ -14,6 +14,7 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
 import org.techtown.capstoneproject.MainActivity;
+import org.techtown.capstoneproject.SharedPreferencesUtil;
 
 
 /**
@@ -64,7 +65,12 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 String nickname = userProfile.getNickname();
                 String email = userProfile.getEmail();
+
+                SharedPreferencesUtil.saveEmailPreferences(getApplicationContext(),"KaKao_email",nickname,email);
+
+               String textEmail = SharedPreferencesUtil.getEmailPreferences(getApplicationContext(),"KaKao_email",nickname);
                 Log.i("profile-=-=-=--=", nickname + email);
+                Log.i("Test profile-=-=-=--=", textEmail);
                 redirectMainActivity(); // 로그인 성공시 MainActivity로
             }
         });

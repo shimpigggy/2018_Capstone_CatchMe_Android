@@ -60,7 +60,7 @@
 
                     android:text="@string/home_title"
                     android:textColor="@color/gray"
-                    android:textSize="20sp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/subtitle"
@@ -73,7 +73,7 @@
 
                     android:text="@string/home_subtitle"
                     android:textColor="@color/gray"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/context1"

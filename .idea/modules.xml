@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\ShimPiggy\AndroidStudioProjects\CapstoneProject\2018_Capstone_CatchMe_Android.iml" filepath="C:\Users\ShimPiggy\AndroidStudioProjects\CapstoneProject\2018_Capstone_CatchMe_Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CapstoneProject.iml" filepath="$PROJECT_DIR$/CapstoneProject.iml" />
-      <module fileurl="file://C:\Users\hahav\AndroidStudioProjects\2018_Capstone_CatchMe_Android\CapstoneProject.iml" filepath="C:\Users\hahav\AndroidStudioProjects\2018_Capstone_CatchMe_Android\CapstoneProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\hahav\AndroidStudioProjects\2018_Capstone_CatchMe_Android\capstoneproject.iml" filepath="C:\Users\hahav\AndroidStudioProjects\2018_Capstone_CatchMe_Android\capstoneproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/capstoneproject.iml" filepath="$PROJECT_DIR$/capstoneproject.iml" />
     </modules>
   </component>
 </project>
