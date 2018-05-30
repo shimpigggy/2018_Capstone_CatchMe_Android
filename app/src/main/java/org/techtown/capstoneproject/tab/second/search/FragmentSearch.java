@@ -1,6 +1,8 @@
 package org.techtown.capstoneproject.tab.second.search;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 import org.techtown.capstoneproject.service.api.MyRetrofit2;
@@ -65,7 +69,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int PICK_FROM_FILE = 1818;
 
     private Uri mImageCaptureUri;
-    private Uri fileUri;
+    private String fileName;
 
     private ImageButton btnName;
     private ImageButton btnDetail;
@@ -90,12 +94,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         verifyStoragePermissions(getActivity());
 
         Init(view);
-//        buttonSetting();
+
         getChemicalNameList();
 
         return view;
     }
-
 
     //persmission method.
     public static void verifyStoragePermissions(Activity activity) {
@@ -107,6 +110,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
+
 
     public void Init(View view) {
         btnName = (ImageButton) view.findViewById(R.id.btn_name);//제품명
@@ -189,16 +193,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 doTakePhotoAction();
             }
         };
-
-        /*
-        //갤러리에서 사진 가져오기
-        DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakeAlbumAction();
-            }
-        };*/
-
         DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -209,7 +203,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         new AlertDialog.Builder(getActivity())
                 .setTitle("사진 촬영을 하겠습니다.")
                 .setPositiveButton("확인", cameraListener)
-                //       .setNeutralButton("앨범선택", albumListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
     }//ButtonNameListener
@@ -221,16 +214,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 doTakePhotoAction();
             }
         };
-
-        /*
-        //갤러리에서 사진 가져오기
-        DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakeAlbumAction();
-            }
-        };*/
-
         DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -241,7 +224,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         new AlertDialog.Builder(getActivity())
                 .setTitle("사진 촬영을 하겠습니다.")
                 .setPositiveButton("확인", cameraListener)
-                //       .setNeutralButton("앨범선택", albumListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
     }//ButtonDetailListener
@@ -261,21 +243,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
      */
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        // 임시로 사용할 파일의 경로를 생성
-        /*String photoName = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        String appName = getString(R.string.app_name);
-
-        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),appName);
-
-        File imageFile = new File(directory.getPath()+File.separator+photoName);
-
-        mImageCaptureUri = Uri.fromFile(imageFile);*/
-
-        // fileUri = getOutputMediaFileUri();
         mImageCaptureUri = getOutputMediaFileUri();
 
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-        //intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,fileUri);
 
         startActivityForResult(intent, PICK_FROM_CAMERA);
     }//doTakePhotoAction
@@ -310,11 +280,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 final Bundle extras = data.getExtras();//전체 사진
 
                 if (extras != null) {
-                    Bitmap photo = extras.getParcelable("data");//crop된 bitmap
+                    Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
 
-                    // sendApi();
+                    saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
 
-                    nextActivity();
+                    File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
+                    Log.e(">>>>>>>tempor", cropPhotoFile.getPath());
+
                 }
 
                 // 임시 파일 삭제
@@ -323,16 +296,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                /* if (f.exists()) {
                     f.delete();
                 }*/
+                nextActivity();
 
                 break;
             }
-
-           /* case PICK_FROM_ALBUM: {
-                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
-                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
-
-                mImageCaptureUri = data.getData();
-            }*/
 
             case PICK_FROM_CAMERA: {
                 // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
@@ -413,10 +380,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
 
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + timeStamp + ".jpg");
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName + ".jpg");
 
         return mediaFile;
     }//getOutputMediaFile
@@ -449,7 +415,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }//inputData
 
     public void uploadImage(Uri uri) {
-
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
 
         File file = new File(getRealPathFromURI(uri));
@@ -468,5 +433,43 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }//uploadImage
+
+    /**
+     * Image SDCard Save (input Bitmap -> saved file JPEG)
+     * Writer intruder(Kwangseob Kim)
+     *
+     * @param bitmap : input bitmap file
+     * @param folder : input folder name
+     * @param name   : output file name
+     */
+    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
+        String ex_storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        // Get Absolute Path in External Sdcard
+        String foler_name = "/" + folder + "/";
+        String file_name = name + ".jpg";
+        String string_path = ex_storage + foler_name;
+
+        File file_path;
+        try {
+            file_path = new File(string_path);
+            if (!file_path.isDirectory()) {
+                file_path.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(string_path + file_name);
+
+            int height = bitmap.getHeight();
+            int width = bitmap.getWidth();
+
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+
+        } catch (FileNotFoundException exception) {
+            Log.e("FileNotFoundException", exception.getMessage());
+        } catch (IOException exception) {
+            Log.e("IOException", exception.getMessage());
+        }
     }
+
 }//FragmentSearch
