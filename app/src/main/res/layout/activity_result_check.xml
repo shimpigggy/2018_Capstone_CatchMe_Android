@@ -17,7 +17,7 @@
 
         android:text="@string/result_check_title"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/underline"
@@ -84,7 +84,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/result_check_yellow"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <ImageView
                 android:id="@+id/pink"
@@ -111,7 +111,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/result_check_pink"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <ImageView
                 android:id="@+id/blue"
@@ -138,7 +138,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/result_check_blue"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

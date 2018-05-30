@@ -22,7 +22,7 @@
 
         android:text="@string/email_title"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="15dp" />
 
     <ImageView
         android:id="@+id/underline"
@@ -63,7 +63,7 @@
 
             android:text="shimpig228@naver.com"
             android:textColor="@color/black"
-            android:textSize="17sp"/>
+            android:textSize="17dp"/>
 
         <Spinner
             android:id="@+id/spinner"
@@ -76,7 +76,7 @@
 
             android:entries="@array/Inquiry"
             android:gravity="center"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <EditText
@@ -98,7 +98,7 @@
         android:nextFocusDown="@id/content"
 
         android:hint="제목"
-        android:textSize="15sp" />
+        android:textSize="15dp" />
 
     <EditText
         android:id="@+id/content"
@@ -116,7 +116,7 @@
 
         android:gravity="top"
         android:hint="| 내용 입력하세요."
-        android:textSize="15sp"
+        android:textSize="15dp"
         android:inputType="textImeMultiLine"
         android:lines="10"
         android:scrollbars="vertical" />
