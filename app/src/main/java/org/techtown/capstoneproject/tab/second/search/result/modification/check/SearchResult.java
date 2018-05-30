@@ -11,11 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.service.api.ApiService_Chemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /*
  * Created by sj-kalin on 2018-05-07.
@@ -29,7 +25,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     RelativeLayout typeView;
     RelativeLayout typeViewResult;
     ImageView typeImage;
-    public static ChemicalDTO chemicalDTO;
+    public static ChemicalDTO chemicalDTO = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +33,13 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         actionBar();
         setContentView(R.layout.activity_search_result);
 
+//        Toast.makeText(this,chemicalDTO.toString(),Toast.LENGTH_SHORT).show();
+
         init();
 
         intent = getIntent();
-    //    Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
-     //   Log.i("gg",chemicalDTO.toString());
+        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
+        Log.i("gg",chemicalDTO.toString());
 
         typeView.setOnClickListener(new View.OnClickListener() {
             @Override

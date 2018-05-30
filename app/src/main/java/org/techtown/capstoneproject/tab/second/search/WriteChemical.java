@@ -16,7 +16,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.service.api.ApiService;
+import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
@@ -44,7 +45,7 @@ public class WriteChemical extends AppCompatActivity {
     Intent intent;
 
     Retrofit retrofit;
-    ApiService_Chemical apiService_chemical;
+    ApiServiceChemical apiService_chemical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +82,8 @@ public class WriteChemical extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Intent intent = new Intent(WriteChemical.this, SearchResult.class);
-                retrofit = new Retrofit.Builder().baseUrl(ApiService_Chemical.API_URL).build();
-                apiService_chemical = retrofit.create(ApiService_Chemical.class);
+                retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
+                apiService_chemical = retrofit.create(ApiServiceChemical.class);
                 Log.i("ss", actv.getText().toString());
                 Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
                 getInfo.enqueue(new Callback<ResponseBody>() {
@@ -91,19 +92,26 @@ public class WriteChemical extends AppCompatActivity {
                         try {
                             String temp = response.body().string();
                             JSONObject jsonObject = new JSONObject(temp);
-                            SearchResult.chemicalDTO.setId(jsonObject.getString("id"));
+                            SearchResult.chemicalDTO = new ChemicalDTO();
                             SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
                             SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
                             SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
                             SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
                             SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
-                            SearchResult.chemicalDTO.setGoodFor("goodFor");
-                            SearchResult.chemicalDTO.setBadFor("badFor");
-                            SearchResult.chemicalDTO.setFunctionFor("functionFor");
-                            SearchResult.chemicalDTO.setAllergy("allergy");
-                            SearchResult.chemicalDTO.setWarning("warning");
-                            SearchResult.chemicalDTO.setProductList("productList");
-
+                            SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
+                            SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
+                            SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
+                            SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
+                            SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                            SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                            SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
+                            SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
+                            SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
+                            SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
+                            SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
+                            SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
+                            SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
+                            Log.d("searchDTO",SearchResult.chemicalDTO.toString());
                         } catch (Exception e) {
                             Log.e("error", e.getMessage());
                             e.printStackTrace();
@@ -125,7 +133,7 @@ public class WriteChemical extends AppCompatActivity {
         actv = (AutoCompleteTextView) findViewById(R.id.actv);
         layout = (LinearLayout) findViewById(R.id.mainview);
         topView = (LinearLayout) findViewById(R.id.topview);
-        TextView tv = (TextView) findViewById(R.id.tv);
+        tv = (TextView) findViewById(R.id.tv);
         SearchResult.chemicalDTO = new ChemicalDTO();
 
     }

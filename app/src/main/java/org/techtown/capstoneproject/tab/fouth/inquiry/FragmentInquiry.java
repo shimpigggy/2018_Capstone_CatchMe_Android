@@ -8,15 +8,9 @@ package org.techtown.capstoneproject.tab.fouth.inquiry;
  * Modified by ShimPiggy on 2018-05-23. - image
  */
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.Selection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.service.api.ApiService_Email;
+import org.techtown.capstoneproject.service.api.ApiService;
+import org.techtown.capstoneproject.service.api.ApiServiceEmail;
 import org.techtown.capstoneproject.service.dto.InquiryDTO;
-import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 
 import java.util.regex.Pattern;
 
@@ -45,10 +37,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FragmentInquiry extends Fragment {
     Spinner spinner;
-    ImageButton button_send;
-    TextView editText_email;
-    EditText editText_title;
-    EditText editText_context;
+    ImageButton buttonSend;
+    TextView textEmail;
+    EditText editTextTitle;
+    EditText editTextContext;
 
     private final int SUCCESS = 1;
     private final int TITLE_X = 2;
@@ -57,7 +49,7 @@ public class FragmentInquiry extends Fragment {
 
     //server
     Retrofit retrofit;
-    ApiService_Email apiService;
+    ApiServiceEmail apiService;
 
     public FragmentInquiry() {
     }
@@ -73,15 +65,15 @@ public class FragmentInquiry extends Fragment {
 
         init(view);
 
-        button_send.setOnClickListener(new Button.OnClickListener() {
+        buttonSend.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //   dialog(SUCCESS);
 
                 //tab_inquiry form check
                 if (spinner.getSelectedItemPosition() != 0)
-                    if (!editText_title.getText().toString().equals(""))
-                        if (!editText_context.getText().toString().equals("")) {
-                            // sendServeryInquiry();
+                    if (!editTextTitle.getText().toString().equals(""))
+                        if (!editTextContext.getText().toString().equals("")) {
+                          //  sendServeryInquiry();
                             dialog(SUCCESS);
                         } else {//context X
                             dialog(CONTEXT_X);
@@ -102,17 +94,17 @@ public class FragmentInquiry extends Fragment {
 
     public void init(View view) {
         spinner = (Spinner) view.findViewById(R.id.spinner);
-        button_send = (ImageButton) view.findViewById(R.id.send);
-        editText_email = (TextView) view.findViewById(R.id.email);
-        editText_context = (EditText) view.findViewById(R.id.content);
-        editText_title = (EditText) view.findViewById(R.id.title_content);
+        buttonSend = (ImageButton) view.findViewById(R.id.send);
+        textEmail = (TextView) view.findViewById(R.id.email);
+        editTextContext = (EditText) view.findViewById(R.id.content);
+        editTextTitle = (EditText) view.findViewById(R.id.title_content);
 
         //server
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(ApiService_Email.API_URL).build();
+                .baseUrl(ApiService.ADDRESS).build();
 
-        apiService = retrofit.create(ApiService_Email.class);
+        apiService = retrofit.create(ApiServiceEmail.class);
     }//init
 
     //tab_inquiry 체크 함수
@@ -131,14 +123,14 @@ public class FragmentInquiry extends Fragment {
                 break;
             case TITLE_X:
                 context = "문의에 대한 제목이 없습니다.";
-                settingFocus(editText_title);
+                settingFocus(editTextTitle);
                 break;
             case SPINNER_X:
                 context = "문의에 대한 분류를 선택하지 않았습니다.";
                 break;
             case CONTEXT_X:
                 context = "문의에 대한 내용이 없습니다,";
-                settingFocus(editText_context);
+                settingFocus(editTextContext);
                 break;
         }
         CustomDialog oDialog = new CustomDialog(getContext(), context);
@@ -147,8 +139,8 @@ public class FragmentInquiry extends Fragment {
     }//dialog
 
     public void clean() {
-        editText_title.setText("");
-        editText_context.setText("");
+        editTextTitle.setText("");
+        editTextContext.setText("");
         spinner.setSelection(0);
     }//clean
 
@@ -159,9 +151,9 @@ public class FragmentInquiry extends Fragment {
     public void sendServeryInquiry() {
         InquiryDTO dto = new InquiryDTO();
 
-        dto.setContent(editText_context.getText().toString());
-        dto.setEmail(editText_email.getText().toString());
-        dto.setTitle(editText_title.getText().toString());
+        dto.setContent(editTextContext.getText().toString());
+        dto.setEmail(textEmail.getText().toString());
+        dto.setTitle(editTextTitle.getText().toString());
         dto.setType(spinner.getSelectedItem().toString());
 
         Call<JSONObject> sample2 = apiService.getPostCommentStr(dto);
