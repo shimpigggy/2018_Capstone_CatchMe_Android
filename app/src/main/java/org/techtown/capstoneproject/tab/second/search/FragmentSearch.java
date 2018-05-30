@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import android.Manifest;
@@ -24,21 +25,16 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.service.api.ApiService_Chemical;
+import org.techtown.capstoneproject.service.api.ApiService;
+import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.api.MyRetrofit2;
 import org.techtown.capstoneproject.service.api.UploadService;
 import org.techtown.capstoneproject.service.dto.TestDTO;
@@ -52,7 +48,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -73,11 +68,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private ImageButton btnName;
     private ImageButton btnDetail;
-    private ImageButton btnBarcode;
+    private ImageButton btnGallery;
     private ImageButton btnWrite;
 
     private Retrofit retrofit;
-    private ApiService_Chemical apiService_chemical;
+    private ApiServiceChemical apiService_chemical;
     static ArrayList<TestDTO> arrayList;
 
     public FragmentSearch() {
@@ -111,30 +106,29 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
     }
 
-
     public void Init(View view) {
         btnName = (ImageButton) view.findViewById(R.id.btn_name);//제품명
         btnDetail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
-        btnBarcode = (ImageButton) view.findViewById(R.id.btn_barcode);//바코드
+        btnGallery = (ImageButton) view.findViewById(R.id.btn_gallery);//바코드
         btnWrite = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
-        btnBarcode.setOnClickListener(this);
+        btnGallery.setOnClickListener(this);
         btnName.setOnClickListener(this);
         btnDetail.setOnClickListener(this);
         btnWrite.setOnClickListener(this);
 
+        //Test
         arrayList = new ArrayList<>();
     }//init
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_barcode:
+            case R.id.btn_gallery:
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 Intent chooser = Intent.createChooser(intent, "이미지를 불러옵니다");
-
                 startActivityForResult(chooser, PICK_FROM_FILE);
                 break;
             case R.id.btn_detail:
@@ -152,11 +146,12 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     //자동완성을 위한 성분리스트 전체 항목을 불러온다.
+    //write부분에서 사용
     private void getChemicalNameList() {
         if (WriteChemical.item == null) {
 
-            retrofit = new Retrofit.Builder().baseUrl(ApiService_Chemical.API_URL).build();
-            apiService_chemical = retrofit.create(ApiService_Chemical.class);
+            retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
+            apiService_chemical = retrofit.create(ApiServiceChemical.class);
             Call<ResponseBody> getList = apiService_chemical.getNameList("!");
             getList.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -169,6 +164,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         for (int i = 0; i < jsonObject.length(); i++) {
                             WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
                         }
+
+                        Log.e(">>>>>>>>>.TEST",tempList);
+                        Log.e(">>>>>>>>>.TEST", Arrays.toString(WriteChemical.item));
 
                     } catch (IOException e) {
                         Log.i("retrofiError", e.getMessage());
@@ -183,8 +181,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 }
             });
         }
-    }
-
+    }//getChemicalNameList
 
     public void ButtonNameListener(View v) {
         DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
@@ -228,7 +225,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 .show();
     }//ButtonDetailListener
 
-
     /**
      * 카메라에서 이미지 가져오기
      */
@@ -250,18 +246,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         startActivityForResult(intent, PICK_FROM_CAMERA);
     }//doTakePhotoAction
 
-    /**
-     * 앨범에서 이미지 가져오기
-     */
-    /*
-    private void doTakeAlbumAction()
-    {
-        // 앨범 호출
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
-    }//doTakeAlbumAction
-    */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
@@ -282,12 +266,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 if (extras != null) {
                     Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
 
+                    //bitmap ->
                     saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
 
                     File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
                     Log.e(">>>>>>>tempor", cropPhotoFile.getPath());
 
+                    uploadImage(cropPhotoFile);
                 }
 
                 // 임시 파일 삭제
@@ -423,6 +409,27 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         RequestBody description = createPartFromString("file");
 
         Call<ResponseBody> call = service.uploadFile(description, body1);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }//uploadImage
+
+    public void uploadImage(File file) {
+        UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
+        MultipartBody.Part prepareFilePart=  MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+
+        RequestBody description = createPartFromString("file");
+
+        Call<ResponseBody> call = service.uploadFile(description, prepareFilePart);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

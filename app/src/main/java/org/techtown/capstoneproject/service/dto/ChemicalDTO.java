@@ -5,28 +5,25 @@ import java.io.Serializable;
 /**
  * Created by hahav on 2018-05-26.
  */
-
-public class ChemicalDTO implements Serializable {
-    String id;
+public class ChemicalDTO {
     String nameK;
     String nameE;
     String cas;
     String definition;
     String used;
-    String goodFor;
-    String badFor;
+    String dryGood;
+    String dryBad;
+    String oilGood;
+    String oilBad;
+    String sensitiveGood;
+    String sensitiveBad;
+    String complexBad;
     String functionFor;
     String allergy;
     String warning;
+    String acne;
+    String baby;
     String productList;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getNameK() {
         return nameK;
@@ -68,20 +65,60 @@ public class ChemicalDTO implements Serializable {
         this.used = used;
     }
 
-    public String getGoodFor() {
-        return goodFor;
+    public String getDryGood() {
+        return dryGood;
     }
 
-    public void setGoodFor(String goodFor) {
-        this.goodFor = goodFor;
+    public void setDryGood(String dryGood) {
+        this.dryGood = dryGood;
     }
 
-    public String getBadFor() {
-        return badFor;
+    public String getDryBad() {
+        return dryBad;
     }
 
-    public void setBadFor(String badFor) {
-        this.badFor = badFor;
+    public void setDryBad(String dryBad) {
+        this.dryBad = dryBad;
+    }
+
+    public String getOilGood() {
+        return oilGood;
+    }
+
+    public void setOilGood(String oilGood) {
+        this.oilGood = oilGood;
+    }
+
+    public String getOilBad() {
+        return oilBad;
+    }
+
+    public void setOilBad(String oilBad) {
+        this.oilBad = oilBad;
+    }
+
+    public String getSensitiveGood() {
+        return sensitiveGood;
+    }
+
+    public void setSensitiveGood(String sensitiveGood) {
+        this.sensitiveGood = sensitiveGood;
+    }
+
+    public String getSensitiveBad() {
+        return sensitiveBad;
+    }
+
+    public void setSensitiveBad(String sensitiveBad) {
+        this.sensitiveBad = sensitiveBad;
+    }
+
+    public String getComplexBad() {
+        return complexBad;
+    }
+
+    public void setComplexBad(String complexBad) {
+        this.complexBad = complexBad;
     }
 
     public String getFunctionFor() {
@@ -108,6 +145,22 @@ public class ChemicalDTO implements Serializable {
         this.warning = warning;
     }
 
+    public String getAcne() {
+        return acne;
+    }
+
+    public void setAcne(String acne) {
+        this.acne = acne;
+    }
+
+    public String getBaby() {
+        return baby;
+    }
+
+    public void setBaby(String baby) {
+        this.baby = baby;
+    }
+
     public String getProductList() {
         return productList;
     }
@@ -116,9 +169,13 @@ public class ChemicalDTO implements Serializable {
         this.productList = productList;
     }
 
-
     @Override
     public String toString() {
-        return getId() + getNameE() + getNameK() + getAllergy() + getBadFor() + getCas();
+        return "DTO [nameK=" + nameK + ", nameE=" + nameE + ", cas=" + cas + ", definition=" + definition + ", used="
+                + used + ", dryGood=" + dryGood + ", dryBad=" + dryBad + ", oilGood=" + oilGood + ", oilBad=" + oilBad
+                + ", sensitiveGood=" + sensitiveGood + ", sensitiveBad=" + sensitiveBad + ", complexBad=" + complexBad
+                + ", functionFor=" + functionFor + ", allergy=" + allergy + ", warning=" + warning + ", acne=" + acne
+                + ", baby=" + baby + ", productList=" + productList + "]";
     }
+
 }

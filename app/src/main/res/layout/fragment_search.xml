@@ -35,7 +35,7 @@
             android:src="@drawable/tab2_detail" />
 
         <ImageButton
-            android:id="@+id/btn_barcode"
+            android:id="@+id/btn_gallery"
             android:layout_width="100dp"
             android:layout_height="100dp"
 
@@ -45,7 +45,7 @@
 
             android:background="@color/white"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab2_barcode" />
+            android:src="@drawable/tab2_gallery" />
 
         <ImageButton
             android:id="@+id/btn_write"

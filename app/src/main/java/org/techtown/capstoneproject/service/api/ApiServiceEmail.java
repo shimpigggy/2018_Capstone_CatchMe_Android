@@ -12,13 +12,7 @@ import retrofit2.http.POST;
  * Created by ShimPiggy on 2018-05-21.
  */
 
-public interface ApiService_Email {
-    public static final String PORT = "8080";
-    public static final String IP = "192.168.137.1:" + PORT;
-
-    // public static final String API_URL = "http://"+IP+"/catchme/";
-    public static final String API_URL = "http://192.168.137.1:8080/catchme/";
-
+public interface ApiServiceEmail {
     /*
     @GET("api주소")
      Call<ResponseBody>함수이름(@Query("변수이름")int 안드로이드에서 보낼 변수);
