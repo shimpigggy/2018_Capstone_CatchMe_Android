@@ -38,7 +38,7 @@ public class SplashActivity extends Activity {
             if (!Session.getCurrentSession().isOpened() || !isLoggedIn)
                 startActivity(new Intent(getApplication(), LoginActivity.class)); // after loading, go LoginActivity
             else*/
-                startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩이 끝난후 이동할 Activity
+            startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩이 끝난후 이동할 Activity
 
             SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
         }

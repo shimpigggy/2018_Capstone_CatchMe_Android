@@ -19,6 +19,7 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
 import java.util.Arrays;
@@ -43,6 +44,10 @@ public class WriteChemical extends AppCompatActivity {
     LinearLayout layout;
     LinearLayout topView;
     Intent intent;
+
+    public static final int TAB = 1;
+    public static final int MODIFICATION = 2;
+    public static int page;
 
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
@@ -81,10 +86,18 @@ public class WriteChemical extends AppCompatActivity {
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent intent = new Intent(WriteChemical.this, SearchResult.class);
+                final Intent next = new Intent(WriteChemical.this, SearchResult.class);
+                ;
+               /* if (page == TAB) {
+                    next = new Intent(WriteChemical.this, SearchResult.class);
+                }else if(page == MODIFICATION){
+                    next = new Intent(WriteChemical.this, Modification.class);
+                }*/
                 retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
                 apiService_chemical = retrofit.create(ApiServiceChemical.class);
+
                 Log.i("ss", actv.getText().toString());
+
                 Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
                 getInfo.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -111,20 +124,18 @@ public class WriteChemical extends AppCompatActivity {
                             SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
                             SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
                             SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
-                            Log.d("searchDTO",SearchResult.chemicalDTO.toString());
+                            Log.d("searchDTO", SearchResult.chemicalDTO.toString());
                         } catch (Exception e) {
                             Log.e("error", e.getMessage());
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                     }
                 });
-                startActivity(intent);
+                startActivity(next);
             }
         });
     }//onCreate
@@ -134,8 +145,8 @@ public class WriteChemical extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.mainview);
         topView = (LinearLayout) findViewById(R.id.topview);
         tv = (TextView) findViewById(R.id.tv);
-        SearchResult.chemicalDTO = new ChemicalDTO();
 
+        SearchResult.chemicalDTO = new ChemicalDTO();
     }
 
     public void getIntentInfo(Intent intent) {
@@ -144,9 +155,11 @@ public class WriteChemical extends AppCompatActivity {
         if (type.equals("result_modification")) {
             //result_modification에서 온 경우
             actv.setText(intent.getStringExtra("modify_name"));
+            page = MODIFICATION;
 
         } else if (type.equals("tab")) {
             //tab에서 온 경우
+            page = TAB;
         }
     }//getIntentValue
 

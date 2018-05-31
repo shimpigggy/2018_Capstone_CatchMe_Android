@@ -58,7 +58,7 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
 
         flags = new boolean[textviewCount];
         for (int i = 0; i < textviewCount; i++) {
-            if (!SharedPreferencesUtil.getBooleanPreferences(getContext(), "filtering", "flags" + i + ""))
+            if (!SharedPreferencesUtil.getBooleanPreferences(getContext(), "flags" + i + ""))
                 flags[i] = true;
             else
                 flags[i] = false;
@@ -71,13 +71,13 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(v.getContext(), "Change!", Toast.LENGTH_SHORT).show();
-                SharedPreferencesUtil.removeAllPreferences(getContext(), "filtering");
+                SharedPreferencesUtil.removeFilteringAllPreferences(getContext());
 
                 for (int i = 0; i < textviewCount; i++) {
-                    SharedPreferencesUtil.saveBooleanPreferences(getContext(), "filtering", "flags" + i + "", flags[i]);
+                    SharedPreferencesUtil.saveBooleanPreferences(getContext(), "flags" + i + "", flags[i]);
                 }
 
-                CustomDialog oDialog = new CustomDialog(getContext(), "선택하신 필터링을 저장하였습니다.");
+                CustomDialog oDialog = new CustomDialog(getContext(), "선택하신 필터링으로 저장하였습니다.");
                 oDialog.setCancelable(false);
                 oDialog.show();
             }

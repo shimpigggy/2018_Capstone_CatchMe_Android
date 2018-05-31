@@ -75,6 +75,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private ApiServiceChemical apiService_chemical;
     static ArrayList<TestDTO> arrayList;
 
+    // Storage Permissions variables
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     public FragmentSearch() {
     }
 
@@ -124,18 +131,18 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_detail:
+                ButtonDetailListener(v);
+                break;
+            case R.id.btn_name:
+                ButtonNameListener(v);
+                break;
             case R.id.btn_gallery:
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 Intent chooser = Intent.createChooser(intent, "이미지를 불러옵니다");
                 startActivityForResult(chooser, PICK_FROM_FILE);
-                break;
-            case R.id.btn_detail:
-                ButtonDetailListener(v);
-                break;
-            case R.id.btn_name:
-                ButtonNameListener(v);
                 break;
             case R.id.btn_write:
                 Intent intent1 = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
@@ -165,7 +172,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                             WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
                         }
 
-                        Log.e(">>>>>>>>>.TEST",tempList);
+                        Log.e(">>>>>>>>>.TEST", tempList);
                         Log.e(">>>>>>>>>.TEST", Arrays.toString(WriteChemical.item));
 
                     } catch (IOException e) {
@@ -198,7 +205,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         };
 
         new AlertDialog.Builder(getActivity())
-                .setTitle("사진 촬영을 하겠습니다.")
+                .setTitle("제품명에 대한 촬영을 하겠습니다.")
                 .setPositiveButton("확인", cameraListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
@@ -219,7 +226,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         };
 
         new AlertDialog.Builder(getActivity())
-                .setTitle("사진 촬영을 하겠습니다.")
+                .setTitle("화학성분에 대한 촬영을 하겠습니다.")
                 .setPositiveButton("확인", cameraListener)
                 .setNegativeButton("취소", cancelListener)
                 .show();
@@ -230,21 +237,41 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
      */
     private void doTakePhotoAction() {
         //촬영 후 이미지 가져오기
-    /*
-     * 참고 해볼곳
-     * http://2009.hfoss.org/Tutorial:Camera_and_Gallery_Demo
-     * http://stackoverflow.com/questions/1050297/how-to-get-the-url-of-the-captured-image
-     * http://www.damonkohler.com/2009/02/android-recipes.html
-     * http://www.firstclown.us/tag/android/
-     */
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+        //전체 사진 파일에 대한 Uri
         mImageCaptureUri = getOutputMediaFileUri();
-
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-
         startActivityForResult(intent, PICK_FROM_CAMERA);
     }//doTakePhotoAction
+
+    /**
+     * Create a file Uri for saving an image
+     */
+    private Uri getOutputMediaFileUri() {
+        return Uri.fromFile(getOutputMediaFile());
+    }//getOutputMediaFileUri
+
+    private File getOutputMediaFile() {
+        //파일 경로 + 폴더
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), getString(R.string.app_name));
+
+        //해당 경로에 폴더가 없을 경우 새로 만들기
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(getString(R.string.app_name), "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        //사진 파일
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName + ".jpg");
+        return mediaFile;
+    }//getOutputMediaFile
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -260,28 +287,31 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             }
             case CROP_FROM_CAMERA: {
                 // 크롭이 된 이후의 이미지를 넘겨 받습니다.
-                // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
                 final Bundle extras = data.getExtras();//전체 사진
 
-                if (extras != null) {
-                    Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
+                Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
 
-                    //bitmap ->
-                    saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
+                //bitmap -> jpg
+                saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
 
-                    File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
-                    Log.e(">>>>>>>tempor", cropPhotoFile.getPath());
+                //crop photo file
+                File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
+                Log.e(">>>>>>>tempor", cropPhotoFile.getPath());
 
-                    uploadImage(cropPhotoFile);
-                }
+             /*   //photo file 서버로 보내기
+                uploadImage(cropPhotoFile);*/
 
-                // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
+                //전체 사진 파일 + crop 사진 파일 지우기
+/*                File f = new File(mImageCaptureUri.getPath());
                 Log.e(">>>>>>>tempor", f.getPath());
-               /* if (f.exists()) {
+                if (f.exists()) {
                     f.delete();
                 }*/
+
+                if (cropPhotoFile.exists()) {
+                    cropPhotoFile.delete();
+                }
                 nextActivity();
 
                 break;
@@ -297,8 +327,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 //crop한 이미지를 저장할 때
                 intent.putExtra("outputX", 200);//crop한 이미지의 x축
                 intent.putExtra("outputY", 200);//crop한 이미지의 y축
-  /*              intent.putExtra("aspectX", 1);//crop박스의 x축 비율
-                intent.putExtra("aspectY", 1);//crop박스의 y축 비율*/
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_CAMERA);
@@ -334,72 +362,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 
-
-    // Storage Permissions variables
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-
-    /**
-     * Create a file Uri for saving an image
-     */
-    private Uri getOutputMediaFileUri() {
-        return Uri.fromFile(getOutputMediaFile());
-    }
-
-    private File getOutputMediaFile() {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), getString(R.string.app_name));
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(getString(R.string.app_name), "failed to create directory");
-                return null;
-            }
-        }
-
-        // Create a media file name
-        fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName + ".jpg");
-
-        return mediaFile;
-    }//getOutputMediaFile
-
-
-    public void nextActivity() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
-
-        inputData();
-
-        intent.putExtra("result", arrayList);
-        startActivity(intent);
-    }
-
-    public void inputData() {
-        //임시 데이터
-        TestDTO[] items = new TestDTO[5];
-
-        String name = "에칠헥실메톡시신나메이트";
-
-        for (int i = 0; i < items.length; i++) {
-            items[i] = new TestDTO(i + 1, name, true, true, true);
-            arrayList.add(items[i]);
-        }
-
-        arrayList.get(1).setBool(false, true, true);
-        arrayList.get(2).setBool(true, false, true);
-        arrayList.get(3).setBool(true, true, false);
-        arrayList.get(4).setBool(false, true, false);
-    }//inputData
-
     public void uploadImage(Uri uri) {
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
 
@@ -425,7 +387,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
-        MultipartBody.Part prepareFilePart=  MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        MultipartBody.Part prepareFilePart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
         RequestBody description = createPartFromString("file");
 
@@ -477,6 +439,31 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         } catch (IOException exception) {
             Log.e("IOException", exception.getMessage());
         }
+    }//saveBitmaptoJpeg
+
+    public void nextActivity() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
+
+        inputData();
+
+        intent.putExtra("result", arrayList);
+        startActivity(intent);
     }
 
+    public void inputData() {
+        //임시 데이터
+        TestDTO[] items = new TestDTO[5];
+
+        String name = "에칠헥실메톡시신나메이트";
+
+        for (int i = 0; i < items.length; i++) {
+            items[i] = new TestDTO(i + 1, name, true, true, true);
+            arrayList.add(items[i]);
+        }
+
+        arrayList.get(1).setBool(false, true, true);
+        arrayList.get(2).setBool(true, false, true);
+        arrayList.get(3).setBool(true, true, false);
+        arrayList.get(4).setBool(false, true, false);
+    }//inputData
 }//FragmentSearch
