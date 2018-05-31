@@ -52,7 +52,7 @@
                 android:background="@drawable/background_border">
 
                 <TextView
-                    android:id="@+id/title_korea"
+                    android:id="@+id/nameK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -61,25 +61,26 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/title_english"
+                    android:id="@+id/nameE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_korea"
+                    android:layout_below="@+id/nameK"
                     android:layout_centerHorizontal="true"
                     android:text="Homosalate"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/cas_no"
+                    android:id="@+id/cas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_below="@+id/nameE"
+                    android:layout_above="@id/definition"
                     android:text="#_AS NO.118-56-9" />
 
                 <TextView
-                    android:id="@+id/simple_context"
+                    android:id="@+id/definition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -90,7 +91,7 @@
 
             <!--용도-->
             <RelativeLayout
-                android:id="@+id/type"
+                android:id="@+id/used"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -105,7 +106,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/type_image"
+                    android:id="@+id/used_image"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
@@ -116,15 +117,14 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/type_result"
+                android:id="@+id/usedresult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_non_top"
                 android:visibility="visible">
 
-
                 <TextView
-                    android:id="@+id/type_result_1"
+                    android:id="@+id/used_result_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -133,10 +133,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_result_2"
+                    android:id="@+id/used_result_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_1"
+                    android:layout_below="@+id/used_result_1"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="5dp"
@@ -144,20 +144,20 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/type_result_3"
+                    android:id="@+id/used_result_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_2"
+                    android:layout_below="@+id/used_result_2"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="광안정제"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_result_4"
+                    android:id="@+id/used_result_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_3"
+                    android:layout_below="@+id/used_result_3"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="5dp"
@@ -165,20 +165,20 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/type_result_5"
+                    android:id="@+id/used_result_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_4"
+                    android:layout_below="@+id/used_result_4"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="자외선차단제"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_result_6"
+                    android:id="@+id/used_result_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_5"
+                    android:layout_below="@+id/used_result_5"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -187,20 +187,20 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/type_result_7"
+                    android:id="@+id/used_result_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_6"
+                    android:layout_below="@+id/used_result_6"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="자외선차단제"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_result_8"
+                    android:id="@+id/used_result_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_7"
+                    android:layout_below="@+id/used_result_7"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -209,20 +209,202 @@
                     android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/type_result_9"
+                    android:id="@+id/used_result_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_8"
+                    android:layout_below="@+id/used_result_8"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="자외선차단제"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/type_result_10"
+                    android:id="@+id/used_result_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/type_result_9"
+                    android:layout_below="@+id/used_result_9"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+            <!--피부 타입별 효과-->
+            <RelativeLayout
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:text="피부 타입별 효과"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/type_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_down" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/typeresult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_non_top"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/dry_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="건성에 좋은"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dry_good_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dry_good"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/dry_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dry_good_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="건성에 나쁜"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dry_bad_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dry_bad"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/oil_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dry_bad_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="지성에 좋은"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/oil_good_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oil_good"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/oil_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oil_good_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="지성에 나쁜"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/oil_bad_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oil_bad"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:id="@+id/sensitive_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oil_bad_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="민감성에 좋은"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sensitive_good_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sensitive_good"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/sensitive_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sensitive_good_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="민감성에 나쁜"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sensitive_bad_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sensitive_bad"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/complex_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sensitive_bad_context"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="복합성에 나쁜"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/complex_bad_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/complex_bad"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -290,7 +472,7 @@
 
             <!--알러지-->
             <RelativeLayout
-                android:id="@+id/alergy"
+                android:id="@+id/allergy"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -305,7 +487,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/alergy_image"
+                    android:id="@+id/allergy_image"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
@@ -316,7 +498,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/alergy_result"
+                android:id="@+id/allergy_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_non_top"
@@ -324,7 +506,7 @@
 
 
                 <TextView
-                    android:id="@+id/alergy_result_1"
+                    android:id="@+id/allergy_result_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
@@ -333,10 +515,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/alergy_result_2"
+                    android:id="@+id/allergy_result_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/alergy_result_1"
+                    android:layout_below="@+id/allergy_result_1"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -354,20 +536,20 @@
                     android:src="@drawable/south_korea" />
 
                 <TextView
-                    android:id="@+id/alergy_result_3"
+                    android:id="@+id/allergy_result_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/alergy_result_2"
+                    android:layout_below="@+id/allergy_result_2"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="일본 NITE"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/alergy_result_4"
+                    android:id="@+id/allergy_result_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/alergy_result_3"
+                    android:layout_below="@+id/allergy_result_3"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -386,20 +568,20 @@
                     android:src="@drawable/japan" />
 
                 <TextView
-                    android:id="@+id/alergy_result_5"
+                    android:id="@+id/allergy_result_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/alergy_result_4"
+                    android:layout_below="@+id/allergy_result_4"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:text="미국 usa"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/alergy_result_6"
+                    android:id="@+id/allergy_result_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/alergy_result_5"
+                    android:layout_below="@+id/allergy_result_5"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -418,6 +600,109 @@
                     android:src="@drawable/unites_states" />
 
             </RelativeLayout>
+
+            <!--사용상의 제한-->
+            <RelativeLayout
+                android:id="@+id/use_limit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:text="사용상의 제한"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/use_limit_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_down" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/use_limit_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_non_top"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:id="@+id/warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="사용시 제한"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/warning_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/warning"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="알레르기 유발 가능성이 있는 성분"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/acne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/warning_result"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="여드름에 나쁜 경우"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/acne_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/acne"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="알레르기 유발 가능성이 있는 성분"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/baby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/acne_result"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="유아에게 사용금지"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/baby_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/baby"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="알레르기 유발 가능성이 있는 성분"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
             <!--제품-->
             <RelativeLayout
                 android:id="@+id/product"
@@ -497,8 +782,18 @@
                     android:text="고체 입자의 화합을 방지하여 더어리나 결합성의 케익이 되지 못하게 하는 물질"
                     android:textSize="12dp" />
             </RelativeLayout>
-        </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:text="@string/home_copyright"/>
+        </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

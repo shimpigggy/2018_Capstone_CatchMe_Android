@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
@@ -33,8 +34,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         actionBar();
         setContentView(R.layout.activity_search_result);
 
-//        Toast.makeText(this,chemicalDTO.toString(),Toast.LENGTH_SHORT).show();
-
         init();
 
         intent = getIntent();
@@ -58,22 +57,24 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void init() {
-        intent = getIntent();
-
-        typeView = (RelativeLayout) findViewById(R.id.type);
-        typeViewResult = (RelativeLayout) findViewById(R.id.type_result);
-        typeImage = (ImageView) findViewById(R.id.type_image);
-    }
-
     public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
     }//actionBar
 
+    public void init() {
+        intent = getIntent();
+
+        typeView = (RelativeLayout) findViewById(R.id.used);
+        typeViewResult = (RelativeLayout) findViewById(R.id.usedresult);
+        typeImage = (ImageView) findViewById(R.id.used_image);
+
+        chemicalSimpleDescription();
+    }
+
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.alergy || v.getId() == R.id.functionfor || v.getId() == R.id.product) {
+        if (v.getId() == R.id.allergy || v.getId() == R.id.functionfor || v.getId() == R.id.product) {
             int visible = v.getVisibility();
             if (visible == View.VISIBLE) {
                 v.setVisibility(View.GONE);
@@ -82,5 +83,19 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             }
         }
     }//onClick
+
+    public void chemicalSimpleDescription(){
+        TextView nameK =(TextView)findViewById(R.id.nameK);
+        nameK.setText(chemicalDTO.getNameK());
+
+        TextView nameE =(TextView)findViewById(R.id.nameE);
+        nameE.setText(chemicalDTO.getNameE());
+
+        TextView cas =(TextView)findViewById(R.id.cas);
+        cas.setText(chemicalDTO.getCas());
+
+        TextView definition =(TextView)findViewById(R.id.definition);
+        definition.setText(chemicalDTO.getDefinition());
+    }//chemicalSimpleDescription
 
 }//SearchResult

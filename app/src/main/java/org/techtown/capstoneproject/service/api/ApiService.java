@@ -5,7 +5,7 @@ package org.techtown.capstoneproject.service.api;
  */
 
 public interface ApiService {
-    public final static String IP = "192.168.137.1";
+    public final static String IP = "http://kalin.iptime.org";
     public final static String PORT = "8080";
     public final static String ADDRESS = "http://" + IP + ":" + PORT + "/catchme/";
 }

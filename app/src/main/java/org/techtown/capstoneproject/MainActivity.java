@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });//addOnTabSelectedListener
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo("org.techtown.capstoneproject", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -114,19 +115,19 @@ public class MainActivity extends AppCompatActivity {
         tabAdd();
     }
 
+    public void setIconSize() {
+        home = getTabView(R.drawable.tab_home_selector);
+        search = getTabView(R.drawable.tab_search_selector);
+        self = getTabView(R.drawable.tab_self_selector);
+        inquiry = getTabView(R.drawable.tab_inquiry_selector);
+    }
+
     private View getTabView(int imgDrawable) {
         View view = getLayoutInflater().inflate(R.layout.tabicon_setting, null);
         ImageView imgTab = (ImageView) view.findViewById(R.id.icon);
         imgTab.setImageDrawable(getResources().getDrawable(imgDrawable));
 
         return view;
-    }
-
-    public void setIconSize() {
-        home = getTabView(R.drawable.tab_home_selector);
-        search = getTabView(R.drawable.tab_search_selector);
-        self = getTabView(R.drawable.tab_self_selector);
-        inquiry = getTabView(R.drawable.tab_inquiry_selector);
     }
 
     public void tabAdd() {

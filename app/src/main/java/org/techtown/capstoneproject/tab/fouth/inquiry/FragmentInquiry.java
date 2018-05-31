@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceEmail;
 import org.techtown.capstoneproject.service.dto.InquiryDTO;
@@ -105,6 +106,11 @@ public class FragmentInquiry extends Fragment {
                 .baseUrl(ApiService.ADDRESS).build();
 
         apiService = retrofit.create(ApiServiceEmail.class);
+        /*
+        //email setting
+        String nickname = SharedPreferencesUtil.getNicknamePreferences(getContext());
+        String email = SharedPreferencesUtil.getEmailPreferences(getContext(),nickname);
+        textEmail.setText(email);*/
     }//init
 
     //tab_inquiry 체크 함수
