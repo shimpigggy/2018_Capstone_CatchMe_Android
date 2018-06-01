@@ -12,4 +12,5 @@
     <color name="background_remove">#00000000</color>
 
     <color name="gray">#A1A1A1</color>
+    <color name="stress">#FF0000</color>
 </resources>
