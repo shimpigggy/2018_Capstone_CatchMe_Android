@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyRetrofit2 {
 
-    public static final String URL = "http://192.168.137.1:8080/";
+    public static final String URL = ApiService.ADDRESS;
 
     static Retrofit mRetrofit;
 

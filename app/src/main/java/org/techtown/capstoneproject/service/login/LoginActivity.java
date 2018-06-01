@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.SharedPreferencesUtil;
 
 public class LoginActivity extends AppCompatActivity {
     static final int KAKAO_LOGIN = 1;
@@ -57,7 +58,8 @@ public class LoginActivity extends AppCompatActivity {
                                 try {
                                     String email = object.getString("email");
                                     Log.d("email", email);
-                                    //sharedprefenece 부탁
+
+                                    SharedPreferencesUtil.saveEmailPreferences(getApplicationContext(), email);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

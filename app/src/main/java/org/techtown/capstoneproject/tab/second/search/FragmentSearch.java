@@ -297,7 +297,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 //crop photo file
                 File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
-                Log.e(">>>>>>>tempor", cropPhotoFile.getPath());
+                Log.e(">>>>>>>cropPhotoFile", cropPhotoFile.getPath());
 
              /*   //photo file 서버로 보내기
                 uploadImage(cropPhotoFile);*/
@@ -309,6 +309,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                     f.delete();
                 }*/
 
+                //crop 사진 파일 지우기
                 if (cropPhotoFile.exists()) {
                     cropPhotoFile.delete();
                 }
@@ -335,6 +336,35 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             }//
         }//switch
     }//onActivityResult
+
+    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
+        String ex_storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        // Get Absolute Path in External Sdcard
+        String foler_name = "/" + folder + "/";
+        String file_name = name + ".jpg";
+        String string_path = ex_storage + foler_name;
+
+        File file_path;
+        try {
+            file_path = new File(string_path);
+            if (!file_path.isDirectory()) {
+                file_path.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(string_path + file_name);
+
+            int height = bitmap.getHeight();
+            int width = bitmap.getWidth();
+
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+
+        } catch (FileNotFoundException exception) {
+            Log.e("FileNotFoundException", exception.getMessage());
+        } catch (IOException exception) {
+            Log.e("IOException", exception.getMessage());
+        }
+    }//saveBitmaptoJpeg
 
     private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -404,42 +434,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }//uploadImage
 
-    /**
-     * Image SDCard Save (input Bitmap -> saved file JPEG)
-     * Writer intruder(Kwangseob Kim)
-     *
-     * @param bitmap : input bitmap file
-     * @param folder : input folder name
-     * @param name   : output file name
-     */
-    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
-        String ex_storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
-        // Get Absolute Path in External Sdcard
-        String foler_name = "/" + folder + "/";
-        String file_name = name + ".jpg";
-        String string_path = ex_storage + foler_name;
-
-        File file_path;
-        try {
-            file_path = new File(string_path);
-            if (!file_path.isDirectory()) {
-                file_path.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(string_path + file_name);
-
-            int height = bitmap.getHeight();
-            int width = bitmap.getWidth();
-
-            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.close();
-
-        } catch (FileNotFoundException exception) {
-            Log.e("FileNotFoundException", exception.getMessage());
-        } catch (IOException exception) {
-            Log.e("IOException", exception.getMessage());
-        }
-    }//saveBitmaptoJpeg
 
     public void nextActivity() {
         Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
@@ -454,7 +448,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         //임시 데이터
         TestDTO[] items = new TestDTO[5];
 
-        String name = "에칠헥실메톡시신나메이트";
+       // String name = "에칠헥실메톡시신나메이트";
+        String name ="레티놀";
 
         for (int i = 0; i < items.length; i++) {
             items[i] = new TestDTO(i + 1, name, true, true, true);

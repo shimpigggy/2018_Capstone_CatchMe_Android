@@ -106,6 +106,7 @@ public class WriteChemical extends AppCompatActivity {
                             String temp = response.body().string();
                             JSONObject jsonObject = new JSONObject(temp);
                             SearchResult.chemicalDTO = new ChemicalDTO();
+
                             SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
                             SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
                             SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));

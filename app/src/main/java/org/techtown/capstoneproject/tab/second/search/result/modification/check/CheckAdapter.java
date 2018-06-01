@@ -95,6 +95,7 @@ public class CheckAdapter extends BaseAdapter {
         iv_pink = (ImageView) convertView.findViewById(R.id.pink);
         iv_blue = (ImageView) convertView.findViewById(R.id.blue);
 
+        SearchResult.chemicalDTO = new ChemicalDTO();
     }//init
 
     public void settting(int position) {
@@ -136,6 +137,7 @@ public class CheckAdapter extends BaseAdapter {
                     String temp = response.body().string();
                     JSONObject jsonObject = new JSONObject(temp);
                     SearchResult.chemicalDTO = new ChemicalDTO();
+
                     SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
                     SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
                     SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));

@@ -66,10 +66,9 @@ public class KakaoSignupActivity extends Activity {
                 String nickname = userProfile.getNickname();
                 String email = userProfile.getEmail();
 
-                SharedPreferencesUtil.saveNicknamePreferences(getApplicationContext(),nickname);
-                SharedPreferencesUtil.saveEmailPreferences(getApplicationContext(),nickname,email);
+                SharedPreferencesUtil.saveEmailPreferences(getApplicationContext(),email);
 
-               String textEmail = SharedPreferencesUtil.getEmailPreferences(getApplicationContext(),nickname);
+               String textEmail = SharedPreferencesUtil.getEmailPreferences(getApplicationContext());
                 Log.i("profile-=-=-=--=", nickname + email);
                 Log.i("Test profile-=-=-=--=", textEmail);
                 redirectMainActivity(); // 로그인 성공시 MainActivity로
