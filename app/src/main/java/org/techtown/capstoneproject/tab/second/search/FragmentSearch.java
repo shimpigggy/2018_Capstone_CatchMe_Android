@@ -172,8 +172,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                             WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
                         }
 
-                        Log.e(">>>>>>>>>.TEST", tempList);
-                        Log.e(">>>>>>>>>.TEST", Arrays.toString(WriteChemical.item));
+                        Log.e(">>>>>>>>>Write item", tempList);
+                        Log.e(">>>>>>>>>Write item", Arrays.toString(WriteChemical.item));
 
                     } catch (IOException e) {
                         Log.i("retrofiError", e.getMessage());
@@ -184,7 +184,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e(">>>>>>>>>.TEST", call.toString());
+                    Log.e(">>>>>>>>>Write item", call.toString());
                 }
             });
         }

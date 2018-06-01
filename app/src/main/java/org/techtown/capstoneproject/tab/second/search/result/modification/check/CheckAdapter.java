@@ -2,6 +2,7 @@ package org.techtown.capstoneproject.tab.second.search.result.modification.check
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+import org.techtown.capstoneproject.service.api.ApiService;
+import org.techtown.capstoneproject.service.api.ApiServiceChemical;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 /*
  * Created by ShimPiggy on 2018-05-14.
  * Modified by ShimPiggy on 2018-05-23. - ib_check handler, server
@@ -30,6 +41,10 @@ public class CheckAdapter extends BaseAdapter {
     private ImageView iv_yellow;
     private ImageView iv_pink;
     private ImageView iv_blue;
+
+    //server
+    Retrofit retrofit;
+    ApiServiceChemical apiService_chemical;
 
     public CheckAdapter(Context context, ArrayList<TestDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -90,11 +105,9 @@ public class CheckAdapter extends BaseAdapter {
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = Integer.parseInt(v.getTag().toString());
+                prepareData(v);
 
                 Intent intent = new Intent(context, SearchResult.class);
-                intent.putExtra("type","result_check");
-                intent.putExtra("name",arrayList.get(position).getName());
                 context.startActivity(intent);
             }
         });//setOnClickListener
@@ -108,4 +121,50 @@ public class CheckAdapter extends BaseAdapter {
         if (!arrayList.get(position).isBlue_b())
             iv_blue.setVisibility(convertView.INVISIBLE);
     }//settingSkinType
+
+    public void prepareData(View view) {
+        int position = Integer.parseInt(view.getTag().toString());
+
+        retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
+        apiService_chemical = retrofit.create(ApiServiceChemical.class);
+
+        Call<ResponseBody> getInfo = apiService_chemical.getInfo(arrayList.get(position).getName());
+        getInfo.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String temp = response.body().string();
+                    JSONObject jsonObject = new JSONObject(temp);
+                    SearchResult.chemicalDTO = new ChemicalDTO();
+                    SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
+                    SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
+                    SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
+                    SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
+                    SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
+                    SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
+                    SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
+                    SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
+                    SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
+                    SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                    SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                    SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
+                    SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
+                    SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
+                    SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
+                    SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
+                    SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
+                    SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
+                    Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+                } catch (Exception e) {
+                    Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }
+
 }//CheckAdapter
