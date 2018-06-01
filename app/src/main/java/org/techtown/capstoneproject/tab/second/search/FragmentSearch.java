@@ -63,6 +63,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int CROP_FROM_CAMERA = 2;
     private static final int PICK_FROM_FILE = 1818;
 
+    private static final int PRODUCT_NAME = 180;
+    private static final int CHEMICAL = 181818;
+    private static final int GALLERY = 1818180;
+    private int PAGE;
+
     private Uri mImageCaptureUri;
     private String fileName;
 
@@ -132,12 +137,15 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_detail:
+                PAGE = CHEMICAL;
                 ButtonDetailListener(v);
                 break;
             case R.id.btn_name:
+                PAGE = PRODUCT_NAME;
                 ButtonNameListener(v);
                 break;
             case R.id.btn_gallery:
+                PAGE = GALLERY;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -436,6 +444,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
 
     public void nextActivity() {
+
         Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
 
         inputData();
