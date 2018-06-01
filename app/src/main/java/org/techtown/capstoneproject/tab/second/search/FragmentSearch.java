@@ -159,7 +159,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
             retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
             apiService_chemical = retrofit.create(ApiServiceChemical.class);
-            Call<ResponseBody> getList = apiService_chemical.getNameList("!");
+            Call<ResponseBody> getList = apiService_chemical.getNameList("");
             getList.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -184,7 +184,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    Log.e(">>>>>>>>>.TEST", call.toString());
                 }
             });
         }
