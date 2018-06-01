@@ -1,6 +1,8 @@
 package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.w3c.dom.Text;
 
@@ -24,7 +27,7 @@ import org.w3c.dom.Text;
 public class SearchResult extends AppCompatActivity implements View.OnClickListener {
     Intent intent;
 
-    RelativeLayout[] contentsViews;
+    RelativeLayout[] contentsTabs;
     RelativeLayout[] contentsViewResult;
     ImageView[] contentsImages;
 
@@ -45,20 +48,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
         Log.i("gg", chemicalDTO.toString());
 
-        typeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int visible = typeViewResult.getVisibility();
-                if (visible == View.VISIBLE) {
-                    typeViewResult.setVisibility(View.GONE);
-                    typeImage.setImageResource(R.drawable.arrow_down);
-                } else {
-                    typeViewResult.setVisibility(View.VISIBLE);
-                    typeImage.setImageResource(R.drawable.arrow_up);
-                }
-            }
-        });
+        typeView.setOnClickListener(this);
     }
 
     public void actionBar() {
@@ -73,6 +63,8 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         typeViewResult = (RelativeLayout) findViewById(R.id.usedresult);
         typeImage = (ImageView) findViewById(R.id.used_image);
 
+        relativeLayoutSetting();
+
         chemicalSimpleDescription();
         chemicalUsed();//용도
         chemicalType();//피부 타입
@@ -83,8 +75,28 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     }
 
     public void relativeLayoutSetting() {
+        int[] tvIDTab = {R.id.used, R.id.type, R.id.functionfor, R.id.allergy, R.id.use_limit, R.id.product};
+        int[] tvIDResult = {R.id.usedresult, R.id.typeresult, R.id.functionfor_result,
+                R.id.allergy_result, R.id.use_limit_result, R.id.product_result};
+        int[] imageID = {R.id.used_image, R.id.type_image, R.id.functionfor_image, R.id.allergy_image,
+                R.id.use_limit_image, R.id.product_image};
 
-    }
+        contentsTabs = new RelativeLayout[tvIDTab.length];
+        for (int i = 0; i < tvIDTab.length; i++) {
+            contentsTabs[i] = (RelativeLayout) findViewById(tvIDTab[i]);
+            contentsTabs[i].setOnClickListener(this);
+        }
+
+        contentsViewResult = new RelativeLayout[tvIDResult.length];
+        for (int i = 0; i < tvIDResult.length; i++) {
+            contentsViewResult[i] = (RelativeLayout) findViewById(tvIDResult[i]);
+        }
+
+        contentsImages = new ImageView[imageID.length];
+        for (int i = 0; i < imageID.length; i++) {
+            contentsImages[i] = (ImageView) findViewById(imageID[i]);
+        }
+    }//relativeLayoutSetting
 
     public void chemicalSimpleDescription() {
         TextView nameK = (TextView) findViewById(R.id.nameK);
@@ -224,6 +236,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[0].setVisibility(View.GONE);
         } else {
             context[0].setText(dryGood);
+            if (SharedPreferencesUtil.getDryPreferences(this)) {
+                context[0].setTextColor(Color.RED);
+            }
         }
 
         String dryBad = chemicalDTO.getDryBad();
@@ -232,6 +247,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[1].setVisibility(View.GONE);
         } else {
             context[1].setText(dryBad);
+            if (SharedPreferencesUtil.getDryPreferences(this)) {
+                context[1].setTextColor(Color.RED);
+            }
         }
 
         String oilGood = chemicalDTO.getOilGood();
@@ -240,6 +258,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[2].setVisibility(View.GONE);
         } else {
             context[2].setText(oilGood);
+            if (SharedPreferencesUtil.getOilPreferences(this)) {
+                context[2].setTextColor(Color.RED);
+            }
         }
 
         String oilBad = chemicalDTO.getOilBad();
@@ -248,6 +269,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[3].setVisibility(View.GONE);
         } else {
             context[3].setText(oilBad);
+            if (SharedPreferencesUtil.getOilPreferences(this)) {
+                context[3].setTextColor(Color.RED);
+            }
         }
 
         String sensitiveGood = chemicalDTO.getSensitiveGood();
@@ -256,6 +280,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[4].setVisibility(View.GONE);
         } else {
             context[4].setText(sensitiveGood);
+            if (SharedPreferencesUtil.getSensitivePreferences(this)) {
+                context[4].setTextColor(Color.RED);
+            }
         }
 
         String sensitiveBad = chemicalDTO.getSensitiveBad();
@@ -264,6 +291,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[5].setVisibility(View.GONE);
         } else {
             context[5].setText(sensitiveBad);
+            if (SharedPreferencesUtil.getSensitivePreferences(this)) {
+                context[5].setTextColor(Color.RED);
+            }
         }
 
         String complexBad = chemicalDTO.getComplexBad();
@@ -272,6 +302,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             context[6].setVisibility(View.GONE);
         } else {
             context[6].setText(complexBad);
+            if (SharedPreferencesUtil.getComplexPreferences(this)) {
+                context[6].setTextColor(Color.RED);
+            }
         }
     }//chemicalType
 
@@ -323,9 +356,15 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
             if (japan == null) {
                 context[1].setText("해당사항 없음");
+            } else {
+                if (SharedPreferencesUtil.getAllergyPreferences(this))
+                    context[1].setTextColor(Color.RED);
             }
             if (korea == null) {
                 context[3].setText("해당사항 없음");
+            }else {
+                if (SharedPreferencesUtil.getAllergyPreferences(this))
+                    context[3].setTextColor(Color.RED);
             }
         }
     } //chemicalAllergy
@@ -337,39 +376,42 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 R.id.acne, R.id.acne_result};
         TextView[] textViews = new TextView[tvIdResult.length];
 
-        for(int i =0;i<tvIdResult.length;i++){
-            textViews[i] =(TextView) findViewById(tvIdResult[i]);
+        for (int i = 0; i < tvIdResult.length; i++) {
+            textViews[i] = (TextView) findViewById(tvIdResult[i]);
         }
 
-        if(warning == null || warning.equals("")){
+        if (warning == null || warning.equals("")) {
             textViews[0].setText("해당 사항 없음");
             textViews[1].setVisibility(View.GONE);
-        }else{
-            String[] result = warning.split(":");
-            String[] resultContext = result[1].split("/");
+        } else {
+            String[] warningResult = warning.split(":");
+            String[] warningResultContext = warningResult[1].split("/");
 
-            textViews[0].setText(result[0]);
+            textViews[0].setText(warningResult[0]);
 
-            String context = null;
-            for(int i=0;i<resultContext.length;i++){
-                context += resultContext[i] +"\n";
+            String warningContext = null;
+            for (int i = 0; i < warningResultContext.length; i++) {
+                warningContext += warningResultContext[i] + "\n";
             }
-            textViews[1].setText(context);
+            textViews[1].setText(warningContext);
+            if(SharedPreferencesUtil.getAcnePreferences(this)){
+                textViews[1].setTextColor(Color.RED);
+            }
         }
 
         String acne = chemicalDTO.getAcne();
 
-        if(acne == null || acne.equals("")){
+        if (acne == null || acne.equals("")) {
             textViews[3].setText("해당 사항 없음");
-        }else{
+        } else {
+            String[] acneResult = acne.split("/");
 
-            
+            String acneContext = null;
+            for (int i = 0; i < acneResult.length; i++) {
+                acneContext += acneResult[i] + "\n";
+            }
+            textViews[3].setText(acneContext);
         }
-
-/*"allergy":"일본 NITE 분류-알레르기 피부 반응을 일으킬 수 있는 성분/식약처 고시-알레르기 유발 가능성이 있는 성분"
-,"warning":"화장품 안전기준 등에 관한 규정 : 사용상의 제한이 필요한 원료(자외선차단제)/5%까지 함유 허용"
-,"acne":"피부에 자극을 일으킬 수 있는 성분(일본 NITE 분류)/피부에 자극을 줄 수 있는 성분(미국 IRIS 평가)"
-* */
     }//chemicalUseLimit
 
     public void chemicalProduct() {//제품 리스트
@@ -404,13 +446,37 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.allergy || v.getId() == R.id.functionfor || v.getId() == R.id.product) {
-            int visible = v.getVisibility();
-            if (visible == View.VISIBLE) {
-                v.setVisibility(View.GONE);
-            } else {
-                v.setVisibility(View.VISIBLE);
-            }
+        switch (v.getId()) {
+            case R.id.used:
+                viewSettingVisibility(contentsViewResult[0], contentsImages[0]);
+                break;
+            case R.id.type:
+                viewSettingVisibility(contentsViewResult[1], contentsImages[1]);
+                break;
+            case R.id.functionfor:
+                viewSettingVisibility(contentsViewResult[2], contentsImages[2]);
+                break;
+            case R.id.allergy:
+                viewSettingVisibility(contentsViewResult[3], contentsImages[3]);
+                break;
+            case R.id.use_limit:
+                viewSettingVisibility(contentsViewResult[4], contentsImages[4]);
+                break;
+            case R.id.product:
+                viewSettingVisibility(contentsViewResult[5], contentsImages[5]);
+                break;
         }
     }//onClick
+
+    public void viewSettingVisibility(RelativeLayout result, ImageView image) {
+        int visible = result.getVisibility();
+
+        if (visible == View.VISIBLE) {
+            result.setVisibility(View.GONE);
+            image.setImageResource(R.drawable.arrow_down);
+        } else {
+            result.setVisibility(View.VISIBLE);
+            image.setImageResource(R.drawable.arrow_up);
+        }
+    }//viewSettingVisibility
 }//SearchResult

@@ -29,6 +29,8 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
     private ImageButton ib_check;
 
     private boolean[] flags;
+    private final String[] FILTERING = {"dry", "oil", "complex", "allergy", "sensitive", "acne"};
+
 
     private final int textviewCount = 6;
 
@@ -58,7 +60,7 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
 
         flags = new boolean[textviewCount];
         for (int i = 0; i < textviewCount; i++) {
-            if (!SharedPreferencesUtil.getBooleanPreferences(getContext(), "flags" + i + ""))
+            if (!SharedPreferencesUtil.getBooleanPreferences(getContext(), FILTERING[i]))
                 flags[i] = true;
             else
                 flags[i] = false;
@@ -74,7 +76,7 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
                 SharedPreferencesUtil.removeFilteringAllPreferences(getContext());
 
                 for (int i = 0; i < textviewCount; i++) {
-                    SharedPreferencesUtil.saveBooleanPreferences(getContext(), "flags" + i + "", flags[i]);
+                    SharedPreferencesUtil.saveBooleanPreferences(getContext(), FILTERING[i], flags[i]);
                 }
 
                 CustomDialog oDialog = new CustomDialog(getContext(), "선택하신 필터링으로 저장하였습니다.");

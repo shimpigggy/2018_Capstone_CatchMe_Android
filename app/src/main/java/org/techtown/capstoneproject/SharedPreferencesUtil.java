@@ -19,6 +19,37 @@ public class SharedPreferencesUtil {
         return p.getBoolean(key, false);
     }
 
+    //건성
+    public static boolean getDryPreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("dry", false);
+    }
+    //지성
+    public static boolean getOilPreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("oil", false);
+    }
+    //복합성
+    public static boolean getComplexPreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("complex", false);
+    }
+    //아토피
+    public static boolean getAllergyPreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("allergy", false);
+    }
+    //민감성
+    public static boolean getSensitivePreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("sensitive", false);
+    }
+    //여드름성
+    public static boolean getAcnePreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
+        return p.getBoolean("acne", false);
+    }
+
     //Filtering Boolean 값 저장
     public static void saveBooleanPreferences(Context context, String key, boolean value) {
         SharedPreferences p = context.getSharedPreferences("filtering", context.MODE_PRIVATE);
