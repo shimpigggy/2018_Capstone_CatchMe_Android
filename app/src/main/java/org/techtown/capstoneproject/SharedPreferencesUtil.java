@@ -44,33 +44,19 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * KaKao_email 대한 SharedPreferences
+     * email 대한 SharedPreferences
      */
-    //Nickname 값을 가져오기
-    public static String getNicknamePreferences(Context context) {
-        SharedPreferences p = context.getSharedPreferences("KaKao_email", context.MODE_PRIVATE);
-        return p.getString("nickname", "해당 nickname 없음");
-    }
-
-    //Nickname 값 저장
-    public static void saveNicknamePreferences(Context context, String nickname) {
-        SharedPreferences p = context.getSharedPreferences("KaKao_email", context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = p.edit();
-        editor.putString("nickname", nickname);
-        editor.commit();
-    }
-
     //email 값을 가져오기
-    public static String getEmailPreferences(Context context, String key) {
-        SharedPreferences p = context.getSharedPreferences("KaKao_email", context.MODE_PRIVATE);
-        return p.getString(key, "해당 이메일 없음");
+    public static String getEmailPreferences(Context context) {
+        SharedPreferences p = context.getSharedPreferences("Email", context.MODE_PRIVATE);
+        return p.getString("email", "해당 이메일 없음");
     }
 
     //email 값 저장
-    public static void saveEmailPreferences(Context context, String key, String email) {
-        SharedPreferences p = context.getSharedPreferences("KaKao_email", context.MODE_PRIVATE);
+    public static void saveEmailPreferences(Context context, String email) {
+        SharedPreferences p = context.getSharedPreferences("Email", context.MODE_PRIVATE);
         SharedPreferences.Editor editor = p.edit();
-        editor.putString(key, email);
+        editor.putString("email", email);
         editor.commit();
     }
 
