@@ -90,6 +90,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         contentsViewResult = new RelativeLayout[tvIDResult.length];
         for (int i = 0; i < tvIDResult.length; i++) {
             contentsViewResult[i] = (RelativeLayout) findViewById(tvIDResult[i]);
+            contentsViewResult[i].setVisibility(View.GONE);
         }
 
         contentsImages = new ImageView[imageID.length];
