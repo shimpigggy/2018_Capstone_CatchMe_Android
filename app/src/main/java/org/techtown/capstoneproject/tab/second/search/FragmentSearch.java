@@ -12,6 +12,7 @@ import java.util.Date;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -37,6 +40,7 @@ import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.api.MyRetrofit2;
 import org.techtown.capstoneproject.service.api.UploadService;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
@@ -78,7 +82,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private Retrofit retrofit;
     private ApiServiceChemical apiService_chemical;
+    private int loadingEnd = 0;
     static ArrayList<TestDTO> arrayList;
+    //static ArrayList<ChemicalDTO> arrayList;
 
     // Storage Permissions variables
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -309,19 +315,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
              /*   //photo file 서버로 보내기
                 uploadImage(cropPhotoFile);*/
-
-                //전체 사진 파일 + crop 사진 파일 지우기
-                File f = new File(mImageCaptureUri.getPath());
-                Log.e(">>>>>>>tempor", f.getPath());
-                if (f.exists()) {
-                    f.delete();
-                }
-
-                //crop 사진 파일 지우기
-                if (cropPhotoFile.exists()) {
-                    cropPhotoFile.delete();
-                }
-                nextActivity();
+                loading();
 
                 break;
             }
@@ -413,6 +407,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
             }
 
             @Override
@@ -434,6 +429,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+
             }
 
             @Override
@@ -442,8 +439,41 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }//uploadImage
 
+    ProgressDialog progressDialog;
+
+    public void loading() {
+        progressDialog = ProgressDialog.show(getContext(), "", "글씨를 인식하고 있습니다.");
+        progressDialog.setCancelable(true);
+
+        mHandler.sendEmptyMessageDelayed(0, 2000);
+    }
+
+    Handler mHandler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
+            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+                progressDialog.dismiss(); // ProgressDialog를 종료
+                nextActivity();
+            }
+        }
+    };
 
     public void nextActivity() {
+        //전체 사진 파일 + crop 사진 파일 지우기
+        File f = new File(mImageCaptureUri.getPath());
+        Log.e(">>>>>>>tempor", f.getPath());
+        if (f.exists()) {
+            f.delete();
+        }
+
+        //crop photo file
+        File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
+        //crop 사진 파일 지우기
+        if (cropPhotoFile.exists()) {
+            cropPhotoFile.delete();
+        }
 
         Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
 
@@ -457,8 +487,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         //임시 데이터
         TestDTO[] items = new TestDTO[5];
 
-       // String name = "에칠헥실메톡시신나메이트";
-        String name ="레티놀";
+        // String name = "에칠헥실메톡시신나메이트";
+        String name = "레티놀";
 
         for (int i = 0; i < items.length; i++) {
             items[i] = new TestDTO(i + 1, name, true, true, true);
