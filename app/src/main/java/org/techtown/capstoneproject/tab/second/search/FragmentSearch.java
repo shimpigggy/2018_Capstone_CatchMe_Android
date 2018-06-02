@@ -192,7 +192,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e(">>>>>>>>>Write item", call.toString());
+                    Log.e(">>>>>>>>>WriteItem", call.toString());
                 }
             });
         }
@@ -311,11 +311,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 uploadImage(cropPhotoFile);*/
 
                 //전체 사진 파일 + crop 사진 파일 지우기
-/*                File f = new File(mImageCaptureUri.getPath());
+                File f = new File(mImageCaptureUri.getPath());
                 Log.e(">>>>>>>tempor", f.getPath());
                 if (f.exists()) {
                     f.delete();
-                }*/
+                }
 
                 //crop 사진 파일 지우기
                 if (cropPhotoFile.exists()) {
