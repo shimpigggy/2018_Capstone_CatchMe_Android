@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class Modification extends AppCompatActivity {
     ListView listView;
-    TextView title;
     ImageButton im_check;
     ModificationAdapter resultModificationAdapter;
 
