@@ -44,10 +44,8 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
         dataMaching();
 
-        intent = getIntent();
-        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
         Log.i("gg", chemicalDTO.toString());
-
+        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
         typeView.setOnClickListener(this);
     }
 
@@ -58,6 +56,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
     public void dataMaching() {
         intent = getIntent();
+
+        //chemicalDTO = new ChemicalDTO();
+     //   chemicalDTO = (ChemicalDTO) intent.getSerializableExtra("result");
 
         typeView = (RelativeLayout) findViewById(R.id.used);
         typeViewResult = (RelativeLayout) findViewById(R.id.usedresult);
@@ -100,17 +101,39 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     }//relativeLayoutSetting
 
     public void chemicalSimpleDescription() {
-        TextView nameK = (TextView) findViewById(R.id.nameK);
-        nameK.setText(chemicalDTO.getNameK());
+        String nameK = chemicalDTO.getNameK();
+        String nameE = chemicalDTO.getNameE();
+        String cas = chemicalDTO.getCas();
+        String definition = chemicalDTO.getDefinition();
 
-        TextView nameE = (TextView) findViewById(R.id.nameE);
-        nameE.setText(chemicalDTO.getNameE());
+        TextView tvNameK = (TextView) findViewById(R.id.nameK);
+        if(nameK == null || nameK.equals(""))
+            tvNameK.setText("NULL");
+        else {
+            tvNameK.setText(nameK);
+        }
 
-        TextView cas = (TextView) findViewById(R.id.cas);
-        cas.setText(chemicalDTO.getCas());
+        TextView tvNameE = (TextView) findViewById(R.id.nameE);
+        if(nameE == null || nameE.equals(""))
+            tvNameE.setText("NULL");
+        else {
+            tvNameE.setText(nameE);
+        }
 
-        TextView definition = (TextView) findViewById(R.id.definition);
-        definition.setText(chemicalDTO.getDefinition());
+        TextView tvCas = (TextView) findViewById(R.id.cas);
+        if(cas == null || cas.equals(""))
+            tvCas.setText("NULL");
+        else {
+            tvCas.setText(cas);
+        }
+
+        TextView tvDefinition = (TextView) findViewById(R.id.definition);
+        if(definition == null || definition.equals(""))
+            tvDefinition.setText("NULL");
+        else {
+            tvDefinition.setText(definition);
+        }
+
     }//chemicalSimpleDescription
 
     public void chemicalUsed() {//용도
@@ -363,7 +386,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             }
             if (korea == null) {
                 context[3].setText("해당사항 없음");
-            }else {
+            } else {
                 if (SharedPreferencesUtil.getAllergyPreferences(this))
                     context[3].setTextColor(Color.RED);
             }
@@ -395,7 +418,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 warningContext += warningResultContext[i] + "\n";
             }
             textViews[1].setText(warningContext);
-            if(SharedPreferencesUtil.getAcnePreferences(this)){
+            if (SharedPreferencesUtil.getAcnePreferences(this)) {
                 textViews[1].setTextColor(Color.RED);
             }
         }

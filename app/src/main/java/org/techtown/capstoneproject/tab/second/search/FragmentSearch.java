@@ -435,7 +435,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 //제품 명
 
-                //화학성분 인식 결과의 ChemicalDTO 전부
+                //화학성분 인식 결과의 ChemicalDTO
 
             }
 
@@ -451,16 +451,20 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         progressDialog = ProgressDialog.show(getContext(), "", "글씨를 인식하고 있습니다.");
         progressDialog.setCancelable(true);
 
-        mHandler.sendEmptyMessageDelayed(0, 2000);
+        mHandler.sendEmptyMessageDelayed(0, 200);
     }
 
     Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
+            Log.e("loadEnd", loadingEnd + "");
             //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
             if (msg.what == loadingEnd) { // 타임아웃이 발생하면
                 progressDialog.dismiss(); // ProgressDialog를 종료
+
                 nextActivity();
+            } else {
+                mHandler.sendEmptyMessageDelayed(0, 200);
             }
         }
     };

@@ -93,6 +93,7 @@ public class ModificationAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, WriteChemical.class);
                 intent.putExtra("modify_name",arrayList.get(position).getName());
                 intent.putExtra("type","result_modification");
+                intent.putExtra("backResult",arrayList);
                 context.startActivity(intent);
             }
         });
