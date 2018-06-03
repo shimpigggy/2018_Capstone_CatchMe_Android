@@ -1,6 +1,9 @@
 package org.techtown.capstoneproject.tab.second.search;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,9 +22,11 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import okhttp3.ResponseBody;
@@ -52,6 +57,9 @@ public class WriteChemical extends AppCompatActivity {
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
 
+    private int loadingEnd = 1;
+    private ArrayList<TestDTO> arrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +72,7 @@ public class WriteChemical extends AppCompatActivity {
 
         tv.setText(Arrays.toString(item));
         intent = getIntent();
-        //getIntentInfo(intent);// 어디서 부터 이 activity를 넘겨 왔는지 알려주는 함수
+        getIntentInfo(intent);// 어디서 부터 이 activity를 넘겨 왔는지 알려주는 함수
 
         topView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -86,13 +94,7 @@ public class WriteChemical extends AppCompatActivity {
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent next = new Intent(WriteChemical.this, SearchResult.class);
-                ;
-               /* if (page == TAB) {
-                    next = new Intent(WriteChemical.this, SearchResult.class);
-                }else if(page == MODIFICATION){
-                    next = new Intent(WriteChemical.this, Modification.class);
-                }*/
+                loading();
                 retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
                 apiService_chemical = retrofit.create(ApiServiceChemical.class);
 
@@ -126,6 +128,7 @@ public class WriteChemical extends AppCompatActivity {
                             SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
                             SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
                             Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+                            loadingEnd = 0;
                         } catch (Exception e) {
                             Log.e("error", e.getMessage());
                             e.printStackTrace();
@@ -136,10 +139,14 @@ public class WriteChemical extends AppCompatActivity {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                     }
                 });
-                startActivity(next);
             }
         });
     }//onCreate
+
+    public void actionBar() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+    }//actionBar
 
     public void init() {
         actv = (AutoCompleteTextView) findViewById(R.id.actv);
@@ -157,6 +164,7 @@ public class WriteChemical extends AppCompatActivity {
             //result_modification에서 온 경우
             actv.setText(intent.getStringExtra("modify_name"));
             page = MODIFICATION;
+            arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("backResult");
 
         } else if (type.equals("tab")) {
             //tab에서 온 경우
@@ -164,8 +172,38 @@ public class WriteChemical extends AppCompatActivity {
         }
     }//getIntentValue
 
-    public void actionBar() {
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar);
-    }//actionBar
+    ProgressDialog progressDialog;
+
+    public void loading() {
+        progressDialog = ProgressDialog.show(WriteChemical.this, "", "성분 정보를 받고 있습니다.");
+        progressDialog.setCancelable(true);
+
+        mHandler.sendEmptyMessageDelayed(0, 200);
+    }
+
+    Handler mHandler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            Log.e("loadEnd", loadingEnd + "");
+            //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
+            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+                progressDialog.dismiss(); // ProgressDialog를 종료
+
+                nextActivity();
+            } else {
+                mHandler.sendEmptyMessageDelayed(0, 200);
+            }
+        }
+    };
+
+    public void nextActivity() {
+        if (page == MODIFICATION) {
+            final Intent next = new Intent(WriteChemical.this, Modification.class);
+            next.putExtra("result", arrayList);
+            startActivity(next);
+        } else if (page == TAB) {
+            final Intent next = new Intent(WriteChemical.this, SearchResult.class);
+            startActivity(next);
+        }
+    }
 }

@@ -1,7 +1,10 @@
 package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,8 @@ import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.tab.second.search.WriteChemical;
+import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,6 +46,8 @@ public class CheckAdapter extends BaseAdapter {
     private ImageView iv_yellow;
     private ImageView iv_pink;
     private ImageView iv_blue;
+
+    private int loadingEnd = 1;
 
     //server
     Retrofit retrofit;
@@ -94,8 +101,6 @@ public class CheckAdapter extends BaseAdapter {
         iv_yellow = (ImageView) convertView.findViewById(R.id.yellow);
         iv_pink = (ImageView) convertView.findViewById(R.id.pink);
         iv_blue = (ImageView) convertView.findViewById(R.id.blue);
-
-        SearchResult.chemicalDTO = new ChemicalDTO();
     }//init
 
     public void settting(int position) {
@@ -106,10 +111,8 @@ public class CheckAdapter extends BaseAdapter {
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading();
                 prepareData(v);
-
-                Intent intent = new Intent(context, SearchResult.class);
-                context.startActivity(intent);
             }
         });//setOnClickListener
     }//setUI
@@ -157,6 +160,7 @@ public class CheckAdapter extends BaseAdapter {
                     SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
                     SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
                     Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+                    loadingEnd = 0;
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
                     e.printStackTrace();
@@ -167,6 +171,35 @@ public class CheckAdapter extends BaseAdapter {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
+    }
+
+    ProgressDialog progressDialog;
+
+    public void loading() {
+        progressDialog = ProgressDialog.show(context, "", "성분 정보를 받고 있습니다.");
+        progressDialog.setCancelable(true);
+
+        mHandler.sendEmptyMessageDelayed(0, 2000);
+    }
+
+    Handler mHandler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            Log.e("loadEnd", loadingEnd + "");
+            //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
+            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+                progressDialog.dismiss(); // ProgressDialog를 종료
+
+                nextActivity();
+            } else {
+                mHandler.sendEmptyMessageDelayed(0, 200);
+            }
+        }
+    };
+
+    public void nextActivity() {
+        Intent intent = new Intent(context, SearchResult.class);
+        context.startActivity(intent);
     }
 
 }//CheckAdapter
