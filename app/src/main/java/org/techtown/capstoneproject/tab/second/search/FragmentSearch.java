@@ -42,6 +42,7 @@ import org.techtown.capstoneproject.service.api.MyRetrofit2;
 import org.techtown.capstoneproject.service.api.UploadService;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.tab.second.search.product.Namelist.ProductNamelist;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 import okhttp3.MediaType;
@@ -394,6 +395,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 
+    //갤러리에서 이미지 넘김
     public void uploadImage(Uri uri) {
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
 
@@ -407,6 +409,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //받을 data -> 제품명 리스트: 제품 이름만 가져오기
 
             }
 
@@ -416,6 +419,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
     }//uploadImage
 
+    //찍은 사진
     public void uploadImage(File file) {
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
 
@@ -429,7 +433,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                //제품 명
 
+                //화학성분 인식 결과의 ChemicalDTO 전부
 
             }
 
@@ -460,6 +466,28 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     };
 
     public void nextActivity() {
+        remvoePhoteFile();
+
+        Intent intent;
+
+        switch (PAGE) {
+            case PRODUCT_NAME:
+                inputData();
+            case GALLERY:
+                intent = new Intent(getActivity().getApplicationContext(), ProductNamelist.class);
+                intent.putExtra("result", arrayList);
+                startActivity(intent);
+                break;
+            case CHEMICAL:
+                inputData();
+                intent = new Intent(getActivity().getApplicationContext(), Modification.class);
+                intent.putExtra("result", arrayList);
+                startActivity(intent);
+                break;
+        }
+    }//nextActivity
+
+    public void remvoePhoteFile() {
         //전체 사진 파일 + crop 사진 파일 지우기
         File f = new File(mImageCaptureUri.getPath());
         Log.e(">>>>>>>tempor", f.getPath());
@@ -474,14 +502,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (cropPhotoFile.exists()) {
             cropPhotoFile.delete();
         }
-
-        Intent intent = new Intent(getActivity().getApplicationContext(), Modification.class);
-
-        inputData();
-
-        intent.putExtra("result", arrayList);
-        startActivity(intent);
-    }
+    }//remvoePhoteFile
 
     public void inputData() {
         //임시 데이터
