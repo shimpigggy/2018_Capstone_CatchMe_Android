@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private View self;
     private View inquiry;
 
+    private BackPressCloseHandler backPressCloseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        backPressCloseHandler = new BackPressCloseHandler(this);
         setIconSize();
         tabAdd();
     }
@@ -160,4 +164,9 @@ public class MainActivity extends AppCompatActivity {
         }//switch
         transaction.commit();
     }//callFragment
+
+    @Override
+    public void onBackPressed(){
+        backPressCloseHandler.onBackPressed();
+    }
 }//MainActivity
