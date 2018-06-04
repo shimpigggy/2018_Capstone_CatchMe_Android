@@ -45,7 +45,6 @@ import retrofit2.Retrofit;
 public class WriteChemical extends AppCompatActivity {
     public static String[] item = null;
     AutoCompleteTextView actv;
-    TextView tv;
     LinearLayout layout;
     LinearLayout topView;
     Intent intent;
@@ -67,11 +66,8 @@ public class WriteChemical extends AppCompatActivity {
         actionBar();
         setContentView(R.layout.activity_write_chemical);
 
-        Toast.makeText(this, Arrays.toString(item), Toast.LENGTH_SHORT).show();
-
         init();//전역 함수에 대한 초기화
 
-        tv.setText(Arrays.toString(item));
         intent = getIntent();
         getIntentInfo(intent);// 어디서 부터 이 activity를 넘겨 왔는지 알려주는 함수
 
@@ -102,7 +98,7 @@ public class WriteChemical extends AppCompatActivity {
                 Log.i("ss", actv.getText().toString());
 
                 if (PAGE == MODIFICATION) {
-                   // modificationFromServer();
+                    // modificationFromServer();
                     resultFromServer();
                 } else if (PAGE == TAB) {
                     resultFromServer();
@@ -120,7 +116,6 @@ public class WriteChemical extends AppCompatActivity {
         actv = (AutoCompleteTextView) findViewById(R.id.actv);
         layout = (LinearLayout) findViewById(R.id.mainview);
         topView = (LinearLayout) findViewById(R.id.topview);
-        tv = (TextView) findViewById(R.id.tv);
     }
 
     public void getIntentInfo(Intent intent) {
@@ -195,28 +190,28 @@ public class WriteChemical extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(temp);
                     ChemicalDTO chemicalDTO = new ChemicalDTO();
 
-                   chemicalDTO.setNameK(jsonObject.getString("nameK"));
-                   chemicalDTO.setNameE(jsonObject.getString("nameE"));
-                   chemicalDTO.setCas(jsonObject.getString("cas"));
-                   chemicalDTO.setDefinition(jsonObject.getString("definition"));
-                   chemicalDTO.setUsed(jsonObject.getString("used"));
-                   chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
-                   chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
-                   chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
-                   chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
-                   chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                   chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                   chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
-                   chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
-                   chemicalDTO.setAllergy(jsonObject.getString("allergy"));
-                   chemicalDTO.setWarning(jsonObject.getString("warning"));
-                   chemicalDTO.setAcne(jsonObject.getString("acne"));
-                   chemicalDTO.setBaby(jsonObject.getString("baby"));
-                   chemicalDTO.setProductList(jsonObject.getString("productList"));
+                    chemicalDTO.setNameK(jsonObject.getString("nameK"));
+                    chemicalDTO.setNameE(jsonObject.getString("nameE"));
+                    chemicalDTO.setCas(jsonObject.getString("cas"));
+                    chemicalDTO.setDefinition(jsonObject.getString("definition"));
+                    chemicalDTO.setUsed(jsonObject.getString("used"));
+                    chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
+                    chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
+                    chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
+                    chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
+                    chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                    chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                    chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
+                    chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
+                    chemicalDTO.setAllergy(jsonObject.getString("allergy"));
+                    chemicalDTO.setWarning(jsonObject.getString("warning"));
+                    chemicalDTO.setAcne(jsonObject.getString("acne"));
+                    chemicalDTO.setBaby(jsonObject.getString("baby"));
+                    chemicalDTO.setProductList(jsonObject.getString("productList"));
 
                     Log.d("searchDTO", chemicalDTO.toString());
 
-                    Modification.data.set(position,chemicalDTO);
+                    Modification.data.set(position, chemicalDTO);
                     loadingEnd = 0;
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
