@@ -39,6 +39,7 @@ public class CheckAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<TestDTO> arrayList;
+    private ArrayList<ChemicalDTO> data;
 
     private TextView tv_num;
     private TextView tv_name;
@@ -124,6 +125,13 @@ public class CheckAdapter extends BaseAdapter {
             iv_pink.setVisibility(convertView.INVISIBLE);
         if (!arrayList.get(position).isBlue_b())
             iv_blue.setVisibility(convertView.INVISIBLE);
+
+  /*      if(data.get(position).getOilGood().equals("")|| data.get(position).getOilGood() ==null)
+            iv_yellow.setVisibility(convertView.INVISIBLE);
+        if(data.get(position).getDryGood().equals("")|| data.get(position).getDryGood() ==null)
+            iv_pink.setVisibility(convertView.INVISIBLE);
+        if(data.get(position).getSensitiveGood().equals("")|| data.get(position).getSensitiveGood() ==null)
+            iv_blue.setVisibility(convertView.INVISIBLE);*/
     }//settingSkinType
 
     public void prepareData(View view) {

@@ -1,6 +1,9 @@
 package org.techtown.capstoneproject.tab.second.search.product.Namelist;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
@@ -16,6 +20,7 @@ import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.Check;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
@@ -36,6 +41,7 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
     ArrayList<ChemicalDTO> serverData; //서버로 부터 받은 화학성분 데이터
+    private int loadingEnd = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +100,13 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
         //임시 데이터
         Intent intent = new Intent(ProductNamelist.this, Check.class);
         intent.putExtra("result", arrayList);
+        //intent.putExtra("data", serverData);
 
         startActivity(intent);
     }
 
     public void serverData() {
+        loading();
         retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
         apiService_chemical = retrofit.create(ApiServiceChemical.class);
 
@@ -107,11 +115,38 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    serverData = new ArrayList<>();
                     String temp = response.body().string();
-                    JSONObject jsonObject = new JSONObject(temp);
 
-                    //해당 제품에 대한 화학성분
+                    JSONArray jsonArray = new JSONArray(temp);
+                    ChemicalDTO[] chemicalDTOS = new ChemicalDTO[jsonArray.length()];
 
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        chemicalDTOS[i] = new ChemicalDTO();
+
+                        chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
+                        chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
+                        chemicalDTOS[i].setCas(jsonObject.getString("cas"));
+                        chemicalDTOS[i].setDefinition(jsonObject.getString("definition"));
+                        chemicalDTOS[i].setUsed(jsonObject.getString("used"));
+                        chemicalDTOS[i].setDryGood(jsonObject.getString("dryGood"));
+                        chemicalDTOS[i].setDryBad(jsonObject.getString("dryBad"));
+                        chemicalDTOS[i].setOilGood(jsonObject.getString("oilGood"));
+                        chemicalDTOS[i].setOilBad(jsonObject.getString("oilBad"));
+                        chemicalDTOS[i].setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                        chemicalDTOS[i].setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                        chemicalDTOS[i].setComplexBad(jsonObject.getString("complexBad"));
+                        chemicalDTOS[i].setFunctionFor(jsonObject.getString("functionFor"));
+                        chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
+                        chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
+                        chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
+                        chemicalDTOS[i].setBaby(jsonObject.getString("baby"));
+                        chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
+
+                        serverData.add(chemicalDTOS[i]);
+                    }
+                    loadingEnd =0;
 
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
@@ -121,7 +156,40 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail Error", call.toString());
             }
         });
+    }//serverData
+
+    ProgressDialog progressDialog;
+
+    public void loading() {
+        progressDialog = ProgressDialog.show(ProductNamelist.this, "", "해당 제품의 성분을 분석하고 있습니다.");
+        progressDialog.setCancelable(true);
+
+        mHandler.sendEmptyMessageDelayed(0, 2000);
     }
+
+    Handler mHandler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            Log.e("loadEnd", loadingEnd + "");
+            //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
+            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+                progressDialog.dismiss(); // ProgressDialog를 종료
+                nextActivity();
+            } else {
+                //같지 않을 경우 다시 실행
+                mHandler.sendEmptyMessageDelayed(0, 2000);
+            }
+        }
+    };
+
+    public void nextActivity() {
+        Intent intent = new Intent(ProductNamelist.this, Check.class);
+        intent.putExtra("result", arrayList);
+        //intent.putExtra("data", serverData);
+
+        startActivity(intent);
+    }//nextActivity
 }

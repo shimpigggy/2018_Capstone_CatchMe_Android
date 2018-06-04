@@ -52,13 +52,14 @@ public class WriteChemical extends AppCompatActivity {
 
     public static final int TAB = 1;
     public static final int MODIFICATION = 2;
-    public static int page;
+    public static int PAGE;
 
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
 
     private int loadingEnd = 1;
-    private ArrayList<TestDTO> arrayList;
+    private ArrayList<TestDTO> arrayList;// 임시
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,46 +101,13 @@ public class WriteChemical extends AppCompatActivity {
 
                 Log.i("ss", actv.getText().toString());
 
-                Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
-                getInfo.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try {
-                            String temp = response.body().string();
-                            JSONObject jsonObject = new JSONObject(temp);
-                            SearchResult.chemicalDTO = new ChemicalDTO();
-
-                            SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
-                            SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
-                            SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
-                            SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
-                            SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
-                            SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
-                            SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
-                            SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
-                            SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
-                            SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                            SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                            SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
-                            SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
-                            SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
-                            SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
-                            SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
-                            SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
-                            SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
-                            Log.d("searchDTO", SearchResult.chemicalDTO.toString());
-                            loadingEnd = 0;
-                        } catch (Exception e) {
-                            Log.e("error", e.getMessage());
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    }
-                });
-            }
+                if (PAGE == MODIFICATION) {
+                   // modificationFromServer();
+                    resultFromServer();
+                } else if (PAGE == TAB) {
+                    resultFromServer();
+                }
+            }//onItemClick
         });
     }//onCreate
 
@@ -153,8 +121,6 @@ public class WriteChemical extends AppCompatActivity {
         layout = (LinearLayout) findViewById(R.id.mainview);
         topView = (LinearLayout) findViewById(R.id.topview);
         tv = (TextView) findViewById(R.id.tv);
-
-        SearchResult.chemicalDTO = new ChemicalDTO();
     }
 
     public void getIntentInfo(Intent intent) {
@@ -163,14 +129,107 @@ public class WriteChemical extends AppCompatActivity {
         if (type.equals("result_modification")) {
             //result_modification에서 온 경우
             actv.setText(intent.getStringExtra("modify_name"));
-            page = MODIFICATION;
+            PAGE = MODIFICATION;
+
             arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("backResult");
+            //position = getIntent().getIntExtra("position", 0);
 
         } else if (type.equals("tab")) {
             //tab에서 온 경우
-            page = TAB;
+            PAGE = TAB;
         }
-    }//getIntentValue
+    }//getIntentInfo
+
+    public void resultFromServer() {
+        Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
+        getInfo.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String temp = response.body().string();
+                    JSONObject jsonObject = new JSONObject(temp);
+                    SearchResult.chemicalDTO = new ChemicalDTO();
+
+                    SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
+                    SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
+                    SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
+                    SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
+                    SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
+                    SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
+                    SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
+                    SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
+                    SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
+                    SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                    SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                    SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
+                    SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
+                    SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
+                    SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
+                    SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
+                    SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
+                    SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
+                    Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+
+                    actv.setText("");
+                    loadingEnd = 0;
+                } catch (Exception e) {
+                    Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail Error", call.toString());
+            }
+        });
+    }//resultFromServer
+
+    public void modificationFromServer() {
+        Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
+        getInfo.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String temp = response.body().string();
+                    JSONObject jsonObject = new JSONObject(temp);
+                    ChemicalDTO chemicalDTO = new ChemicalDTO();
+
+                   chemicalDTO.setNameK(jsonObject.getString("nameK"));
+                   chemicalDTO.setNameE(jsonObject.getString("nameE"));
+                   chemicalDTO.setCas(jsonObject.getString("cas"));
+                   chemicalDTO.setDefinition(jsonObject.getString("definition"));
+                   chemicalDTO.setUsed(jsonObject.getString("used"));
+                   chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
+                   chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
+                   chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
+                   chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
+                   chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                   chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                   chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
+                   chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
+                   chemicalDTO.setAllergy(jsonObject.getString("allergy"));
+                   chemicalDTO.setWarning(jsonObject.getString("warning"));
+                   chemicalDTO.setAcne(jsonObject.getString("acne"));
+                   chemicalDTO.setBaby(jsonObject.getString("baby"));
+                   chemicalDTO.setProductList(jsonObject.getString("productList"));
+
+                    Log.d("searchDTO", chemicalDTO.toString());
+
+                    Modification.data.set(position,chemicalDTO);
+                    loadingEnd = 0;
+                } catch (Exception e) {
+                    Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail Error", call.toString());
+            }
+        });
+    }//modificationFromServer
 
     ProgressDialog progressDialog;
 
@@ -178,7 +237,7 @@ public class WriteChemical extends AppCompatActivity {
         progressDialog = ProgressDialog.show(WriteChemical.this, "", "성분 정보를 받고 있습니다.");
         progressDialog.setCancelable(true);
 
-        mHandler.sendEmptyMessageDelayed(0, 200);
+        mHandler.sendEmptyMessageDelayed(0, 2000);
     }
 
     Handler mHandler = new Handler() {
@@ -191,17 +250,18 @@ public class WriteChemical extends AppCompatActivity {
 
                 nextActivity();
             } else {
-                mHandler.sendEmptyMessageDelayed(0, 200);
+                mHandler.sendEmptyMessageDelayed(0, 2000);
             }
         }
     };
 
     public void nextActivity() {
-        if (page == MODIFICATION) {
+        if (PAGE == MODIFICATION) {
             final Intent next = new Intent(WriteChemical.this, Modification.class);
-            next.putExtra("result", arrayList);
+
+            next.putExtra("result", arrayList);//임시
             startActivity(next);
-        } else if (page == TAB) {
+        } else if (PAGE == TAB) {
             final Intent next = new Intent(WriteChemical.this, SearchResult.class);
             startActivity(next);
         }

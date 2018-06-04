@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.tab.second.search.WriteChemical;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 
@@ -26,6 +27,7 @@ public class ModificationAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<TestDTO> arrayList;
+    private ArrayList<ChemicalDTO> data;
 
     private TextView tv_num;
     private TextView tv_name;
@@ -35,6 +37,7 @@ public class ModificationAdapter extends BaseAdapter {
     public ModificationAdapter(Context context, ArrayList<TestDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
+        // this.data = array;
         this.context = context;
     }
 
@@ -81,7 +84,11 @@ public class ModificationAdapter extends BaseAdapter {
 
     public void settingUI(int position) {
         tv_num.setText(arrayList.get(position).getStringNum());
+        /*int num = position+1;
+        tv_num.setText(num +"");*/
+
         tv_name.setText(arrayList.get(position).getName());
+        //tv_name.setText(data.get(position).getNameK());
 
         ib_modify.setTag(position);
         ib_modify.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +98,16 @@ public class ModificationAdapter extends BaseAdapter {
                 int position = Integer.parseInt(v.getTag().toString());
 
                 Intent intent = new Intent(context, WriteChemical.class);
-                intent.putExtra("modify_name",arrayList.get(position).getName());
-                intent.putExtra("type","result_modification");
-                intent.putExtra("backResult",arrayList);
+                intent.putExtra("modify_name", arrayList.get(position).getName());
+                intent.putExtra("type", "result_modification");
+                intent.putExtra("backResult", arrayList);
                 context.startActivity(intent);
+
+                /*Intent intent = new Intent(context, WriteChemical.class);
+                intent.putExtra("modify_name", data.get(position).getNameK());
+                intent.putExtra("type", "result_modification");
+                intent.putExtra("position", position);
+                context.startActivity(intent);*/
             }
         });
 
@@ -112,9 +125,14 @@ public class ModificationAdapter extends BaseAdapter {
 
         Toast.makeText(context, arrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
         arrayList.remove(position);
+        //data.remove(position);
 
         for (int i = 0; i < arrayList.size(); i++)
             arrayList.get(i).setNum(i + 1);
+
+        //이 부분 번호 필요
+      /*  for (int i = 0; i < data.size(); i++)
+            data.get(i).setNum(i + 1);*/
 
         notifyDataSetChanged();
 

@@ -44,7 +44,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
         dataMaching();
 
-        Log.i("gg", chemicalDTO.toString());
+        Log.e("result", chemicalDTO.toString());
         Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
         typeView.setOnClickListener(this);
     }
@@ -56,9 +56,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
     public void dataMaching() {
         intent = getIntent();
-
-        //chemicalDTO = new ChemicalDTO();
-     //   chemicalDTO = (ChemicalDTO) intent.getSerializableExtra("result");
 
         typeView = (RelativeLayout) findViewById(R.id.used);
         typeViewResult = (RelativeLayout) findViewById(R.id.usedresult);
@@ -73,7 +70,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         chemicalAllergy();//알러지
         chemicalUseLimit();//사용상의 제한
         chemicalProduct();//제품 리스트
-    }
+    }//dataMaching
 
     public void relativeLayoutSetting() {
         int[] tvIDTab = {R.id.used, R.id.type, R.id.functionfor, R.id.allergy, R.id.use_limit, R.id.product};

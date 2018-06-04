@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.techtown.capstoneproject.MainActivity;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
 
@@ -28,6 +29,7 @@ public class Check extends AppCompatActivity {
     ListView listView;
     CheckAdapter checkAdapter;
     ArrayList<TestDTO> arrayList;
+    public static ArrayList<ChemicalDTO> data;
 
     RelativeLayout bottom;
     RelativeLayout explain;
@@ -74,14 +76,12 @@ public class Check extends AppCompatActivity {
 
         //receive info from Modification
         arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
+        // data = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("data");
 
         checkAdapter = new CheckAdapter(Check.this, arrayList);
+        // checkAdapter = new CheckAdapter(Check.this, data);
         listView.setAdapter(checkAdapter);
     }//init
-
-    public void inputData() {
-
-    }//inputData
 
     public void actionBar() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
