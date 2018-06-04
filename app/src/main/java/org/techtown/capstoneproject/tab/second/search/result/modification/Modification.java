@@ -16,6 +16,8 @@ import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.Check;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /*
  * Created by ShimPiggy on 2018-05-12.
@@ -28,6 +30,7 @@ public class Modification extends AppCompatActivity {
     ImageButton im_check;
     ModificationAdapter resultModificationAdapter;
 
+    static List<Map<Integer,String>> array;
     static ArrayList<TestDTO> arrayList;
     public static ArrayList<ChemicalDTO> data;
 

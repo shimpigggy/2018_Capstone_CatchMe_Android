@@ -58,6 +58,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:text="호모살레이트"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -66,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nameK"
                     android:layout_centerHorizontal="true"
+                    android:textSize="16dp"
                     android:text="Homosalate"
                     android:textStyle="bold" />
 
@@ -103,6 +105,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="용도"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -245,6 +248,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="피부 타입별 효과"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -426,6 +430,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
+                    android:textSize="16dp"
                     android:text="기능성"
                     android:textStyle="bold" />
 
@@ -483,6 +488,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="알레르기 반응 유무"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -581,6 +587,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="사용상의 제한"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -660,6 +667,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:text="자주 쓰이는 제품"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <ImageView

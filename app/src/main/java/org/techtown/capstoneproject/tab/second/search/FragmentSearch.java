@@ -296,6 +296,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
              /*   //photo file 서버로 보내기
                 uploadImage(cropPhotoFile);*/
+
+                nextActivity();
                 break;
             }
 

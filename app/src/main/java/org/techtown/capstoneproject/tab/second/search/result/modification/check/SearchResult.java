@@ -31,9 +31,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     RelativeLayout[] contentsViewResult;
     ImageView[] contentsImages;
 
-    RelativeLayout typeView;
-    RelativeLayout typeViewResult;
-    ImageView typeImage;
     public static ChemicalDTO chemicalDTO = null;
 
     @Override
@@ -45,8 +42,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         dataMaching();
 
         Log.e("result", chemicalDTO.toString());
-        Toast.makeText(this, chemicalDTO.toString(), Toast.LENGTH_SHORT).show();
-        typeView.setOnClickListener(this);
     }
 
     public void actionBar() {
@@ -56,10 +51,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
     public void dataMaching() {
         intent = getIntent();
-
-        typeView = (RelativeLayout) findViewById(R.id.used);
-        typeViewResult = (RelativeLayout) findViewById(R.id.usedresult);
-        typeImage = (ImageView) findViewById(R.id.used_image);
 
         relativeLayoutSetting();
 
@@ -104,28 +95,28 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         String definition = chemicalDTO.getDefinition();
 
         TextView tvNameK = (TextView) findViewById(R.id.nameK);
-        if(nameK == null || nameK.equals(""))
+        if (nameK == null || nameK.equals(""))
             tvNameK.setText("NULL");
         else {
             tvNameK.setText(nameK);
         }
 
         TextView tvNameE = (TextView) findViewById(R.id.nameE);
-        if(nameE == null || nameE.equals(""))
+        if (nameE == null || nameE.equals(""))
             tvNameE.setText("NULL");
         else {
             tvNameE.setText(nameE);
         }
 
         TextView tvCas = (TextView) findViewById(R.id.cas);
-        if(cas == null || cas.equals(""))
+        if (cas == null || cas.equals(""))
             tvCas.setText("NULL");
         else {
             tvCas.setText(cas);
         }
 
         TextView tvDefinition = (TextView) findViewById(R.id.definition);
-        if(definition == null || definition.equals(""))
+        if (definition == null || definition.equals(""))
             tvDefinition.setText("NULL");
         else {
             tvDefinition.setText(definition);
@@ -410,7 +401,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
 
             textViews[0].setText(warningResult[0]);
 
-            String warningContext = null;
+            String warningContext = "";
             for (int i = 0; i < warningResultContext.length; i++) {
                 warningContext += warningResultContext[i] + "\n";
             }
@@ -427,7 +418,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         } else {
             String[] acneResult = acne.split("/");
 
-            String acneContext = null;
+            String acneContext = "";
             for (int i = 0; i < acneResult.length; i++) {
                 acneContext += acneResult[i] + "\n";
             }
