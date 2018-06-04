@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.techtown.capstoneproject.R;
+import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.Check;
 
@@ -28,6 +29,7 @@ public class Modification extends AppCompatActivity {
     ModificationAdapter resultModificationAdapter;
 
     static ArrayList<TestDTO> arrayList;
+    public static ArrayList<ChemicalDTO> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +44,23 @@ public class Modification extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Check.class);
 
-                intent.putExtra("result", arrayList);
+                intent.putExtra("result", arrayList);//임시
+                //intent.putExtra("data",data);
 
                 startActivity(intent);
             }
         });
-    }
+    }//onCreate
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
         im_check = (ImageButton) findViewById(R.id.check);
 
+        //임시 data
         arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
 
         resultModificationAdapter = new ModificationAdapter(Modification.this, arrayList);
+        //resultModificationAdapter = new ModificationAdapter(Modification.this, data);
         listView.setAdapter(resultModificationAdapter);
     }
 

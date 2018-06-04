@@ -39,6 +39,7 @@ import java.security.NoSuchAlgorithmException;
  */
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_PERMISSION = 0;
     private final int HOME = 1;
     private final int SEARCH = 2;
     private final int SELF = 3;
@@ -105,9 +106,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cameraPermission(Activity activity) {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-            //권한 없음
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 0);
+        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+
+        if (writePermission == PackageManager.PERMISSION_DENIED ||
+                readPermission == PackageManager.PERMISSION_DENIED ||
+                cameraPermission == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION);
         }
     }//permissionCheck
 
@@ -166,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }//callFragment
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
     }
 }//MainActivity

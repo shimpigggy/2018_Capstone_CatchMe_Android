@@ -69,27 +69,10 @@ public class FragmentInquiry extends Fragment {
         buttonSend.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //   dialog(SUCCESS);
-
-                //tab_inquiry form check
-                if (spinner.getSelectedItemPosition() != 0)
-                    if (!editTextTitle.getText().toString().equals(""))
-                        if (!editTextContext.getText().toString().equals("")) {
-                          //  sendServeryInquiry();
-                            dialog(SUCCESS);
-                        } else {//context X
-                            dialog(CONTEXT_X);
-                            //  Toast.makeText(getActivity().getApplicationContext(), "내용이 없음", Toast.LENGTH_SHORT).show();
-                        }
-                    else {//title X
-                        dialog(TITLE_X);
-                        // Toast.makeText(getActivity().getApplicationContext(), "제목을 적지 않음", Toast.LENGTH_SHORT).show();
-                    }
-                else {//spinner X
-                    dialog(SPINNER_X);
-                    // Toast.makeText(getActivity().getApplicationContext(), "분류를 고르지 않음", Toast.LENGTH_SHORT).show();
-                }
+                inquiryCheck();
             }//onClick
         });//setOnClickListener
+
         return view;
     }//onCreateView
 
@@ -100,27 +83,40 @@ public class FragmentInquiry extends Fragment {
         editTextContext = (EditText) view.findViewById(R.id.content);
         editTextTitle = (EditText) view.findViewById(R.id.title_content);
 
+               /*
+        //email setting
+        String nickname = SharedPreferencesUtil.getNicknamePreferences(getContext());
+        String email = SharedPreferencesUtil.getEmailPreferences(getContext(),nickname);
+        textEmail.setText(email);*/
+
         //server
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(ApiService.ADDRESS).build();
 
         apiService = retrofit.create(ApiServiceEmail.class);
-        /*
-        //email setting
-        String nickname = SharedPreferencesUtil.getNicknamePreferences(getContext());
-        String email = SharedPreferencesUtil.getEmailPreferences(getContext(),nickname);
-        textEmail.setText(email);*/
     }//init
 
-    //tab_inquiry 체크 함수
-    public boolean checkEmailForm(String src) {
-        String emailRegex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
-        return Pattern.matches(emailRegex, src);
-    }//checkEmailForm
+    public void inquiryCheck() {
+        //tab_inquiry form check
+        if (spinner.getSelectedItemPosition() != 0)
+            if (!editTextTitle.getText().toString().equals(""))
+                if (!editTextContext.getText().toString().equals("")) {
+                    // 서버에게 문의에 대한 값을 넘김
+                    //  sendServeryInquiry();
+                    dialog(SUCCESS);//임시
+                } else {//context X
+                    dialog(CONTEXT_X);
+                }
+            else {//title X
+                dialog(TITLE_X);
+            }
+        else {//spinner X
+            dialog(SPINNER_X);
+        }
+    }//inquiryCheck
 
     public void dialog(int distinction) {
-
         String context = "";
         switch (distinction) {
             case SUCCESS:
@@ -170,7 +166,7 @@ public class FragmentInquiry extends Fragment {
                 //데이터가 받아지면 호출
                 try {
                     String result = response.code() + "";
-                    Log.e(">>>>>ONE", result);
+                    Log.e("Inquiry", result);
                     dialog(SUCCESS);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -180,7 +176,7 @@ public class FragmentInquiry extends Fragment {
             @Override
             public void onFailure(Call<JSONObject> call, Throwable t) {
                 //데이터가 받아지는 것이 실패
-                Log.e("Fail", call.toString());
+                Log.e("Inquiry Fail", call.toString());
             }//onFailure
         });
     }//sendServeryInquiry
