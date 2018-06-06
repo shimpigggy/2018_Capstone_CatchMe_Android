@@ -11,7 +11,7 @@
         android:layout_centerVertical="true">
 
         <ImageButton
-            android:id="@+id/btn_name"
+            android:id="@+id/btn_gallery_product"
             android:layout_width="100dp"
             android:layout_height="100dp"
 
@@ -21,13 +21,13 @@
             android:src="@drawable/tab2_name" />
 
         <ImageButton
-            android:id="@+id/btn_detail"
+            android:id="@+id/btn_gallery_detail"
             android:layout_width="100dp"
             android:layout_height="100dp"
 
-            android:layout_alignTop="@id/btn_name"
+            android:layout_alignTop="@id/btn_gallery_product"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/btn_name"
+            android:layout_toRightOf="@id/btn_gallery_product"
 
             android:background="@color/white"
             android:scaleType="fitCenter"
@@ -35,12 +35,12 @@
             android:src="@drawable/tab2_detail" />
 
         <ImageButton
-            android:id="@+id/btn_gallery"
+            android:id="@+id/btn_photo_product"
             android:layout_width="100dp"
             android:layout_height="100dp"
 
-            android:layout_alignLeft="@id/btn_name"
-            android:layout_below="@id/btn_name"
+            android:layout_alignLeft="@id/btn_gallery_product"
+            android:layout_below="@id/btn_gallery_product"
             android:layout_marginTop="20dp"
 
             android:background="@color/white"
@@ -52,10 +52,10 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
 
-            android:layout_below="@id/btn_name"
+            android:layout_below="@id/btn_gallery_product"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/btn_name"
+            android:layout_toRightOf="@id/btn_gallery_product"
 
             android:background="@color/white"
             android:scaleType="fitCenter"

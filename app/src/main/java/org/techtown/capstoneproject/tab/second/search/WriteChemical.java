@@ -56,7 +56,16 @@ public class WriteChemical extends AppCompatActivity {
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
 
-    private int loadingEnd = 1;
+    private final int LOADING = 0;
+    private final int SUCCESS = 1;
+    private final int TAB_ERROR = 2;
+    private final int MODIFICATION_ERROR = 3;
+    private final int GALLERY_ERROR = 4;
+    private final int WRITE_ERROR = 5;
+    private final int SERVER_ERROR = 6;
+    private final int DONE = 7;
+    private int loadingEnd = LOADING;
+
     private ArrayList<TestDTO> arrayList;// 임시
     private int position;
 
@@ -232,7 +241,7 @@ public class WriteChemical extends AppCompatActivity {
         progressDialog = ProgressDialog.show(WriteChemical.this, "", "성분 정보를 받고 있습니다.");
         progressDialog.setCancelable(true);
 
-        mHandler.sendEmptyMessageDelayed(0, 2000);
+        mHandler.sendEmptyMessageDelayed(SUCCESS, 2000);
     }
 
     Handler mHandler = new Handler() {
@@ -242,9 +251,9 @@ public class WriteChemical extends AppCompatActivity {
             //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
             if (msg.what == loadingEnd) { // 타임아웃이 발생하면
                 progressDialog.dismiss(); // ProgressDialog를 종료
-
-                nextActivity();
-            } else {
+                loadingEnd = DONE;
+                nextActivity();}
+            else {
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             }
         }

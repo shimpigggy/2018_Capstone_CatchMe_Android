@@ -67,7 +67,6 @@ public class Check extends AppCompatActivity {
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
-        // arrayList = new ArrayList<TestDTO>();
 
         bottom = (RelativeLayout) findViewById(R.id.bottom);
         explain = (RelativeLayout) findViewById(R.id.explain);
@@ -75,11 +74,11 @@ public class Check extends AppCompatActivity {
         home.setVisibility(View.INVISIBLE);
 
         //receive info from Modification
-        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
-        // data = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("data");
+     //   arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
+        //checkAdapter = new CheckAdapter(Check.this, arrayList);
 
-        checkAdapter = new CheckAdapter(Check.this, arrayList);
-        // checkAdapter = new CheckAdapter(Check.this, data);
+        data = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("data");
+        checkAdapter = new CheckAdapter(Check.this, data);
         listView.setAdapter(checkAdapter);
     }//init
 
