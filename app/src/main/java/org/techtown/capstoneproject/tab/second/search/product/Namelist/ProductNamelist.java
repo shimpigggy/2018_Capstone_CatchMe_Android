@@ -19,7 +19,9 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.Check;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
@@ -35,13 +37,19 @@ import retrofit2.Retrofit;
 public class ProductNamelist extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView listView;
     ProductNamelistAdapter productNamelistAdapter;
-    ArrayList<TestDTO> arrayList;//뿌려주는 데이터
-    TestDTO data;//클릭한 listview에 대한 정보
+    public static ArrayList<ProductNameDTO> arrayList = null;//뿌려주는 데이터
+    ProductNameDTO data;//클릭한 listview에 대한 정보
+
+    private final int LOADING = 0;
+    private final int SUCCESS = 1;
+    private final int CHEMICAL_LIST_ERROR = 2;
+    private final int SERVER_ERROR = 6;
+    private final int DONE = 7;
+    private int loadingEnd = LOADING;
 
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
     ArrayList<ChemicalDTO> serverData; //서버로 부터 받은 화학성분 데이터
-    private int loadingEnd = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +63,6 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
 
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
-        // arrayList = new ArrayList<TestDTO>();
-
-        //receive info from Modification
-        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
 
         productNamelistAdapter = new ProductNamelistAdapter(ProductNamelist.this, arrayList);
         listView.setAdapter(productNamelistAdapter);
@@ -70,39 +74,10 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
     }//actionBar'
 
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        /*
-                // 두가지 방법 모두 사용가능하다.
-//      Data data = (Data) parent.getItemAtPosition(position);
-        Data data = mList.get(position);
-
-        // 다음 액티비티로 넘길 Bundle 데이터를 만든다.
-        Bundle extras = new Bundle();
-        extras.putString("title", data.getTitle());
-        extras.putString("description", data.getDescription());
-        extras.putInt("color", data.getColor());
-
-        // 인텐트를 생성한다.
-        // 컨텍스트로 현재 액티비티를, 생성할 액티비티로 ItemClickExampleNextActivity 를 지정한다.
-        Intent intent = new Intent(this, ItemClickExampleNextActivity.class);
-
-        // 위에서 만든 Bundle을 인텐트에 넣는다.
-        intent.putExtras(extras);
-
-        // 액티비티를 생성한다.
-        startActivity(intent);
-        * */
-
         //선택한 listview의 값
-        data = (TestDTO) parent.getItemAtPosition(position);
+        data = (ProductNameDTO) parent.getItemAtPosition(position);
 
-        //serverData();
-
-        //임시 데이터
-        Intent intent = new Intent(ProductNamelist.this, Check.class);
-        intent.putExtra("result", arrayList);
-        //intent.putExtra("data", serverData);
-
-        startActivity(intent);
+        serverData();
     }
 
     public void serverData() {
@@ -110,7 +85,8 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
         retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
         apiService_chemical = retrofit.create(ApiServiceChemical.class);
 
-        Call<ResponseBody> getInfo = apiService_chemical.getInfo(data.getName());
+        Log.e(" data server", data.getProdcutName());
+        Call<ResponseBody> getInfo = apiService_chemical.getChemicalList(data.getProdcutName());
         getInfo.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -125,6 +101,7 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         chemicalDTOS[i] = new ChemicalDTO();
 
+                        chemicalDTOS[i].setNum(i + 1);
                         chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
                         chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
                         chemicalDTOS[i].setCas(jsonObject.getString("cas"));
@@ -144,12 +121,15 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
                         chemicalDTOS[i].setBaby(jsonObject.getString("baby"));
                         chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
 
+                        Log.e("Check", chemicalDTOS[i].toString());
+
                         serverData.add(chemicalDTOS[i]);
                     }
-                    loadingEnd =0;
+                    loadingEnd = SUCCESS;
 
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
+                    loadingEnd = CHEMICAL_LIST_ERROR;
                     e.printStackTrace();
                 }
             }
@@ -157,6 +137,7 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Fail Error", call.toString());
+                loadingEnd = SERVER_ERROR;
             }
         });
     }//serverData
@@ -165,9 +146,9 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
 
     public void loading() {
         progressDialog = ProgressDialog.show(ProductNamelist.this, "", "해당 제품의 성분을 분석하고 있습니다.");
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
 
-        mHandler.sendEmptyMessageDelayed(0, 2000);
+        mHandler.sendEmptyMessageDelayed(10, 2000);
     }
 
     Handler mHandler = new Handler() {
@@ -175,10 +156,25 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
         public void handleMessage(Message msg) {
             Log.e("loadEnd", loadingEnd + "");
             //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
-            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+            if (loadingEnd == SUCCESS) { // 타임아웃이 발생하면
                 progressDialog.dismiss(); // ProgressDialog를 종료
+                loadingEnd = DONE;
                 nextActivity();
-            } else {
+            } else if (loadingEnd == CHEMICAL_LIST_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(ProductNamelist.this, "다시 눌러주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == SERVER_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(ProductNamelist.this, "서버가 불안정 합니다.\n다시 실행해 주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == LOADING) {
                 //같지 않을 경우 다시 실행
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             }
@@ -186,10 +182,10 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
     };
 
     public void nextActivity() {
-        Intent intent = new Intent(ProductNamelist.this, Check.class);
-        intent.putExtra("result", arrayList);
-        //intent.putExtra("data", serverData);
+        loadingEnd = LOADING;
 
+        Intent intent = new Intent(ProductNamelist.this, Check.class);
+        intent.putExtra("data", serverData);
         startActivity(intent);
     }//nextActivity
 }

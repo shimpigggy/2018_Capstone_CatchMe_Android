@@ -35,6 +35,6 @@ public interface ApiServiceChemical {
     Call<ResponseBody> getInfo(@Path("name") String name);
 
     //화학성분 여러개
-    @GET("chemical/getinfolist")
-    Call<ResponseBody> getInfoList(@Path("name") String name);
+    @GET("product/ingradient/{productname}")
+    Call<ResponseBody> getChemicalList(@Path("productname") String productname);
 }

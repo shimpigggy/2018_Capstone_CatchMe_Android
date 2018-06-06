@@ -42,7 +42,9 @@ import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.api.MyRetrofit2;
 import org.techtown.capstoneproject.service.api.UploadService;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
 import org.techtown.capstoneproject.tab.second.search.product.Namelist.ProductNamelist;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
@@ -67,25 +69,36 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int PICK_FROM_CAMERA = 0;
-    private static final int CROP_FROM_CAMERA = 2;
-    private static final int PICK_FROM_FILE = 18;
+    private static final int CROP_FROM_CAMERA = 1;
+    private static final int PICK_FROM_FILE = 2;
 
-    private static final int PRODUCT_NAME = 1818;
-    private static final int CHEMICAL = 181818;
-    private static final int GALLERY = 18181818;
     private int PAGE;
+    private final int PHOTO_PRODUCT = 10;
+    private final int GALLERY_PRODUCT = 11;
+    private final int GALLERY_DETAIL = 12;
+    private final int WRITE_SELF = 13;
+
+    private final int LOADING = 0;
+    private final int SUCCESS = 1;
+    private final int PRODUCT_PHOTO_ERROR = 2;
+    private final int CHEMICAL_PHOTO_ERROR = 3;
+    private final int GALLERY_ERROR = 4;
+    private final int WRITE_ERROR = 5;
+    private final int SERVER_ERROR = 6;
+    private final int DONE = 7;
+    private int loadingEnd = LOADING;
 
     private Uri mImageCaptureUri;
     private String fileName;
 
-    private ImageButton btnName;
-    private ImageButton btnDetail;
-    private ImageButton btnGallery;
+    private ImageButton bntProductName;
+    private ImageButton bntGalleryProduct;
+    private ImageButton btnGalleryDetail;
     private ImageButton btnWrite;
 
     private Retrofit retrofit;
     private ApiServiceChemical apiService_chemical;
-    private int loadingEnd = 0;
+
     private static ArrayList<TestDTO> arrayList;
     //static ArrayList<ChemicalDTO> arrayList;
 
@@ -101,91 +114,46 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        Init(view);
-
-        getChemicalNameList();
+        Init(view);//XML과 연결
 
         return view;
     }
 
     public void Init(View view) {
-        btnName = (ImageButton) view.findViewById(R.id.btn_name);//제품명
-        btnDetail = (ImageButton) view.findViewById(R.id.btn_detail);//화학성분
-        btnGallery = (ImageButton) view.findViewById(R.id.btn_gallery);//바코드
+        bntProductName = (ImageButton) view.findViewById(R.id.btn_photo_product);//제품명 사진찍기
+        bntGalleryProduct = (ImageButton) view.findViewById(R.id.btn_gallery_product);//갤러리 제품명
+        btnGalleryDetail = (ImageButton) view.findViewById(R.id.btn_gallery_detail);//갤러리 화학성분
         btnWrite = (ImageButton) view.findViewById(R.id.btn_write);//직접 쓰기
 
-        btnGallery.setOnClickListener(this);
-        btnName.setOnClickListener(this);
-        btnDetail.setOnClickListener(this);
+        bntProductName.setOnClickListener(this);
+        bntGalleryProduct.setOnClickListener(this);
+        btnGalleryDetail.setOnClickListener(this);
         btnWrite.setOnClickListener(this);
     }//init
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_detail:
-                PAGE = CHEMICAL;
-                ButtonDetailListener(v);
+            case R.id.btn_gallery_product:
+                PAGE = GALLERY_PRODUCT;
+                ButtonGalleryListener(v);
                 break;
-            case R.id.btn_name:
-                PAGE = PRODUCT_NAME;
-                ButtonNameListener(v);
+            case R.id.btn_gallery_detail:
+                PAGE = GALLERY_DETAIL;
+                ButtonGalleryListener(v);
                 break;
-            case R.id.btn_gallery:
-                PAGE = GALLERY;
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                Intent chooser = Intent.createChooser(intent, "이미지를 불러옵니다");
-                startActivityForResult(chooser, PICK_FROM_FILE);
+            case R.id.btn_photo_product:
+                PAGE = PHOTO_PRODUCT;
+                ButtonPhotoProductListener(v);
                 break;
             case R.id.btn_write:
-                Intent intent1 = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
-                intent1.putExtra("type", "tab");
-                startActivity(intent1);
+                PAGE = WRITE_SELF;
+                getChemicalNameList();
                 break;
         }
     }
 
-    //자동완성을 위한 성분리스트 전체 항목을 불러온다.
-    //write부분에서 사용
-    private void getChemicalNameList() {
-        if (WriteChemical.item == null) {
-
-            retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
-            apiService_chemical = retrofit.create(ApiServiceChemical.class);
-            Call<ResponseBody> getList = apiService_chemical.getNameList("");
-            getList.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String tempList = response.body().string();
-                        JSONObject jsonObject = new JSONObject(tempList);
-                        WriteChemical.item = new String[jsonObject.length()];
-
-                        for (int i = 0; i < jsonObject.length(); i++) {
-                            WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
-                        }
-
-                        Log.e(">>>>>>>>>Write item", tempList);
-                        Log.e(">>>>>>>>>Write item", Arrays.toString(WriteChemical.item));
-
-                    } catch (IOException e) {
-                        Log.i("retrofiError", e.getMessage());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.e(">>>>>>>>>WriteItem", call.toString());
-                }
-            });
-        }
-    }//getChemicalNameList
-
-    public void ButtonNameListener(View v) {
+    public void ButtonPhotoProductListener(View v) {
         DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -206,26 +174,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 .show();
     }//ButtonNameListener
 
-    public void ButtonDetailListener(View v) {
-        DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doTakePhotoAction();
-            }
-        };
-        DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        };
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("화학성분에 대한 촬영을 하겠습니다.")
-                .setPositiveButton("확인", cameraListener)
-                .setNegativeButton("취소", cancelListener)
-                .show();
-    }//ButtonDetailListener
+    public void ButtonGalleryListener(View v) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent chooser = Intent.createChooser(intent, "이미지를 불러옵니다");
+        startActivityForResult(intent, PICK_FROM_FILE);
+    }//ButtonNameListener
 
     /**
      * 카메라에서 이미지 가져오기
@@ -274,10 +229,14 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             return;
         }
         switch (requestCode) {
-
             case PICK_FROM_FILE: {
                 Uri selectImage = data.getData();
-                uploadImage(selectImage);
+
+                if (PAGE == GALLERY_PRODUCT)
+                    uploadImageFromProduct(selectImage);
+                else if (PAGE == GALLERY_DETAIL)
+                    uploadImageFromChemical(selectImage);
+
                 break;
             }
             case CROP_FROM_CAMERA: {
@@ -294,17 +253,15 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
                 Log.e(">>>>>>>cropPhotoFile", cropPhotoFile.getPath());
 
-             /*   //photo file 서버로 보내기
-                uploadImage(cropPhotoFile);*/
+                //photo file 서버로 보내기
+                uploadImageFromPHOTO(cropPhotoFile);
 
-                nextActivity();
                 break;
             }
 
             case PICK_FROM_CAMERA: {
                 // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
                 // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
-
                 Intent intent = new Intent("com.android.camera.action.CROP");
                 intent.setDataAndType(mImageCaptureUri, "image/*");
 
@@ -314,7 +271,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 intent.putExtra("scale", true);
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_CAMERA);
-
                 break;
             }//
         }//switch
@@ -340,6 +296,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             int width = bitmap.getWidth();
 
             bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+
+
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.close();
 
@@ -376,101 +334,152 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 
-    //갤러리에서 이미지 넘김
-    public void uploadImage(Uri uri) {
-        loading();
+    //갤러리에서 이미지 넘김: 제품명
+    public void uploadImageFromProduct(Uri uri) {
+        loading("사진을 분석하고 있습니다.");
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
-
         File file = new File(getRealPathFromURI(uri));
-        MultipartBody.Part body1 = prepareFilePart("image", uri);
 
+        MultipartBody.Part body1 = prepareFilePart("image", uri);
         RequestBody description = createPartFromString("file");
 
-        Call<ResponseBody> call = service.uploadFile(description, body1);
-
+        Call<ResponseBody> call = service.TEST(description, body1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String temp = response.body().string();
+                    JSONArray jsonArray = new JSONArray(temp);
+                    String result = jsonArray.toString();
 
+                    Log.e("Gallery", temp);
                     //받을 data -> 제품명 리스트: 제품 이름만 가져오기
 
+                    ProductNamelist.arrayList = new ArrayList<>();
+                    String[] productName = result.split(",");
+                    ProductNameDTO[] dto = new ProductNameDTO[productName.length];
 
-                    loadingEnd = 0;
+                    for (int i = 0; i < productName.length; i++) {
+                        dto[i] = new ProductNameDTO();
+                        dto[i].setNum(i + 1);
+                        dto[i].setProdcutName(productName[i]);
+
+                        ProductNamelist.arrayList.add(dto[i]);
+                    }
+
+                    loadingEnd = SUCCESS;
                 } catch (Exception e) {
-                    Log.e("error", e.getMessage());
+                    loadingEnd = GALLERY_ERROR;
+                    Log.e("GalleryError", e.getMessage());
                     e.printStackTrace();
                 }
             }//onResponse
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                loadingEnd = SERVER_ERROR;
                 Log.e("Fail Error", call.toString());
             }
         });
     }//uploadImage
-
     //찍은 사진
-    public void uploadImage(File file) {
-        loading();
+
+
+    //찍은 사진: 화학성분
+    public void uploadImageFromChemical(Uri uri) {
+        loading("사진을 분석하고 있습니다.");
         UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
+        File file = new File(getRealPathFromURI(uri));
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
-        MultipartBody.Part prepareFilePart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
+        MultipartBody.Part body1 = prepareFilePart("image", uri);
         RequestBody description = createPartFromString("file");
 
-        Call<ResponseBody> call = service.uploadFile(description, prepareFilePart);
-
+        Call<ResponseBody> call = service.TEST(description, body1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String temp = response.body().string();
+                    Log.e("uploadImageFromChemical", temp);
 
-                    //임시
-                    if (PAGE == PRODUCT_NAME) {
-                        //제품 명
+/*                    //화학성분 인식 결과의 ChemicalDTO
+                    JSONArray jsonArray = new JSONArray(temp);
+                    ChemicalDTO[] chemicalDTOS = new ChemicalDTO[jsonArray.length()];
 
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        chemicalDTOS[i] = new ChemicalDTO();
 
-                    } else if (PAGE == CHEMICAL) {
-                        //화학성분 인식 결과의 ChemicalDTO
-                        JSONArray jsonArray = new JSONArray(temp);
-                        ChemicalDTO[] chemicalDTOS = new ChemicalDTO[jsonArray.length()];
+                        chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
+                        chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
+                        chemicalDTOS[i].setCas(jsonObject.getString("cas"));
+                        chemicalDTOS[i].setDefinition(jsonObject.getString("definition"));
+                        chemicalDTOS[i].setUsed(jsonObject.getString("used"));
+                        chemicalDTOS[i].setDryGood(jsonObject.getString("dryGood"));
+                        chemicalDTOS[i].setDryBad(jsonObject.getString("dryBad"));
+                        chemicalDTOS[i].setOilGood(jsonObject.getString("oilGood"));
+                        chemicalDTOS[i].setOilBad(jsonObject.getString("oilBad"));
+                        chemicalDTOS[i].setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                        chemicalDTOS[i].setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                        chemicalDTOS[i].setComplexBad(jsonObject.getString("complexBad"));
+                        chemicalDTOS[i].setFunctionFor(jsonObject.getString("functionFor"));
+                        chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
+                        chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
+                        chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
+                        chemicalDTOS[i].setBaby(jsonObject.getString("baby"));
+                        chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            chemicalDTOS[i] = new ChemicalDTO();
+                        Log.d("searchDTO", chemicalDTOS[i].toString());
 
-                            chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
-                            chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
-                            chemicalDTOS[i].setCas(jsonObject.getString("cas"));
-                            chemicalDTOS[i].setDefinition(jsonObject.getString("definition"));
-                            chemicalDTOS[i].setUsed(jsonObject.getString("used"));
-                            chemicalDTOS[i].setDryGood(jsonObject.getString("dryGood"));
-                            chemicalDTOS[i].setDryBad(jsonObject.getString("dryBad"));
-                            chemicalDTOS[i].setOilGood(jsonObject.getString("oilGood"));
-                            chemicalDTOS[i].setOilBad(jsonObject.getString("oilBad"));
-                            chemicalDTOS[i].setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                            chemicalDTOS[i].setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                            chemicalDTOS[i].setComplexBad(jsonObject.getString("complexBad"));
-                            chemicalDTOS[i].setFunctionFor(jsonObject.getString("functionFor"));
-                            chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
-                            chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
-                            chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
-                            chemicalDTOS[i].setBaby(jsonObject.getString("baby"));
-                            chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
+                        Modification.data.add(chemicalDTOS[i]);
 
-                            Log.d("searchDTO", chemicalDTOS[i].toString());
-
-                            Modification.data.add(chemicalDTOS[i]);
-                        }//for
-                    }//else if
-
-                    loadingEnd = 0;
+                    }//else if*/
+                    loadingEnd = SUCCESS;
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                    loadingEnd = CHEMICAL_PHOTO_ERROR;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Fail Error", call.toString());
+                loadingEnd = SERVER_ERROR;
+            }
+        });
+    }//uploadImage
+
+    //찍은 사진: 제품명
+    public void uploadImageFromPHOTO(File file) {
+        loading("사진을 분석하고 있습니다.");
+        UploadService service = MyRetrofit2.getRetrofit2().create(UploadService.class);
+        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
+        MultipartBody.Part prepareFilePart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        RequestBody description = createPartFromString("file");
+
+        Call<ResponseBody> call = service.uploadFileProduct(description, prepareFilePart);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String temp = response.body().string();
+                    JSONObject jsonObject = new JSONObject(temp);
+                    ProductNamelist.arrayList = new ArrayList<>();
+
+                    ProductNameDTO[] dto = new ProductNameDTO[jsonObject.length()];
+
+                    for (int i = 0; i < jsonObject.length(); i++) {
+                        dto[i] = new ProductNameDTO();
+                        dto[i].setNum(i + 1);
+                        dto[i].setProdcutName(jsonObject.getString(String.valueOf(i)));
+
+                        ProductNamelist.arrayList.add(dto[i]);
+                    }
+                    loadingEnd = SUCCESS;
+                } catch (Exception e) {
+                    Log.e("error", e.getMessage());
+                    loadingEnd = PRODUCT_PHOTO_ERROR;
                     e.printStackTrace();
                 }
             }
@@ -478,17 +487,61 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Fail Error", call.toString());
+                loadingEnd = SERVER_ERROR;
             }
         });
     }//uploadImage
 
+
+    //자동완성을 위한 성분리스트 전체 항목을 불러온다.
+    //write부분에서 사용
+    private void getChemicalNameList() {
+        if (WriteChemical.item == null) {
+            loading("잠시만 기달려 주세요.");
+            retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
+            apiService_chemical = retrofit.create(ApiServiceChemical.class);
+            Call<ResponseBody> getList = apiService_chemical.getNameList("");
+            getList.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String tempList = response.body().string();
+                        JSONObject jsonObject = new JSONObject(tempList);
+                        WriteChemical.item = new String[jsonObject.length()];
+
+                        for (int i = 0; i < jsonObject.length(); i++) {
+                            WriteChemical.item[i] = jsonObject.getString(String.valueOf(i));
+                        }
+
+                        Log.e(">>>>>>>>>Write item", tempList);
+                        Log.e(">>>>>>>>>Write item", Arrays.toString(WriteChemical.item));
+                        loadingEnd = SUCCESS;
+                    } catch (IOException e) {
+                        Log.i("retrofiError", e.getMessage());
+                        loadingEnd = WRITE_ERROR;
+                    } catch (Exception e) {
+                        loadingEnd = WRITE_ERROR;
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e(">>>>>>>>>WriteItem", call.toString());
+                    loadingEnd = SERVER_ERROR;
+                }
+            });
+        }
+    }//getChemicalNameList
+
     ProgressDialog progressDialog;
 
-    public void loading() {
-        progressDialog = ProgressDialog.show(getContext(), "", "사진을 분석하고 있습니다.");
+    public void loading(String Message) {
+        progressDialog = ProgressDialog.show(getContext(), "", Message);
         progressDialog.setCancelable(true);
+        progressDialog.setCanceledOnTouchOutside(false);
 
-        mHandler.sendEmptyMessageDelayed(0, 2000);
+        mHandler.sendEmptyMessageDelayed(SUCCESS, 2000);
     }
 
     Handler mHandler = new Handler() {
@@ -496,10 +549,43 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         public void handleMessage(Message msg) {
             Log.e("loadEnd", loadingEnd + "");
             //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
-            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
+            if (loadingEnd == SUCCESS) { // 타임아웃이 발생하면
                 progressDialog.dismiss(); // ProgressDialog를 종료
                 nextActivity();
-            } else {
+                loadingEnd = DONE;
+            } else if (loadingEnd == PRODUCT_PHOTO_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(getContext(), "사진을 정확하게 다시 찍어주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == CHEMICAL_PHOTO_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(getContext(), "사진을 정확하게 다시 찍어주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == GALLERY_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(getContext(), "정확한 사진으로 골라주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == WRITE_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+            } else if (loadingEnd == SERVER_ERROR) {
+                progressDialog.dismiss();
+                loadingEnd = LOADING;
+
+                CustomDialog dialog = new CustomDialog(getContext(), "서버가 불안정 합니다.\n다시 실행해 주세요.");
+                dialog.setCancelable(false);
+                dialog.show();
+            } else if (loadingEnd == LOADING) {
                 //같지 않을 경우 다시 실행
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             }
@@ -507,23 +593,24 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     };
 
     public void nextActivity() {
-        remvoePhoteFile();
-
         Intent intent;
 
+        loadingEnd = LOADING;
         switch (PAGE) {
-            case PRODUCT_NAME:
-                inputData();// 임시
-            case GALLERY:
+            case PHOTO_PRODUCT:
+            case GALLERY_PRODUCT:
                 intent = new Intent(getActivity().getApplicationContext(), ProductNamelist.class);
-
-                intent.putExtra("result", arrayList);//임시
                 startActivity(intent);
                 break;
-            case CHEMICAL:
+            case GALLERY_DETAIL:
                 inputData();
                 intent = new Intent(getActivity().getApplicationContext(), Modification.class);
                 intent.putExtra("result", arrayList);// 임시
+                startActivity(intent);
+                break;
+            case WRITE_SELF:
+                intent = new Intent(getActivity().getApplicationContext(), WriteChemical.class);
+                intent.putExtra("type", "tab");
                 startActivity(intent);
                 break;
         }
@@ -531,11 +618,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     public void remvoePhoteFile() {
         //전체 사진 파일 + crop 사진 파일 지우기
-        File f = new File(mImageCaptureUri.getPath());
+/*        File f = new File(mImageCaptureUri.getPath());
         Log.e(">>>>>>>tempor", f.getPath());
         if (f.exists()) {
             f.delete();
-        }
+        }*/
 
         //crop photo file
         File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(

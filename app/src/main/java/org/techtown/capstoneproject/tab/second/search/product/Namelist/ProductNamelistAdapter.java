@@ -16,6 +16,7 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
@@ -34,7 +35,7 @@ import retrofit2.Retrofit;
 public class ProductNamelistAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<TestDTO> arrayList;
+    private static ArrayList<ProductNameDTO> arrayList = null;
 
     private TextView tv_num;
     private TextView tv_name;
@@ -43,7 +44,7 @@ public class ProductNamelistAdapter extends BaseAdapter {
     Retrofit retrofit;
     ApiServiceChemical apiService_chemical;
 
-    public ProductNamelistAdapter(Context context, ArrayList<TestDTO> array) {
+    public ProductNamelistAdapter(Context context, ArrayList<ProductNameDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -88,7 +89,7 @@ public class ProductNamelistAdapter extends BaseAdapter {
     }//init
 
     public void settting(int position) {
-        tv_num.setText(arrayList.get(position).getStringNum());
-        tv_name.setText(arrayList.get(position).getName());
+        tv_num.setText(arrayList.get(position).getNum()+"");
+        tv_name.setText(arrayList.get(position).getProdcutName());
     }//setUI
 }//CheckAdapter

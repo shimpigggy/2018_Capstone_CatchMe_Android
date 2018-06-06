@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by hahav on 2018-05-26.
  */
 public class ChemicalDTO {
+    int num;
     String nameK;
     String nameE;
     String cas;
@@ -24,6 +25,14 @@ public class ChemicalDTO {
     String acne;
     String baby;
     String productList;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public String getNameK() {
         return nameK;
