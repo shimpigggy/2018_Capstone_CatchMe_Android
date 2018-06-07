@@ -23,7 +23,6 @@ public class ChemicalDTO implements Serializable{
     String allergy;
     String warning;
     String acne;
-    String baby;
     String productList;
 
     public int getNum() {
@@ -162,14 +161,6 @@ public class ChemicalDTO implements Serializable{
         this.acne = acne;
     }
 
-    public String getBaby() {
-        return baby;
-    }
-
-    public void setBaby(String baby) {
-        this.baby = baby;
-    }
-
     public String getProductList() {
         return productList;
     }
@@ -184,7 +175,7 @@ public class ChemicalDTO implements Serializable{
                 + used + ", dryGood=" + dryGood + ", dryBad=" + dryBad + ", oilGood=" + oilGood + ", oilBad=" + oilBad
                 + ", sensitiveGood=" + sensitiveGood + ", sensitiveBad=" + sensitiveBad + ", complexBad=" + complexBad
                 + ", functionFor=" + functionFor + ", allergy=" + allergy + ", warning=" + warning + ", acne=" + acne
-                + ", baby=" + baby + ", productList=" + productList + "]";
+                + ",productList=" + productList + "]";
     }
 
 }

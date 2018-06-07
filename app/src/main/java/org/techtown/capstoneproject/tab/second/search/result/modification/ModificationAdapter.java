@@ -11,9 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.service.dto.ChemicalDTO;
+import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.tab.second.search.WriteChemical;
-import org.techtown.capstoneproject.service.dto.TestDTO;
 
 import java.util.ArrayList;
 
@@ -26,14 +25,14 @@ import java.util.ArrayList;
 public class ModificationAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<ChemicalDTO> arrayList;
+    private ArrayList<ProductNameDTO> arrayList;
 
     private TextView tv_num;
     private TextView tv_name;
     private ImageButton ib_modify;
     private ImageButton ib_delete;
 
-    public ModificationAdapter(Context context, ArrayList<ChemicalDTO> array) {
+    public ModificationAdapter(Context context, ArrayList<ProductNameDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = array;
         this.context = context;
@@ -81,22 +80,18 @@ public class ModificationAdapter extends BaseAdapter {
     }
 
     public void settingUI(int position) {
-        tv_num.setText(arrayList.get(position).getNum());
-        /*int num = position+1;
-        tv_num.setText(num +"");*/
+        tv_num.setText(arrayList.get(position).getNum()+"");
 
-        tv_name.setText(arrayList.get(position).getNameK());
-        //tv_name.setText(data.get(position).getNameK());
+        tv_name.setText(arrayList.get(position).getProductName());
 
         ib_modify.setTag(position);
         ib_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "modify", Toast.LENGTH_SHORT).show();
                 int position = Integer.parseInt(v.getTag().toString());
 
                 Intent intent = new Intent(context, WriteChemical.class);
-                intent.putExtra("modifyName", arrayList.get(position).getNameK());
+                intent.putExtra("modifyName", arrayList.get(position).getProductName());
                 intent.putExtra("type", "result_modification");
                 intent.putExtra("position", position);
                 intent.putExtra("backResult", arrayList);

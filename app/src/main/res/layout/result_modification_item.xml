@@ -34,7 +34,8 @@
         android:layout_toRightOf="@id/num"
         android:paddingLeft="15dp"
         android:text="에칠헥실메톡시신나메이트"
-        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textSize="20dp" />
 
     <ImageButton
