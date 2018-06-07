@@ -31,7 +31,6 @@ public class Modification extends AppCompatActivity {
     ModificationAdapter resultModificationAdapter;
 
     static List<Map<Integer,String>> array;
-    static ArrayList<TestDTO> arrayList;
     public static ArrayList<ChemicalDTO> data;
 
     @Override
@@ -47,8 +46,7 @@ public class Modification extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Check.class);
 
-                intent.putExtra("result", arrayList);//임시
-                //intent.putExtra("data",data);
+                intent.putExtra("data",data);
 
                 startActivity(intent);
             }
@@ -59,11 +57,9 @@ public class Modification extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         im_check = (ImageButton) findViewById(R.id.check);
 
-        //임시 data
-        arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("result");
+        data = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("data");
 
-        resultModificationAdapter = new ModificationAdapter(Modification.this, arrayList);
-        //resultModificationAdapter = new ModificationAdapter(Modification.this, data);
+      resultModificationAdapter = new ModificationAdapter(Modification.this, data);
         listView.setAdapter(resultModificationAdapter);
     }
 

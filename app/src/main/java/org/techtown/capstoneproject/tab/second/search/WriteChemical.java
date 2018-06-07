@@ -66,8 +66,12 @@ public class WriteChemical extends AppCompatActivity {
     private final int DONE = 7;
     private int loadingEnd = LOADING;
 
-    private ArrayList<TestDTO> arrayList;// 임시
-    private int position;
+    //tab
+    private ChemicalDTO dto;
+
+    //modification
+    private ArrayList<ChemicalDTO> arrayList;
+        private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +111,7 @@ public class WriteChemical extends AppCompatActivity {
                 Log.i("ss", actv.getText().toString());
 
                 if (PAGE == MODIFICATION) {
-                    // modificationFromServer();
-                    resultFromServer();
+                    modificationFromServer();
                 } else if (PAGE == TAB) {
                     resultFromServer();
                 }
@@ -135,8 +138,9 @@ public class WriteChemical extends AppCompatActivity {
             actv.setText(intent.getStringExtra("modify_name"));
             PAGE = MODIFICATION;
 
-            arrayList = (ArrayList<TestDTO>) getIntent().getSerializableExtra("backResult");
-            //position = getIntent().getIntExtra("position", 0);
+            arrayList = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("backResult");
+            position = getIntent().getIntExtra("position", 0);
+            actv.setText(getIntent().getStringExtra("modifyName"));
 
         } else if (type.equals("tab")) {
             //tab에서 온 경우
@@ -144,6 +148,7 @@ public class WriteChemical extends AppCompatActivity {
         }
     }//getIntentInfo
 
+    //tab에서 온거: SearchResult로 보내짐
     public void resultFromServer() {
         Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
         getInfo.enqueue(new Callback<ResponseBody>() {
@@ -152,27 +157,28 @@ public class WriteChemical extends AppCompatActivity {
                 try {
                     String temp = response.body().string();
                     JSONObject jsonObject = new JSONObject(temp);
-                    SearchResult.chemicalDTO = new ChemicalDTO();
 
-                    SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
-                    SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
-                    SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
-                    SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
-                    SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
-                    SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
-                    SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
-                    SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
-                    SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
-                    SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                    SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                    SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
-                    SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
-                    SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
-                    SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
-                    SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
-                    SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
-                    SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
-                    Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+                    dto = new ChemicalDTO();
+
+                    dto.setNameK(jsonObject.getString("nameK"));
+                    dto.setNameE(jsonObject.getString("nameE"));
+                    dto.setCas(jsonObject.getString("cas"));
+                    dto.setDefinition(jsonObject.getString("definition"));
+                    dto.setUsed(jsonObject.getString("used"));
+                    dto.setDryGood(jsonObject.getString("dryGood"));
+                    dto.setDryBad(jsonObject.getString("dryBad"));
+                    dto.setOilGood(jsonObject.getString("oilGood"));
+                    dto.setOilBad(jsonObject.getString("oilBad"));
+                    dto.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                    dto.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                    dto.setComplexBad(jsonObject.getString("complexBad"));
+                    dto.setFunctionFor(jsonObject.getString("functionFor"));
+                    dto.setAllergy(jsonObject.getString("allergy"));
+                    dto.setWarning(jsonObject.getString("warning"));
+                    dto.setAcne(jsonObject.getString("acne"));
+                    dto.setProductList(jsonObject.getString("productList"));
+
+                    Log.d("searchDTO", dto.toString());
 
                     actv.setText("");
                     loadingEnd = 0;
@@ -215,12 +221,11 @@ public class WriteChemical extends AppCompatActivity {
                     chemicalDTO.setAllergy(jsonObject.getString("allergy"));
                     chemicalDTO.setWarning(jsonObject.getString("warning"));
                     chemicalDTO.setAcne(jsonObject.getString("acne"));
-                    chemicalDTO.setBaby(jsonObject.getString("baby"));
                     chemicalDTO.setProductList(jsonObject.getString("productList"));
 
                     Log.d("searchDTO", chemicalDTO.toString());
 
-                    Modification.data.set(position, chemicalDTO);
+                    arrayList.set(position, chemicalDTO);
                     loadingEnd = 0;
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
@@ -262,11 +267,13 @@ public class WriteChemical extends AppCompatActivity {
     public void nextActivity() {
         if (PAGE == MODIFICATION) {
             final Intent next = new Intent(WriteChemical.this, Modification.class);
-
-            next.putExtra("result", arrayList);//임시
+            next.putExtra("data", arrayList);
             startActivity(next);
         } else if (PAGE == TAB) {
+            layout.setVisibility(View.INVISIBLE);
+
             final Intent next = new Intent(WriteChemical.this, SearchResult.class);
+            next.putExtra("data",dto);
             startActivity(next);
         }
     }
