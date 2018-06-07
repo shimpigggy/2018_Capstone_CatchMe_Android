@@ -38,7 +38,7 @@ import retrofit2.Retrofit;
 public class CheckAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-   // private ArrayList<TestDTO> arrayList;
+    // private ArrayList<TestDTO> arrayList;
     private ArrayList<ChemicalDTO> arrayList;
 
     private TextView tv_num;
@@ -49,6 +49,7 @@ public class CheckAdapter extends BaseAdapter {
     private ImageView iv_blue;
 
     private int loadingEnd = 1;
+    private ChemicalDTO dto;
 
     //server
     Retrofit retrofit;
@@ -85,9 +86,8 @@ public class CheckAdapter extends BaseAdapter {
         //convertView -> 만든 item.xml를 불러와야함
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.result_check_item, null);
-
-            init(convertView);
         }
+        init(convertView);
         settting(position);
         settingSkinType(position, convertView);
 
@@ -105,14 +105,13 @@ public class CheckAdapter extends BaseAdapter {
     }//init
 
     public void settting(int position) {
-        tv_num.setText(arrayList.get(position).getNum()+"");
+        tv_num.setText(arrayList.get(position).getNum() + "");
         tv_name.setText(arrayList.get(position).getNameK());
 
         ib_check.setTag(position);
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loading();
                 prepareData(v);
             }
         });//setOnClickListener
@@ -126,15 +125,16 @@ public class CheckAdapter extends BaseAdapter {
         if (!arrayList.get(position).isBlue_b())
             iv_blue.setVisibility(convertView.INVISIBLE);*/
 
-        if(arrayList.get(position).getOilGood().equals("")|| arrayList.get(position).getOilGood() ==null)
+        if (arrayList.get(position).getOilGood().equals("") || arrayList.get(position).getOilGood() == null)
             iv_yellow.setVisibility(convertView.INVISIBLE);
-        if(arrayList.get(position).getDryGood().equals("")|| arrayList.get(position).getDryGood() ==null)
+        if (arrayList.get(position).getDryGood().equals("") || arrayList.get(position).getDryGood() == null)
             iv_pink.setVisibility(convertView.INVISIBLE);
-        if(arrayList.get(position).getSensitiveGood().equals("")|| arrayList.get(position).getSensitiveGood() ==null)
+        if (arrayList.get(position).getSensitiveGood().equals("") || arrayList.get(position).getSensitiveGood() == null)
             iv_blue.setVisibility(convertView.INVISIBLE);
     }//settingSkinType
 
     public void prepareData(View view) {
+        loading();
         int position = Integer.parseInt(view.getTag().toString());
 
         retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
@@ -147,27 +147,27 @@ public class CheckAdapter extends BaseAdapter {
                 try {
                     String temp = response.body().string();
                     JSONObject jsonObject = new JSONObject(temp);
-                    SearchResult.chemicalDTO = new ChemicalDTO();
 
-                    SearchResult.chemicalDTO.setNameK(jsonObject.getString("nameK"));
-                    SearchResult.chemicalDTO.setNameE(jsonObject.getString("nameE"));
-                    SearchResult.chemicalDTO.setCas(jsonObject.getString("cas"));
-                    SearchResult.chemicalDTO.setDefinition(jsonObject.getString("definition"));
-                    SearchResult.chemicalDTO.setUsed(jsonObject.getString("used"));
-                    SearchResult.chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
-                    SearchResult.chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
-                    SearchResult.chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
-                    SearchResult.chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
-                    SearchResult.chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                    SearchResult.chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                    SearchResult.chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
-                    SearchResult.chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
-                    SearchResult.chemicalDTO.setAllergy(jsonObject.getString("allergy"));
-                    SearchResult.chemicalDTO.setWarning(jsonObject.getString("warning"));
-                    SearchResult.chemicalDTO.setAcne(jsonObject.getString("acne"));
-                    SearchResult.chemicalDTO.setBaby(jsonObject.getString("baby"));
-                    SearchResult.chemicalDTO.setProductList(jsonObject.getString("productList"));
-                    Log.d("searchDTO", SearchResult.chemicalDTO.toString());
+                    dto = new ChemicalDTO();
+
+                    dto.setNameK(jsonObject.getString("nameK"));
+                    dto.setNameE(jsonObject.getString("nameE"));
+                    dto.setCas(jsonObject.getString("cas"));
+                    dto.setDefinition(jsonObject.getString("definition"));
+                    dto.setUsed(jsonObject.getString("used"));
+                    dto.setDryGood(jsonObject.getString("dryGood"));
+                    dto.setDryBad(jsonObject.getString("dryBad"));
+                    dto.setOilGood(jsonObject.getString("oilGood"));
+                    dto.setOilBad(jsonObject.getString("oilBad"));
+                    dto.setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                    dto.setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                    dto.setComplexBad(jsonObject.getString("complexBad"));
+                    dto.setFunctionFor(jsonObject.getString("functionFor"));
+                    dto.setAllergy(jsonObject.getString("allergy"));
+                    dto.setWarning(jsonObject.getString("warning"));
+                    dto.setAcne(jsonObject.getString("acne"));
+                    dto.setProductList(jsonObject.getString("productList"));
+                    Log.d("searchDTO", dto.toString());
                     loadingEnd = 0;
                 } catch (Exception e) {
                     Log.e("error", e.getMessage());
@@ -206,7 +206,9 @@ public class CheckAdapter extends BaseAdapter {
     };
 
     public void nextActivity() {
+        loadingEnd = 1;
         Intent intent = new Intent(context, SearchResult.class);
+        intent.putExtra("data",dto);
         context.startActivity(intent);
     }
 

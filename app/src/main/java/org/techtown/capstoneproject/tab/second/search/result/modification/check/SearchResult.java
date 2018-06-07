@@ -39,6 +39,8 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         actionBar();
         setContentView(R.layout.activity_search_result);
 
+        chemicalDTO = (ChemicalDTO) getIntent().getSerializableExtra("data");
+
         dataMaching();
 
         Log.e("result", chemicalDTO.toString());
@@ -127,6 +129,8 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
     public void chemicalUsed() {//용도
         String used = chemicalDTO.getUsed();
 
+        Log.e("USED", used);
+
         int[] tvIdResult = {R.id.used_result_1, R.id.used_result_2,
                 R.id.used_result_3, R.id.used_result_4,
                 R.id.used_result_5, R.id.used_result_6,
@@ -148,8 +152,7 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             }
         } else {
             //문자 나누기
-            String[] result = null;
-            result = used.split("/");
+            String[] result = used.split("/");
             String[] resultContext0 = null;
             String[] resultContext1 = null;
             String[] resultContext2 = null;
@@ -161,65 +164,62 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 switch (i) {
                     case 0:
                         if (result[0] != null) {
+                            Log.e("result_",result[0]);
                             resultContext0 = result[0].split(":");
 
                             textViews[0].setText(resultContext0[0]);
                             textViews[1].setText(resultContext0[1]);
-                        } /*else {
-                            textViews[0].setVisibility(View.GONE);
-                            textViews[1].setVisibility(View.GONE);
-                        }*/
+                        }
                         break;
                     case 1:
                         if (result[1] != null) {
+
+                            Log.e("result_",result[1]);
                             resultContext1 = result[1].split(":");
 
                             textViews[2].setText(resultContext1[0]);
                             textViews[3].setText(resultContext1[1]);
-                        } /*else {
-                            textViews[2].setVisibility(View.GONE);
-                            textViews[3].setVisibility(View.GONE);
-                        }*/
+                        }
                         break;
                     case 2:
                         if (result[2] != null) {
+
+                            Log.e("result_",result[2]);
                             resultContext2 = result[2].split(":");
 
                             textViews[4].setText(resultContext2[0]);
                             textViews[5].setText(resultContext2[1]);
-                        } else {
-                            textViews[4].setVisibility(View.GONE);
-                            textViews[5].setVisibility(View.GONE);
                         }
                         break;
                     case 3:
                         if (result[3] != null) {
+
+                            Log.e("result_",result[3]);
                             resultContext3 = result[3].split(":");
 
                             textViews[6].setText(resultContext3[0]);
                             textViews[7].setText(resultContext3[1]);
-                        } else {
-                            textViews[6].setVisibility(View.GONE);
-                            textViews[7].setVisibility(View.GONE);
                         }
                         break;
 
                     case 4:
                         if (result[4] != null) {
+
+                            Log.e("result_",result[4]);
                             resultContext4 = result[4].split(":");
 
                             textViews[8].setText(resultContext4[0]);
                             textViews[9].setText(resultContext4[1]);
-                        } else {
-                            textViews[8].setVisibility(View.GONE);
-                            textViews[9].setVisibility(View.GONE);
                         }
                         break;
                 }//switch
             }//for
 
-            for (i = i + 1; i < tvIdResult.length; i++) {
-                textViews[i].setVisibility(View.GONE);
+            Log.e("i >> ", i+"");
+
+            for (; i < 5; i++) {
+                textViews[i*2].setVisibility(View.GONE);
+                textViews[i*2 + 1].setVisibility(View.GONE);
             }
 
         }//else

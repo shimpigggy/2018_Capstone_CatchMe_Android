@@ -1,12 +1,14 @@
 package org.techtown.capstoneproject.service.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by shimp on 2018-06-06.
  */
 
-public class ProductNameDTO {
+public class ProductNameDTO implements Serializable{
     int num;
-    String prodcutName;
+    String productName;
 
     public int getNum() {
         return num;
@@ -16,11 +18,11 @@ public class ProductNameDTO {
         this.num = num;
     }
 
-    public String getProdcutName() {
-        return prodcutName;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProdcutName(String prodcutName) {
-        this.prodcutName = prodcutName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

@@ -90,6 +90,6 @@ public class ProductNamelistAdapter extends BaseAdapter {
 
     public void settting(int position) {
         tv_num.setText(arrayList.get(position).getNum()+"");
-        tv_name.setText(arrayList.get(position).getProdcutName());
+        tv_name.setText(arrayList.get(position).getProductName());
     }//setUI
 }//CheckAdapter
