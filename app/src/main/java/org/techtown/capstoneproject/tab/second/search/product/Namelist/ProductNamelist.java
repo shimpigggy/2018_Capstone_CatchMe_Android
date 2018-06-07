@@ -92,6 +92,8 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
                     serverData = new ArrayList<>();
                     String temp = response.body().string();
 
+                    Log.e("temp",temp);
+
                     JSONArray jsonArray = new JSONArray(temp);
                     ChemicalDTO[] chemicalDTOS = new ChemicalDTO[jsonArray.length()];
 
