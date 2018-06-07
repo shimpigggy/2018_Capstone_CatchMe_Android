@@ -14,17 +14,13 @@ import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.service.dto.ProductNameDTO;
-import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
-import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.Check;
-import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
 import java.util.ArrayList;
 
@@ -88,7 +84,7 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
         apiService_chemical = retrofit.create(ApiServiceChemical.class);
 
         Log.e(" data server", data.getProductName());
-        Call<ResponseBody> getInfo = apiService_chemical.getChemicalList(data.getProductName());
+        Call<ResponseBody> getInfo = apiService_chemical.getProductChemicalList(data.getProductName());
         getInfo.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

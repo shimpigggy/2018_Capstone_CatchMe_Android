@@ -14,20 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
-import org.techtown.capstoneproject.service.dto.TestDTO;
+import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 import org.techtown.capstoneproject.tab.second.search.result.modification.check.SearchResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -70,7 +67,7 @@ public class WriteChemical extends AppCompatActivity {
     private ChemicalDTO dto;
 
     //modification
-    private ArrayList<ChemicalDTO> arrayList;
+    private ArrayList<ProductNameDTO> arrayList;
         private int position;
 
     @Override
@@ -135,10 +132,8 @@ public class WriteChemical extends AppCompatActivity {
 
         if (type.equals("result_modification")) {
             //result_modification에서 온 경우
-            actv.setText(intent.getStringExtra("modify_name"));
             PAGE = MODIFICATION;
-
-            arrayList = (ArrayList<ChemicalDTO>) getIntent().getSerializableExtra("backResult");
+            arrayList = (ArrayList<ProductNameDTO>) getIntent().getSerializableExtra("backResult");
             position = getIntent().getIntExtra("position", 0);
             actv.setText(getIntent().getStringExtra("modifyName"));
 
@@ -196,48 +191,14 @@ public class WriteChemical extends AppCompatActivity {
     }//resultFromServer
 
     public void modificationFromServer() {
-        Call<ResponseBody> getInfo = apiService_chemical.getInfo(actv.getText().toString());
-        getInfo.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String temp = response.body().string();
-                    JSONObject jsonObject = new JSONObject(temp);
-                    ChemicalDTO chemicalDTO = new ChemicalDTO();
+        String name = actv.getText().toString();
 
-                    chemicalDTO.setNameK(jsonObject.getString("nameK"));
-                    chemicalDTO.setNameE(jsonObject.getString("nameE"));
-                    chemicalDTO.setCas(jsonObject.getString("cas"));
-                    chemicalDTO.setDefinition(jsonObject.getString("definition"));
-                    chemicalDTO.setUsed(jsonObject.getString("used"));
-                    chemicalDTO.setDryGood(jsonObject.getString("dryGood"));
-                    chemicalDTO.setDryBad(jsonObject.getString("dryBad"));
-                    chemicalDTO.setOilGood(jsonObject.getString("oilGood"));
-                    chemicalDTO.setOilBad(jsonObject.getString("oilBad"));
-                    chemicalDTO.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                    chemicalDTO.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                    chemicalDTO.setComplexBad(jsonObject.getString("complexBad"));
-                    chemicalDTO.setFunctionFor(jsonObject.getString("functionFor"));
-                    chemicalDTO.setAllergy(jsonObject.getString("allergy"));
-                    chemicalDTO.setWarning(jsonObject.getString("warning"));
-                    chemicalDTO.setAcne(jsonObject.getString("acne"));
-                    chemicalDTO.setProductList(jsonObject.getString("productList"));
+        ProductNameDTO change = new ProductNameDTO();
+        change.setProductName(name);
+        change.setNum(position+1);
 
-                    Log.d("searchDTO", chemicalDTO.toString());
-
-                    arrayList.set(position, chemicalDTO);
-                    loadingEnd = 0;
-                } catch (Exception e) {
-                    Log.e("error", e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Fail Error", call.toString());
-            }
-        });
+        arrayList.set(position,change);
+        Modification.data.set(position,change);
     }//modificationFromServer
 
     ProgressDialog progressDialog;

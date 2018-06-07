@@ -20,10 +20,7 @@ import org.json.JSONObject;
 import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
-import org.techtown.capstoneproject.service.dto.TestDTO;
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.tab.second.search.WriteChemical;
-import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -38,7 +35,6 @@ import retrofit2.Retrofit;
 public class CheckAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    // private ArrayList<TestDTO> arrayList;
     private ArrayList<ChemicalDTO> arrayList;
 
     private TextView tv_num;
@@ -100,116 +96,45 @@ public class CheckAdapter extends BaseAdapter {
 
         ib_check = (ImageButton) convertView.findViewById(R.id.choose);
         iv_yellow = (ImageView) convertView.findViewById(R.id.yellow);
+        iv_yellow.setVisibility(View.INVISIBLE);
+
         iv_pink = (ImageView) convertView.findViewById(R.id.pink);
+        iv_pink.setVisibility(View.INVISIBLE);
+
         iv_blue = (ImageView) convertView.findViewById(R.id.blue);
+        iv_blue.setVisibility(View.INVISIBLE);
     }//init
 
-    public void settting(int position) {
+    public void settting(final int position) {
         tv_num.setText(arrayList.get(position).getNum() + "");
+
         tv_name.setText(arrayList.get(position).getNameK());
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SearchResult.class);
+                intent.putExtra("data", arrayList.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         ib_check.setTag(position);
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData(v);
+                Intent intent = new Intent(context, SearchResult.class);
+                intent.putExtra("data", arrayList.get(position));
+                context.startActivity(intent);
             }
-        });//setOnClickListener
+        });//setOnClickListene
     }//setUI
 
     public void settingSkinType(int position, View convertView) {
-/*        if (!arrayList.get(position).isYellow_b())
-            iv_yellow.setVisibility(convertView.INVISIBLE);
-        if (!arrayList.get(position).isPink_b())
-            iv_pink.setVisibility(convertView.INVISIBLE);
-        if (!arrayList.get(position).isBlue_b())
-            iv_blue.setVisibility(convertView.INVISIBLE);*/
-
-        if (arrayList.get(position).getOilGood().equals("") || arrayList.get(position).getOilGood() == null)
-            iv_yellow.setVisibility(convertView.INVISIBLE);
-        if (arrayList.get(position).getDryGood().equals("") || arrayList.get(position).getDryGood() == null)
-            iv_pink.setVisibility(convertView.INVISIBLE);
-        if (arrayList.get(position).getSensitiveGood().equals("") || arrayList.get(position).getSensitiveGood() == null)
-            iv_blue.setVisibility(convertView.INVISIBLE);
+        if (!arrayList.get(position).getOilGood().equals(""))
+            iv_yellow.setVisibility(convertView.VISIBLE);
+        if (!arrayList.get(position).getDryGood().equals(""))
+            iv_pink.setVisibility(convertView.VISIBLE);
+        if (!arrayList.get(position).getSensitiveGood().equals(""))
+            iv_blue.setVisibility(convertView.VISIBLE);
     }//settingSkinType
-
-    public void prepareData(View view) {
-        loading();
-        int position = Integer.parseInt(view.getTag().toString());
-
-        retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
-        apiService_chemical = retrofit.create(ApiServiceChemical.class);
-
-        Call<ResponseBody> getInfo = apiService_chemical.getInfo(arrayList.get(position).getNameK());
-        getInfo.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String temp = response.body().string();
-                    JSONObject jsonObject = new JSONObject(temp);
-
-                    dto = new ChemicalDTO();
-
-                    dto.setNameK(jsonObject.getString("nameK"));
-                    dto.setNameE(jsonObject.getString("nameE"));
-                    dto.setCas(jsonObject.getString("cas"));
-                    dto.setDefinition(jsonObject.getString("definition"));
-                    dto.setUsed(jsonObject.getString("used"));
-                    dto.setDryGood(jsonObject.getString("dryGood"));
-                    dto.setDryBad(jsonObject.getString("dryBad"));
-                    dto.setOilGood(jsonObject.getString("oilGood"));
-                    dto.setOilBad(jsonObject.getString("oilBad"));
-                    dto.setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                    dto.setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                    dto.setComplexBad(jsonObject.getString("complexBad"));
-                    dto.setFunctionFor(jsonObject.getString("functionFor"));
-                    dto.setAllergy(jsonObject.getString("allergy"));
-                    dto.setWarning(jsonObject.getString("warning"));
-                    dto.setAcne(jsonObject.getString("acne"));
-                    dto.setProductList(jsonObject.getString("productList"));
-                    Log.d("searchDTO", dto.toString());
-                    loadingEnd = 0;
-                } catch (Exception e) {
-                    Log.e("error", e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-            }
-        });
-    }
-
-    ProgressDialog progressDialog;
-
-    public void loading() {
-        progressDialog = ProgressDialog.show(context, "", "성분 정보를 받고 있습니다.");
-        progressDialog.setCancelable(true);
-
-        mHandler.sendEmptyMessageDelayed(0, 2000);
-    }
-
-    Handler mHandler = new Handler() {
-
-        public void handleMessage(Message msg) {
-            Log.e("loadEnd", loadingEnd + "");
-            //msg의 값과 loadingEnd값이 같지 않으면 loading이 계속 됨
-            if (msg.what == loadingEnd) { // 타임아웃이 발생하면
-                progressDialog.dismiss(); // ProgressDialog를 종료
-
-                nextActivity();
-            } else {
-                mHandler.sendEmptyMessageDelayed(0, 200);
-            }
-        }
-    };
-
-    public void nextActivity() {
-        loadingEnd = 1;
-        Intent intent = new Intent(context, SearchResult.class);
-        intent.putExtra("data",dto);
-        context.startActivity(intent);
-    }
-
 }//CheckAdapter

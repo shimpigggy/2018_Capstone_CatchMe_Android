@@ -1,6 +1,5 @@
 package org.techtown.capstoneproject.tab.second.search.result.modification.check;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
@@ -11,12 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
-import org.w3c.dom.Text;
 
 /*
  * Created by sj-kalin on 2018-05-07.
@@ -164,62 +161,77 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 switch (i) {
                     case 0:
                         if (result[0] != null) {
-                            Log.e("result_",result[0]);
+                            Log.e("result_", result[0]);
                             resultContext0 = result[0].split(":");
 
                             textViews[0].setText(resultContext0[0]);
-                            textViews[1].setText(resultContext0[1]);
+                            if (resultContext0[0].equals("향료"))
+                                textViews[1].setText("향을 일으키는 물질");
+                            else
+                                textViews[1].setText(resultContext0[1]);
                         }
                         break;
                     case 1:
                         if (result[1] != null) {
 
-                            Log.e("result_",result[1]);
+                            Log.e("result_", result[1]);
                             resultContext1 = result[1].split(":");
 
                             textViews[2].setText(resultContext1[0]);
-                            textViews[3].setText(resultContext1[1]);
+                            if (resultContext1[0].equals("향료"))
+                                textViews[3].setText("향을 일으키는 물질");
+                            else
+                                textViews[3].setText(resultContext1[1]);
                         }
                         break;
                     case 2:
                         if (result[2] != null) {
 
-                            Log.e("result_",result[2]);
+                            Log.e("result_", result[2]);
                             resultContext2 = result[2].split(":");
 
                             textViews[4].setText(resultContext2[0]);
-                            textViews[5].setText(resultContext2[1]);
+                            if (resultContext2[0].equals("향료"))
+                                textViews[5].setText("향을 일으키는 물질");
+                            else
+                                textViews[5].setText(resultContext2[1]);
                         }
                         break;
                     case 3:
                         if (result[3] != null) {
 
-                            Log.e("result_",result[3]);
+                            Log.e("result_", result[3]);
                             resultContext3 = result[3].split(":");
 
                             textViews[6].setText(resultContext3[0]);
-                            textViews[7].setText(resultContext3[1]);
+                            if (resultContext3[0].equals("향료"))
+                                textViews[7].setText("향을 일으키는 물질");
+                            else
+                                textViews[7].setText(resultContext3[1]);
                         }
                         break;
 
                     case 4:
                         if (result[4] != null) {
 
-                            Log.e("result_",result[4]);
+                            Log.e("result_", result[4]);
                             resultContext4 = result[4].split(":");
 
                             textViews[8].setText(resultContext4[0]);
-                            textViews[9].setText(resultContext4[1]);
+                            if (resultContext4[0].equals("향료"))
+                                textViews[9].setText("향을 일으키는 물질");
+                            else
+                                textViews[9].setText(resultContext4[1]);
                         }
                         break;
                 }//switch
             }//for
 
-            Log.e("i >> ", i+"");
+            Log.e("i >> ", i + "");
 
             for (; i < 5; i++) {
-                textViews[i*2].setVisibility(View.GONE);
-                textViews[i*2 + 1].setVisibility(View.GONE);
+                textViews[i * 2].setVisibility(View.GONE);
+                textViews[i * 2 + 1].setVisibility(View.GONE);
             }
 
         }//else

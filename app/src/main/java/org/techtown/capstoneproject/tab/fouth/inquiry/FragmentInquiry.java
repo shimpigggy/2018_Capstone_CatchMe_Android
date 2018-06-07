@@ -83,11 +83,9 @@ public class FragmentInquiry extends Fragment {
         editTextContext = (EditText) view.findViewById(R.id.content);
         editTextTitle = (EditText) view.findViewById(R.id.title_content);
 
-               /*
         //email setting
-        String nickname = SharedPreferencesUtil.getNicknamePreferences(getContext());
-        String email = SharedPreferencesUtil.getEmailPreferences(getContext(),nickname);
-        textEmail.setText(email);*/
+        String email = SharedPreferencesUtil.getEmailPreferences(getContext());
+        textEmail.setText(email);
 
         //server
         retrofit = new Retrofit.Builder()
