@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by hahav on 2018-05-26.
  */
-public class ChemicalDTO {
+public class ChemicalDTO implements Serializable{
     int num;
     String nameK;
     String nameE;

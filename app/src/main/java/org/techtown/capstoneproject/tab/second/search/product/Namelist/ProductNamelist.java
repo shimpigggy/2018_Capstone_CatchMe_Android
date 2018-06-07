@@ -64,6 +64,8 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
     public void init() {
         listView = (ListView) findViewById(R.id.listview);
 
+        arrayList = (ArrayList<ProductNameDTO>) getIntent().getSerializableExtra("data");
+
         productNamelistAdapter = new ProductNamelistAdapter(ProductNamelist.this, arrayList);
         listView.setAdapter(productNamelistAdapter);
     }//init
@@ -85,8 +87,8 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
         retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
         apiService_chemical = retrofit.create(ApiServiceChemical.class);
 
-        Log.e(" data server", data.getProdcutName());
-        Call<ResponseBody> getInfo = apiService_chemical.getChemicalList(data.getProdcutName());
+        Log.e(" data server", data.getProductName());
+        Call<ResponseBody> getInfo = apiService_chemical.getChemicalList(data.getProductName());
         getInfo.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -118,7 +120,6 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
                         chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
                         chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
                         chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
-                        chemicalDTOS[i].setBaby(jsonObject.getString("baby"));
                         chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
 
                         Log.e("Check", chemicalDTOS[i].toString());

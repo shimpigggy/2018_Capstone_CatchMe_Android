@@ -100,6 +100,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private ApiServiceChemical apiService_chemical;
 
     private static ArrayList<TestDTO> arrayList;
+    private ArrayList<ProductNameDTO> productName;
+    private ArrayList<ChemicalDTO> chemical;
     //static ArrayList<ChemicalDTO> arrayList;
 
     public FragmentSearch() {
@@ -153,6 +155,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         }
     }
 
+    //사진 찍기: 제품명
     public void ButtonPhotoProductListener(View v) {
         DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
             @Override
@@ -174,6 +177,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 .show();
     }//ButtonNameListener
 
+    //갤러리에서 사진 불러오기
     public void ButtonGalleryListener(View v) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
@@ -182,9 +186,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         startActivityForResult(intent, PICK_FROM_FILE);
     }//ButtonNameListener
 
-    /**
-     * 카메라에서 이미지 가져오기
-     */
+    //카메라에서 이미지 가져오기
     private void doTakePhotoAction() {
         //촬영 후 이미지 가져오기
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -195,9 +197,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         startActivityForResult(intent, PICK_FROM_CAMERA);
     }//doTakePhotoAction
 
-    /**
-     * Create a file Uri for saving an image
-     */
+    //찍은 사진 저장
     private Uri getOutputMediaFileUri() {
         return Uri.fromFile(getOutputMediaFile());
     }//getOutputMediaFileUri
@@ -214,7 +214,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 return null;
             }
         }
-
         // Create a media file name
         fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
@@ -232,33 +231,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             case PICK_FROM_FILE: {
                 Uri selectImage = data.getData();
 
-                if (PAGE == GALLERY_PRODUCT)
+                if (PAGE == GALLERY_PRODUCT)//제품명
                     uploadImageFromProduct(selectImage);
-                else if (PAGE == GALLERY_DETAIL)
+                else if (PAGE == GALLERY_DETAIL)//화학성분명
                     uploadImageFromChemical(selectImage);
 
                 break;
             }
-            case CROP_FROM_CAMERA: {
-                // 크롭이 된 이후의 이미지를 넘겨 받습니다.
-                final Bundle extras = data.getExtras();//전체 사진
-
-                Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
-
-                //bitmap -> jpg
-                saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
-
-                //crop photo file
-                File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
-                Log.e(">>>>>>>cropPhotoFile", cropPhotoFile.getPath());
-
-                //photo file 서버로 보내기
-                uploadImageFromPHOTO(cropPhotoFile);
-
-                break;
-            }
-
             case PICK_FROM_CAMERA: {
                 // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
                 // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
@@ -273,6 +252,23 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 startActivityForResult(intent, CROP_FROM_CAMERA);
                 break;
             }//
+            case CROP_FROM_CAMERA: {
+                // 크롭이 된 이후의 이미지를 넘겨 받습니다.
+                final Bundle extras = data.getExtras();//전체 사진
+                Bitmap cropPhoto = extras.getParcelable("data");//crop된 bitmap
+
+                //bitmap -> jpg
+                saveBitmaptoJpeg(cropPhoto, getString(R.string.app_name), fileName + "_crop");
+
+                //crop photo file
+                File cropPhotoFile = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + getString(R.string.app_name) + File.separator + fileName + "_crop.jpg");
+                Log.e(">>>>>>>cropPhotoFile", cropPhotoFile.getPath());
+
+                //photo file 서버로 보내기
+                uploadImageFromPHOTO(cropPhotoFile);
+                break;
+            }
         }//switch
     }//onActivityResult
 
@@ -343,30 +339,25 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         MultipartBody.Part body1 = prepareFilePart("image", uri);
         RequestBody description = createPartFromString("file");
 
-        Call<ResponseBody> call = service.TEST(description, body1);
+        Call<ResponseBody> call = service.uploadFileProduct(description, body1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String temp = response.body().string();
-                    JSONArray jsonArray = new JSONArray(temp);
-                    String result = jsonArray.toString();
+                    JSONObject jsonObject = new JSONObject(temp);
+                    productName = new ArrayList<>();
 
-                    Log.e("Gallery", temp);
-                    //받을 data -> 제품명 리스트: 제품 이름만 가져오기
+                    ProductNameDTO[] dto = new ProductNameDTO[jsonObject.length()];
 
-                    ProductNamelist.arrayList = new ArrayList<>();
-                    String[] productName = result.split(",");
-                    ProductNameDTO[] dto = new ProductNameDTO[productName.length];
-
-                    for (int i = 0; i < productName.length; i++) {
+                    for (int i = 0; i < jsonObject.length(); i++) {
                         dto[i] = new ProductNameDTO();
                         dto[i].setNum(i + 1);
-                        dto[i].setProdcutName(productName[i]);
+                        dto[i].setProductName(jsonObject.getString(String.valueOf(i)));
 
-                        ProductNamelist.arrayList.add(dto[i]);
+                        Log.e("productName",dto[i].getProductName());
+                        productName.add(dto[i]);
                     }
-
                     loadingEnd = SUCCESS;
                 } catch (Exception e) {
                     loadingEnd = GALLERY_ERROR;
@@ -384,7 +375,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }//uploadImage
     //찍은 사진
 
-
     //찍은 사진: 화학성분
     public void uploadImageFromChemical(Uri uri) {
         loading("사진을 분석하고 있습니다.");
@@ -394,7 +384,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         MultipartBody.Part body1 = prepareFilePart("image", uri);
         RequestBody description = createPartFromString("file");
 
-        Call<ResponseBody> call = service.TEST(description, body1);
+        Call<ResponseBody> call = service.uploadFileChemical(description, body1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -464,17 +454,19 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String temp = response.body().string();
+                    Log.e("temp", temp);
                     JSONObject jsonObject = new JSONObject(temp);
-                    ProductNamelist.arrayList = new ArrayList<>();
+                    productName = new ArrayList<>();
 
                     ProductNameDTO[] dto = new ProductNameDTO[jsonObject.length()];
 
                     for (int i = 0; i < jsonObject.length(); i++) {
                         dto[i] = new ProductNameDTO();
                         dto[i].setNum(i + 1);
-                        dto[i].setProdcutName(jsonObject.getString(String.valueOf(i)));
+                        dto[i].setProductName(jsonObject.getString(String.valueOf(i)));
 
-                        ProductNamelist.arrayList.add(dto[i]);
+                        Log.e("productName",dto[i].getProductName());
+                        productName.add(dto[i]);
                     }
                     loadingEnd = SUCCESS;
                 } catch (Exception e) {
@@ -600,6 +592,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             case PHOTO_PRODUCT:
             case GALLERY_PRODUCT:
                 intent = new Intent(getActivity().getApplicationContext(), ProductNamelist.class);
+                intent.putExtra("data",productName);
                 startActivity(intent);
                 break;
             case GALLERY_DETAIL:

@@ -18,7 +18,7 @@
             android:background="@color/white"
             android:scaleType="fitCenter"
 
-            android:src="@drawable/tab2_name" />
+            android:src="@drawable/tab2_gallery_product" />
 
         <ImageButton
             android:id="@+id/btn_gallery_detail"
@@ -32,7 +32,7 @@
             android:background="@color/white"
             android:scaleType="fitCenter"
 
-            android:src="@drawable/tab2_detail" />
+            android:src="@drawable/tab2_gallery_detail" />
 
         <ImageButton
             android:id="@+id/btn_photo_product"
@@ -45,7 +45,7 @@
 
             android:background="@color/white"
             android:scaleType="fitCenter"
-            android:src="@drawable/tab2_gallery" />
+            android:src="@drawable/tab2_photo_product" />
 
         <ImageButton
             android:id="@+id/btn_write"
