@@ -347,8 +347,13 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             TextView tv1 = (TextView) findViewById(R.id.functionfor_result_1);
             tv1.setText(split[0]);
 
-            TextView tv2 = (TextView) findViewById(R.id.functionfor_result_2);
-            tv2.setText(split[1]);
+            if (split.length > 1) {
+                TextView tv2 = (TextView) findViewById(R.id.functionfor_result_2);
+                tv2.setText(split[1]);
+            }else{
+                TextView tv2 = (TextView) findViewById(R.id.functionfor_result_2);
+                tv2.setVisibility(View.GONE);
+            }
         }
     }//chemicalFuncionFor
 
@@ -409,17 +414,16 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
             textViews[1].setVisibility(View.GONE);
         } else {
             String[] warningResult = warning.split(":");
-            String[] warningResultContext = warningResult[1].split("/");
+            if (warningResult.length > 1) {
+                String[] warningResultContext = warningResult[1].split("/");
 
-            textViews[0].setText(warningResult[0]);
+                textViews[0].setText(warningResult[0]);
 
-            String warningContext = "";
-            for (int i = 0; i < warningResultContext.length; i++) {
-                warningContext += warningResultContext[i] + "\n";
-            }
-            textViews[1].setText(warningContext);
-            if (SharedPreferencesUtil.getAcnePreferences(this)) {
-                textViews[1].setTextColor(Color.RED);
+                String warningContext = "";
+                for (int i = 0; i < warningResultContext.length; i++) {
+                    warningContext += warningResultContext[i] + "\n";
+                }
+                textViews[1].setText(warningContext);
             }
         }
 
@@ -435,6 +439,9 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 acneContext += acneResult[i] + "\n";
             }
             textViews[3].setText(acneContext);
+            if (SharedPreferencesUtil.getAcnePreferences(this)) {
+                textViews[3].setTextColor(Color.RED);
+            }
         }
     }//chemicalUseLimit
 

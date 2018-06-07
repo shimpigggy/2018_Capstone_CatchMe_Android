@@ -1,5 +1,7 @@
 package org.techtown.capstoneproject.service.api;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -19,7 +21,9 @@ public class MyRetrofit2 {
         if (mRetrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(100, TimeUnit.SECONDS)
+                    .readTimeout(100, TimeUnit.SECONDS);
+
             httpClient.addInterceptor(logging);
 
             mRetrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create())
