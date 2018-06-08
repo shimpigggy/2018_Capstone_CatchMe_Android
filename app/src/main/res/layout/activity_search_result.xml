@@ -89,6 +89,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="5dp"
+                    android:textAlignment="center"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="이 원료는 치환된 페놀릭화합물입니다." />

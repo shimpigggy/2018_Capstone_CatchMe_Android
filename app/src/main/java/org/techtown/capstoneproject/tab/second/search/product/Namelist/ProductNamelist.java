@@ -92,41 +92,51 @@ public class ProductNamelist extends AppCompatActivity implements AdapterView.On
                     serverData = new ArrayList<>();
                     String temp = response.body().string();
 
-                    Log.e("temp",temp);
+                    Log.e("temp", temp);
 
                     JSONArray jsonArray = new JSONArray(temp);
                     ChemicalDTO[] chemicalDTOS = new ChemicalDTO[jsonArray.length()];
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        chemicalDTOS[i] = new ChemicalDTO();
+                    Log.e("LENGTH", jsonArray.length() + "");
 
-                        chemicalDTOS[i].setNum(i + 1);
-                        chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
-                        chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
-                        chemicalDTOS[i].setCas(jsonObject.getString("cas"));
-                        chemicalDTOS[i].setDefinition(jsonObject.getString("definition"));
-                        chemicalDTOS[i].setUsed(jsonObject.getString("used"));
-                        chemicalDTOS[i].setDryGood(jsonObject.getString("dryGood"));
-                        chemicalDTOS[i].setDryBad(jsonObject.getString("dryBad"));
-                        chemicalDTOS[i].setOilGood(jsonObject.getString("oilGood"));
-                        chemicalDTOS[i].setOilBad(jsonObject.getString("oilBad"));
-                        chemicalDTOS[i].setSensitiveGood(jsonObject.getString("sensitiveGood"));
-                        chemicalDTOS[i].setSensitiveBad(jsonObject.getString("sensitiveBad"));
-                        chemicalDTOS[i].setComplexBad(jsonObject.getString("complexBad"));
-                        chemicalDTOS[i].setFunctionFor(jsonObject.getString("functionFor"));
-                        chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
-                        chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
-                        chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
-                        chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
+                    int i = 0;
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        if (!jsonArray.isNull(j)) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(j);
 
-                        Log.e("Check", chemicalDTOS[i].toString());
+                            chemicalDTOS[i] = new ChemicalDTO();
 
-                        serverData.add(chemicalDTOS[i]);
+                            chemicalDTOS[i].setNum(i + 1);
+                            chemicalDTOS[i].setNameK(jsonObject.getString("nameK"));
+                            chemicalDTOS[i].setNameE(jsonObject.getString("nameE"));
+                            chemicalDTOS[i].setCas(jsonObject.getString("cas"));
+                            chemicalDTOS[i].setDefinition(jsonObject.getString("definition"));
+                            chemicalDTOS[i].setUsed(jsonObject.getString("used"));
+                            chemicalDTOS[i].setDryGood(jsonObject.getString("dryGood"));
+                            chemicalDTOS[i].setDryBad(jsonObject.getString("dryBad"));
+                            chemicalDTOS[i].setOilGood(jsonObject.getString("oilGood"));
+                            chemicalDTOS[i].setOilBad(jsonObject.getString("oilBad"));
+                            chemicalDTOS[i].setSensitiveGood(jsonObject.getString("sensitiveGood"));
+                            chemicalDTOS[i].setSensitiveBad(jsonObject.getString("sensitiveBad"));
+                            chemicalDTOS[i].setComplexBad(jsonObject.getString("complexBad"));
+                            chemicalDTOS[i].setFunctionFor(jsonObject.getString("functionFor"));
+                            chemicalDTOS[i].setAllergy(jsonObject.getString("allergy"));
+                            chemicalDTOS[i].setWarning(jsonObject.getString("warning"));
+                            chemicalDTOS[i].setAcne(jsonObject.getString("acne"));
+                            chemicalDTOS[i].setProductList(jsonObject.getString("productList"));
+
+                            Log.e("Check", chemicalDTOS[i].toString());
+
+                            serverData.add(chemicalDTOS[i]);
+                            i++;
+                        }
                     }
                     loadingEnd = SUCCESS;
 
-                } catch (Exception e) {
+                } catch (
+                        Exception e)
+
+                {
                     Log.e("error", e.getMessage());
                     loadingEnd = CHEMICAL_LIST_ERROR;
                     e.printStackTrace();
