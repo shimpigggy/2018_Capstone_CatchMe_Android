@@ -16,7 +16,6 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ViewListener;
 
 import org.techtown.capstoneproject.R;
-import org.techtown.capstoneproject.tab.second.search.result.modification.Modification;
 
 /*
  * Created by ShimPiggy on 2018-05-07.

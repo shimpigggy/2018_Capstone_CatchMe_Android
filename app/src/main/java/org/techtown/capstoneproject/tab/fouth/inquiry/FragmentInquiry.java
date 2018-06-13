@@ -28,8 +28,6 @@ import org.techtown.capstoneproject.service.api.ApiService;
 import org.techtown.capstoneproject.service.api.ApiServiceEmail;
 import org.techtown.capstoneproject.service.dto.InquiryDTO;
 
-import java.util.regex.Pattern;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
