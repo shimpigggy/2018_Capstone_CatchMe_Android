@@ -1,23 +1,17 @@
 package org.techtown.capstoneproject.tab.third.self;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
-import org.techtown.capstoneproject.tab.first.home.FragmentHome;
 import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
-import org.techtown.capstoneproject.tab.fouth.inquiry.FragmentInquiry;
 
 /*
  * Created by ShimPiggy on 2018-05-19.

@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         actionbarRemove();
         setContentView(R.layout.activity_login);
 
-
         callbackManager = CallbackManager.Factory.create();
         LoginButton button = (LoginButton) findViewById(R.id.facebook);
         button.setReadPermissions("email");

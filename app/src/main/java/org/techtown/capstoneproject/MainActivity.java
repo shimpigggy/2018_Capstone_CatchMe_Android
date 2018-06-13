@@ -28,7 +28,6 @@ import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 /*
  * Created by ShimPiggy on 2018-04-27.
  * Modified by ShimPiggy on 2018-05-02. - Tab Host

@@ -25,10 +25,5 @@ public interface UploadService {
             @Part("description") RequestBody description,
             @Part MultipartBody.Part file);
 
-    @Multipart
-    @POST("uploadimage/getingradientimage/korean")
-    Call<ResponseBody> TEST(
-            @Part("description") RequestBody description,
-            @Part MultipartBody.Part file);
 
 }

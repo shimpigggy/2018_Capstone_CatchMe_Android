@@ -30,16 +30,16 @@ public class SplashActivity extends Activity {
 
     private class splashhandler implements Runnable {
         public void run() {
-           /* ///facebook 로그인상태
+            ///facebook 로그인상태
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
             //카카오 로그인 여부
             if (!Session.getCurrentSession().isOpened() || !isLoggedIn)
                 startActivity(new Intent(getApplication(), LoginActivity.class)); // after loading, go LoginActivity
-            else {*/
+            else {
                 startActivity(new Intent(getApplication(), MainActivity.class)); // 로딩이 끝난후 이동할 Activity
-           // }
+            }
             SplashActivity.this.finish(); // 로딩페이지 Activity Stack에서 제거
         }
     }
