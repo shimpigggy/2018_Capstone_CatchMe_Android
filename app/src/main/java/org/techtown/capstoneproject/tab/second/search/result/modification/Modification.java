@@ -30,12 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/*
- * Created by ShimPiggy on 2018-05-12.
- * Modified by ShimPiggy on 2018-05-21. - Server
- * Modified by ShimPiggy on 2018-05-23. -actionbar, image
- */
-
 public class Modification extends AppCompatActivity {
     ListView listView;
     ImageButton im_check;
@@ -97,7 +91,7 @@ public class Modification extends AppCompatActivity {
         loading("잠시만 기달려 주세요.");
         retrofit = new Retrofit.Builder().baseUrl(ApiService.ADDRESS).build();
         apiService_chemical = retrofit.create(ApiServiceChemical.class);
-        Call<ResponseBody> getList = apiService_chemical.getChemicalChemicalList(server);
+        Call<ResponseBody> getList = apiService_chemical.getChemicalList(server);
         getList.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -180,7 +174,6 @@ public class Modification extends AppCompatActivity {
     };
 
     public void nextActivity() {
-        Log.e("넘어왔냐?", "YEAHs");
         loadingEnd = LOADING;
 
         Intent intent = new Intent(getApplicationContext(), Check.class);

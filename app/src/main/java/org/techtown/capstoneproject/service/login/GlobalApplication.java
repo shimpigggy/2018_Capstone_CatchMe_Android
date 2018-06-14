@@ -5,10 +5,6 @@ import android.app.Application;
 
 import com.kakao.auth.KakaoSDK;
 
-/**
- * Created by hahav on 2018-05-28.
- */
-
 public class GlobalApplication extends Application {
     private static volatile GlobalApplication instance = null;
     private static volatile Activity currentActivity = null;

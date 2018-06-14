@@ -8,19 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.service.dto.ProductNameDTO;
 import org.techtown.capstoneproject.tab.second.search.WriteChemical;
 
 import java.util.ArrayList;
-
-/*
- * Created by ShimPiggy on 2018-05-12.
- * Modified by ShimPiggy on 2018-05-13. - ib_delete handler
- * Modified by ShimPiggy on 2018-05-23. - ib_modify handler, (change) ib_delete handler
- */
 
 public class ModificationAdapter extends BaseAdapter {
     private Context context;

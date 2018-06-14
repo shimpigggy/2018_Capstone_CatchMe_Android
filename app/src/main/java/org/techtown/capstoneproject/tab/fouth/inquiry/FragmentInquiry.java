@@ -1,13 +1,5 @@
 package org.techtown.capstoneproject.tab.fouth.inquiry;
 
-/*
- * Created by ShimPiggy on 2018-05-07.
- * Modified by ShimPiggy on 2018-05-13. - modify view
- * Modified by ShimPiggy on 2018-05-20. - tab_inquiry form check, blank check
- * Modified by ShimPiggy on 2018-05-21. - Server
- * Modified by ShimPiggy on 2018-05-23. - image
- */
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -66,7 +58,6 @@ public class FragmentInquiry extends Fragment {
 
         buttonSend.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                //   dialog(SUCCESS);
                 inquiryCheck();
             }//onClick
         });//setOnClickListener
@@ -99,8 +90,7 @@ public class FragmentInquiry extends Fragment {
             if (!editTextTitle.getText().toString().equals(""))
                 if (!editTextContext.getText().toString().equals("")) {
                     // 서버에게 문의에 대한 값을 넘김
-                    //  sendServeryInquiry();
-                    dialog(SUCCESS);//임시
+                    sendServeryInquiry();
                 } else {//context X
                     dialog(CONTEXT_X);
                 }

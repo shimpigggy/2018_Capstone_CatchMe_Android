@@ -13,11 +13,6 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.tab.fouth.inquiry.CustomDialog;
 
-/*
- * Created by ShimPiggy on 2018-05-19.
- * Modified by ShimPiggy on 2018-05-23. - image
- * Modified by ShimPiggy on 2018-05-25. - change view
- */
 public class FragmentSelf extends Fragment implements View.OnClickListener {
     private TextView[] tvs;
     private ImageButton ib_check;
@@ -66,7 +61,6 @@ public class FragmentSelf extends Fragment implements View.OnClickListener {
         ib_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), "Change!", Toast.LENGTH_SHORT).show();
                 SharedPreferencesUtil.removeFilteringAllPreferences(getContext());
 
                 for (int i = 0; i < textviewCount; i++) {

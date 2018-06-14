@@ -15,10 +15,6 @@ import java.util.ArrayList;
 
 import retrofit2.Retrofit;
 
-/**
- * Created by shimp on 2018-06-03.
- */
-
 public class ProductNamelistAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
@@ -26,10 +22,6 @@ public class ProductNamelistAdapter extends BaseAdapter {
 
     private TextView tv_num;
     private TextView tv_name;
-
-    //server
-    Retrofit retrofit;
-    ApiServiceChemical apiService_chemical;
 
     public ProductNamelistAdapter(Context context, ArrayList<ProductNameDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

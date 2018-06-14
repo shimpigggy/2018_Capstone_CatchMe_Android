@@ -32,13 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/*
- * Created by ShimPiggy on 2018-05-07.
- * Modified by sj-kalin on 2018-05-09.
- * Modified by ShimPiggy on 2018-05-19.(tab 2 적용)
- * Modified by ShimPiggy on 2018-05-23. - result_modification에서 넘기기는 부분
- */
-
 public class WriteChemical extends AppCompatActivity {
     public static String[] item = null;
     AutoCompleteTextView actv;
@@ -55,11 +48,6 @@ public class WriteChemical extends AppCompatActivity {
 
     private final int LOADING = 0;
     private final int SUCCESS = 1;
-    private final int TAB_ERROR = 2;
-    private final int MODIFICATION_ERROR = 3;
-    private final int GALLERY_ERROR = 4;
-    private final int WRITE_ERROR = 5;
-    private final int SERVER_ERROR = 6;
     private final int DONE = 7;
     private int loadingEnd = LOADING;
 
