@@ -6,11 +6,6 @@ import android.os.Bundle;
 
 import org.techtown.capstoneproject.R;
 
-/*
- * Created by ShimPiggy on 2018-05-19.
- *  Modified by ShimPiggy on 2018-05-23. -setting context
- */
-
 public class AboutUsActivity extends AppCompatActivity {
 
     @Override

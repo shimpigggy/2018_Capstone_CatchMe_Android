@@ -1,9 +1,5 @@
 package org.techtown.capstoneproject.service.dto;
 
-/*
- * Created by ShimPiggy on 2018-05-21.
- */
-
 public class InquiryDTO {
     String email;
     String title;

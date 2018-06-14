@@ -45,19 +45,13 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
-
-/*
- * Created by ShimPiggy on 2018-05-07.
- * Modified by ShimPiggy on 2018-05-09. - Camera
- * Modified by ShimPiggy on 2018-05-19. - modify changed design and control
- * Modified by ShimPiggy on 2018-05-23. - image
- */
 
 public class FragmentSearch extends Fragment implements View.OnClickListener {
     private static final int PICK_FROM_CAMERA = 0;
@@ -555,11 +549,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     };
 
     public void nextActivity() {
-        Log.e("넘어왔냐?", PAGE + "");
         Intent intent;
 
         switch (PAGE) {
             case PHOTO_PRODUCT:
+                removePhotoFile();
             case GALLERY_PRODUCT:
                 intent = new Intent(getActivity().getApplicationContext(), ProductNamelist.class);
                 intent.putExtra("data", productName);
@@ -582,9 +576,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         Log.e("loadEnd AFTER", loadingEnd + "");
     }//nextActivity
 
-    public void remvoePhoteFile() {
+    public void removePhotoFile() {
         //전체 사진 파일 + crop 사진 파일 지우기
-/*        File f = new File(mImageCaptureUri.getPath());
+        /* File f = new File(mImageCaptureUri.getPath());
         Log.e(">>>>>>>tempor", f.getPath());
         if (f.exists()) {
             f.delete();
@@ -597,5 +591,5 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         if (cropPhotoFile.exists()) {
             cropPhotoFile.delete();
         }
-    }//remvoePhoteFile
+    }//removePhotoFile
 }//FragmentSearch

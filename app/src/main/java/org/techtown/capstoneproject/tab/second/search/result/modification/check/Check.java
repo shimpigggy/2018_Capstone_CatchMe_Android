@@ -18,12 +18,6 @@ import java.util.ArrayList;
 
 import retrofit2.Retrofit;
 
-/*
- * Created by ShimPiggy on 2018-05-14. - View
- * Modified by ShimPiggy on 2018-05-09 - receive info from Modification
- * Modified by ShimPiggy on 2018-05-23 - actionBar, image
- */
-
 public class Check extends AppCompatActivity{
     ListView listView;
     CheckAdapter checkAdapter;

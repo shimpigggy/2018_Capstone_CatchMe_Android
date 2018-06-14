@@ -3,10 +3,6 @@ package org.techtown.capstoneproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/*
- * Created by ShimPiggy on 2018-05-25.
- */
-
 @SuppressWarnings("static-access")
 public class SharedPreferencesUtil {
 

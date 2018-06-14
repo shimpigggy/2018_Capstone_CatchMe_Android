@@ -15,12 +15,6 @@ import org.techtown.capstoneproject.R;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 
-/*
- * Created by sj-kalin on 2018-05-07.
- * Modified by sj-kalin on 2018-05-22.
- * Modified by ShimPiggy on 2018-05-23. - receive info from intent
- */
-
 public class SearchResult extends AppCompatActivity implements View.OnClickListener {
     Intent intent;
 
@@ -120,7 +114,6 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
         else {
             tvDefinition.setText(definition);
         }
-
     }//chemicalSimpleDescription
 
     public void chemicalUsed() {//용도
@@ -227,13 +220,10 @@ public class SearchResult extends AppCompatActivity implements View.OnClickListe
                 }//switch
             }//for
 
-            Log.e("i >> ", i + "");
-
             for (; i < 5; i++) {
                 textViews[i * 2].setVisibility(View.GONE);
                 textViews[i * 2 + 1].setVisibility(View.GONE);
             }
-
         }//else
     }//chemicalUsed
 

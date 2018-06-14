@@ -1,10 +1,5 @@
 package org.techtown.capstoneproject;
 
-/*
- * Created by ShimPiggy on 2018-05-04.
- * Modified by ShimPiggy on 2018-05-23. -image
- */
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;

@@ -16,11 +16,6 @@ import com.kakao.util.helper.log.Logger;
 import org.techtown.capstoneproject.MainActivity;
 import org.techtown.capstoneproject.SharedPreferencesUtil;
 
-
-/**
- * Created by hahav on 2018-05-28.
- */
-
 public class KakaoSignupActivity extends Activity {
     /**
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.

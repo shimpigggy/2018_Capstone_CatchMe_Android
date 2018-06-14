@@ -11,7 +11,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -92,11 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         callback = new SessionCallback();                  // 이 두개의 함수 중요함
         Session.getCurrentSession().addCallback(callback);
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -17,11 +17,6 @@ import com.synnapps.carouselview.ViewListener;
 
 import org.techtown.capstoneproject.R;
 
-/*
- * Created by ShimPiggy on 2018-05-07.
- * Modified by ShimPiggy on 2018-05-23. - image
- */
-
 public class FragmentHome extends Fragment {
     private CarouselView carouselView;
     int[] carouselImage = {R.drawable.carousel_1, R.drawable.carousel_2, R.drawable.carousel_3, R.drawable.carousel_4, R.drawable.carousel_5};

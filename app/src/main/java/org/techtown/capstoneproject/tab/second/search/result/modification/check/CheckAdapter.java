@@ -12,15 +12,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import org.techtown.capstoneproject.service.api.ApiServiceChemical;
 import org.techtown.capstoneproject.service.dto.ChemicalDTO;
 import org.techtown.capstoneproject.R;
 
 import retrofit2.Retrofit;
-/*
- * Created by ShimPiggy on 2018-05-14.
- * Modified by ShimPiggy on 2018-05-23. - ib_check handler, server
- */
 
 public class CheckAdapter extends BaseAdapter {
     private Context context;
@@ -36,10 +31,6 @@ public class CheckAdapter extends BaseAdapter {
 
     private int loadingEnd = 1;
     private ChemicalDTO dto;
-
-    //server
-    Retrofit retrofit;
-    ApiServiceChemical apiService_chemical;
 
     public CheckAdapter(Context context, ArrayList<ChemicalDTO> array) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -116,8 +107,8 @@ public class CheckAdapter extends BaseAdapter {
                 intent.putExtra("data", arrayList.get(position));
                 context.startActivity(intent);
             }
-        });//setOnClickListene
-    }//setUI
+        });//setOnClickListener
+    }//settting
 
     public void settingSkinType(int position, View convertView) {
         if (!arrayList.get(position).getOilGood().equals(""))

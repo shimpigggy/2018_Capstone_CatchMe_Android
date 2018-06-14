@@ -13,13 +13,6 @@ import org.techtown.capstoneproject.R;
 public class CustomDialog extends Dialog {
     CustomDialog m_oDialog;
     String text;
-    Context context;
-
-    private final int SUCCESS = 1;
-    private final int TITLE_X = 2;
-    private final int EMAIL_X = 3;
-    private final int SPINNER_X = 4;
-    private final int CONTEXT_X = 5;
 
     public CustomDialog(Context context, String text)
     {

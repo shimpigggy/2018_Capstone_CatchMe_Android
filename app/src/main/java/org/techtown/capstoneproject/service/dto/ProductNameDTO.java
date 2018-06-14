@@ -2,10 +2,6 @@ package org.techtown.capstoneproject.service.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by shimp on 2018-06-06.
- */
-
 public class ProductNameDTO implements Serializable{
     int num;
     String productName;

@@ -7,10 +7,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by hahav on 2018-05-24.
- */
-
 public class MyRetrofit2 {
 
     public static final String URL = ApiService.ADDRESS;
@@ -31,5 +27,4 @@ public class MyRetrofit2 {
         }
         return mRetrofit;
     }
-
 }

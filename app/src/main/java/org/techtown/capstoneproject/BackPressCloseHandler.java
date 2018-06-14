@@ -3,10 +3,6 @@ package org.techtown.capstoneproject;
 import android.app.Activity;
 import android.widget.Toast;
 
-/**
- * Created by shimp on 2018-06-04.
- */
-
 public class BackPressCloseHandler {
     private long backKeyPressedTime = 0;
     private Toast toast;

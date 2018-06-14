@@ -2,9 +2,6 @@ package org.techtown.capstoneproject.service.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by hahav on 2018-05-26.
- */
 public class ChemicalDTO implements Serializable{
     int num;
     String nameK;

@@ -8,7 +8,6 @@ import android.content.pm.Signature;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,15 +26,6 @@ import org.techtown.capstoneproject.tab.third.self.FragmentSelf;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-/*
- * Created by ShimPiggy on 2018-04-27.
- * Modified by ShimPiggy on 2018-05-02. - Tab Host
- * Modified by ShimPiggy on 2018-05-08. - Tab Host -> Tab Layout
- * Modified by ShimPiggy on 2018-05-20. - ViewPager -> FrameLayout
- * Modified by ShimPiggy on 2018-05-23. - Image, actionbar
- * Modified by ShimPiggy on 2018-05-26. - icon resize
- */
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 0;
